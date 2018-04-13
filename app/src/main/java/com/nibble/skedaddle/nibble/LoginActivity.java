@@ -23,40 +23,22 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-
+    //Declare all variables
     EditText etEmail,etPassword;
     RequestQueue requestQueue;
     Button bLogin;
+    TextView tvRegister;
     String loginUrl = "http://chrismb2gun.heliohost.org/loginCustomer.php"; //SICT-IIS.nmmu.ac.za/loginCustomer.php
     ProgressBar pbSignIn;
 
 
-    public static void buttonEffect(View button){
-        button.setOnTouchListener(new View.OnTouchListener() {
-
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        v.getBackground().setColorFilter(0x363e34, PorterDuff.Mode.SRC_ATOP);
-                        v.invalidate();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP: {
-                        v.getBackground().clearColorFilter();
-                        v.invalidate();
-                        break;
-                    }
-                }
-                return false;
-            }
-        });
-    }
 
 
     @Override
@@ -64,32 +46,33 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//Prevent keyboard opening on activity launch
-        overridePendingTransition(R.anim.islide_in, R.anim.islide_out);
 
+        overridePendingTransition(R.anim.islide_in, R.anim.islide_out);//Simply change the Transition method of screens
 
-        final TextView tvRegister = (TextView) findViewById(R.id.tvRegister);
-
-        tvRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                        Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                        LoginActivity.this.startActivity(registerIntent);
-
-                    }
-                });
-        bLogin = (Button) findViewById(R.id.bLogin);
-       etEmail = (EditText) findViewById(R.id.etEmail);
-       etPassword = (EditText) findViewById(R.id.etPassword);
+        //Link all used GUI elements to a variable
+        tvRegister = findViewById(R.id.tvRegister);
+        bLogin = findViewById(R.id.bLogin);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
         pbSignIn = findViewById(R.id.pb_SignIn);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         pbSignIn.setVisibility(View.INVISIBLE);
 
-        buttonEffect(bLogin);
+        //When tvRegister is clicked it changes the screen/window to register screen
+        tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                LoginActivity.this.startActivity(registerIntent);
+
+            }
+        });
+
+        CommonMethods.buttonEffect(bLogin);//Give the bLogin button the ability to appear as if it is pressed(Calls from CommonMethods class
 
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 pbSignIn.setVisibility(View.VISIBLE);
                 final String email = etEmail.getText().toString();
                 StringRequest request = new StringRequest(Request.Method.POST, loginUrl, new Response.Listener<String>() {
@@ -111,12 +94,14 @@ public class LoginActivity extends AppCompatActivity {
                                 intent.putExtra("phone", phone);
                                 LoginActivity.this.startActivity(intent);
                             } else {
+
+                                //Create Message box that will tell the user that details entered are wrong
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                 builder.setMessage("Incorrect email or password.")
                                         .setNegativeButton("Retry", null)
                                         .create()
                                         .show();
-                                pbSignIn.setVisibility(View.INVISIBLE);
+                                pbSignIn.setVisibility(View.INVISIBLE);//Progress Bar hide when process in done and gives output
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
