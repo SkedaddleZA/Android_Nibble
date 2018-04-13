@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etEmail,etPassword;
     RequestQueue requestQueue;
     Button bLogin;
-    String loginUrl = "http://chrismb2gun.heliohost.org/loginCustomer.php";
+    String loginUrl = "http://chrismb2gun.heliohost.org/loginCustomer.php"; //SICT-IIS.nmmu.ac.za/loginCustomer.php
     ProgressBar pbSignIn;
 
 
