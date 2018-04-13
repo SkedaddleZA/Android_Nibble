@@ -70,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         CommonMethods.buttonEffect(bRegister);//Button Press effect implementation
 
-
+        //Button Register click event
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String phone = etPhone.getText().toString();
                 String password = etPassword.getText().toString();
                 String cpassword = etCPassword.getText().toString();
+                //Simple input not null/empty check
                 if(name.matches("")) {
                     messageshow("Please enter name.");
                 }else if(surname.matches("")) {
@@ -95,23 +96,38 @@ public class RegisterActivity extends AppCompatActivity {
                     messageshow("Password mismatch");
 
                     }else{
-                 Customer newCustomer = new Customer(name, surname, email, phone, password);
-                 boolean result = newCustomer.InsertCustomer(name, surname, email, phone, password, requestQueue);
-                 if (!result) {
-                     Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-                     RegisterActivity.this.startActivity(loginIntent);
-                 }
-                 else if (!result)
-                 {
-                     messageshow("Failed to Register");
+                    //Create a response listener which listens if there is a response, and stores the response
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {//Method that triggers when response is received from the POST
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);//create JSONOBject called jsonResponse which contains all the data that was responded from the POST
+                                boolean success = jsonResponse.getBoolean("success");//get the boolean value which is in the "success" holder IN the JSON output and put it in a boolean
+                                pb_Register.setVisibility(View.INVISIBLE);
+                                if (success) {//if the process was successful go to login screen
+                                    Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                    RegisterActivity.this.startActivity(loginIntent);
 
-                 }
+
+                                } else {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                    builder.setMessage("Register Failed")
+                                            .setNegativeButton("Retry", null)
+                                            .create()
+                                            .show();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    Customer insertCustomer = new Customer();//Create Customer Object
+                    insertCustomer.InsertCustomer(name, surname, email, phone, password, responseListener,requestQueue);//Call the InsertCustomer procedure and send all required data to Customer Class
+
                 }
-
-
-
-
-            }//endbregister
+            }
 
             //Dialog function is used many times so creating a method decreased amount of code
             public void messageshow(String message){

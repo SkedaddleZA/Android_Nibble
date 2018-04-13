@@ -15,6 +15,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,28 +24,16 @@ import java.util.Map;
  */
 
 class DAL {
+    //declaration of global variables
 
     boolean result;
+    String[] arrloginResponse= new String[4];
     String insertUrl = "http://chrismb2gun.heliohost.org/registerCustomer.php";
-    public boolean InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, RequestQueue requestQueue)
+    private static final String loginUrl = "http://chrismb2gun.heliohost.org/loginCustomer.php";
+   //Insert customer procedure
+    public void InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
     {
-
-        StringRequest request = new StringRequest(Request.Method.POST, insertUrl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    if (success) {
-                         result = success;
-                    } else {
-                         result = success;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
+        StringRequest request = new StringRequest(Request.Method.POST, insertUrl, listener, new Response.ErrorListener() {//Create a StringRequest which POSTS data to the database then records the response in listener variable
             @Override
             public void onErrorResponse(VolleyError error) {
 
@@ -63,10 +52,31 @@ class DAL {
 
             }
         };
+        requestQueue.add(request);//Runs the request which POSTS the data
+    }
+
+    public void LoginCustomer(final String Email, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        StringRequest request = new StringRequest(Request.Method.POST, loginUrl, listener ,new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+
+        }
+    }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("email", Email);
+                parameters.put("password", Password);
+
+                return parameters;
+
+            }
+
+        };
         requestQueue.add(request);
-        return result;
     }
-    }
+}
 
 
 

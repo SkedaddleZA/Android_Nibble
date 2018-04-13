@@ -75,55 +75,43 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 pbSignIn.setVisibility(View.VISIBLE);
                 final String email = etEmail.getText().toString();
-                StringRequest request = new StringRequest(Request.Method.POST, loginUrl, new Response.Listener<String>() {
+                final String password = etPassword.getText().toString();
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
+                            pbSignIn.setVisibility(View.INVISIBLE);
                             if (success) {
-                                String firstname = jsonResponse.getString("firstname");
-                                String lastname = jsonResponse.getString("lastname");
+
+                                String name = jsonResponse.getString("firstname");
+                                String surname = jsonResponse.getString("lastname");
                                 String phone = jsonResponse.getString("phone");
-                                pbSignIn.setVisibility(View.INVISIBLE);
 
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                intent.putExtra("firstname", firstname);
-                                intent.putExtra("lastname", lastname);
+                                intent.putExtra("firstname", name);
+                                intent.putExtra("lastname", surname);
                                 intent.putExtra("email", email);
                                 intent.putExtra("phone", phone);
                                 LoginActivity.this.startActivity(intent);
                             } else {
-
-                                //Create Message box that will tell the user that details entered are wrong
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setMessage("Incorrect email or password.")
+                                builder.setMessage("Login Failed")
                                         .setNegativeButton("Retry", null)
                                         .create()
                                         .show();
-                                pbSignIn.setVisibility(View.INVISIBLE);//Progress Bar hide when process in done and gives output
                             }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> parameters = new HashMap<String, String>();
-                        parameters.put("email",etEmail.getText().toString());
-                        parameters.put("password",etPassword.getText().toString());
-
-                        return parameters;
-
-                    }
                 };
-                requestQueue.add(request);
+
+                Customer loginCustomer = new Customer();
+                loginCustomer.LoginCustomer(email, password, responseListener, requestQueue);
 
             }
         });

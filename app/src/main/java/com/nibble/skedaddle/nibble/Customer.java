@@ -1,6 +1,8 @@
 package com.nibble.skedaddle.nibble;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
 
 /**
  * Created by s216431174 on 2018/04/13.
@@ -83,9 +85,13 @@ public class Customer {
         Password = password;
     }
 
-    public boolean InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, RequestQueue requestQueue)
+    public void InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
     {
-       return dl.InsertCustomer(FirstName, LastName, Email, Phone, Password, requestQueue);
+       dl.InsertCustomer(FirstName, LastName, Email, Phone, Password, listener, requestQueue);
+    }
+    public void LoginCustomer(final String Email, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        dl.LoginCustomer(Email, Password, listener, requestQueue);
     }
 
 }
