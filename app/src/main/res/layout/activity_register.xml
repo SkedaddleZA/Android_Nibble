@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/primaryColor"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,51 +31,50 @@
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                app:srcCompat="@drawable/nibskryif" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
+                android:paddingTop="20dp"
+                app:srcCompat="@drawable/nibgreen" />
 
-                <EditText
-                    android:id="@+id/etName"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="@color/primaryLightColor"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="Name"
-                    android:inputType="textPersonName"
-                    android:nextFocusDown="@+id/etSurname"
-                    android:textColor="@color/primaryTextColor" />
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/primaryLightColor"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:nextFocusDown="@+id/etSurname"
+                android:textColor="@color/primaryColor"
+                android:textColorHint="@color/primaryColor" />
 
-                <EditText
-                    android:id="@+id/etSurname"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="@color/primaryLightColor"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="Surname"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/primaryTextColor" />
-
-            </LinearLayout>
+            <EditText
+                android:id="@+id/etSurname"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/primaryLightColor"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Surname"
+                android:inputType="textPersonName"
+                android:textColor="@color/primaryColor"
+                android:textColorHint="@color/primaryColor" />
 
             <EditText
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="10dp"
@@ -85,7 +84,8 @@
                 android:gravity="center"
                 android:hint="Phone"
                 android:inputType="textPersonName"
-                android:textColor="@color/primaryTextColor" />
+                android:textColor="@color/primaryColor"
+                android:textColorHint="@color/primaryColor" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                 <EditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
                     android:layout_marginTop="10dp"
@@ -105,7 +105,8 @@
                     android:gravity="center"
                     android:hint="Email"
                     android:inputType="textPersonName"
-                    android:textColor="@color/primaryTextColor" />
+                    android:textColor="@color/primaryColor"
+                    android:textColorHint="@color/primaryColor" />
 
                 <ProgressBar
                     android:id="@+id/pb_Register"
@@ -118,7 +119,7 @@
             <EditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="10dp"
@@ -128,12 +129,13 @@
                 android:gravity="center"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:textColor="@color/primaryTextColor" />
+                android:textColor="@color/primaryColor"
+                android:textColorHint="@color/primaryColor" />
 
             <EditText
                 android:id="@+id/etCPassword"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="10dp"
@@ -143,7 +145,8 @@
                 android:gravity="center"
                 android:hint="Confirm Password"
                 android:inputType="textPassword"
-                android:textColor="@color/primaryTextColor" />
+                android:textColor="@color/primaryColor"
+                android:textColorHint="@color/primaryColor" />
 
 
             <Button
@@ -160,7 +163,7 @@
 
             <TextView
                 android:id="@+id/tvLogin"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="100dp"
