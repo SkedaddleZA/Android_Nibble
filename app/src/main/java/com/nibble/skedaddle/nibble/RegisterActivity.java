@@ -95,15 +95,16 @@ public class RegisterActivity extends AppCompatActivity {
                     messageshow("Password mismatch");
 
                     }else{
-                 Customer newCustomer = new Customer(name, surname, email, phone, password, requestQueue);
-                 String result = newCustomer.InsertCustomer(name, surname, email, phone, password, requestQueue);
-                 if (result == "success") {
+                 Customer newCustomer = new Customer(name, surname, email, phone, password);
+                 boolean result = newCustomer.InsertCustomer(name, surname, email, phone, password, requestQueue);
+                 if (!result) {
                      Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                      RegisterActivity.this.startActivity(loginIntent);
                  }
-                 else
+                 else if (!result)
                  {
                      messageshow("Failed to Register");
+
                  }
                 }
 

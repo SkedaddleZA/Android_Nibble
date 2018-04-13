@@ -24,9 +24,9 @@ import java.util.Map;
 
 class DAL {
 
-    String result;
+    boolean result;
     String insertUrl = "http://chrismb2gun.heliohost.org/registerCustomer.php";
-    public String InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, RequestQueue requestQueue)
+    public boolean InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, RequestQueue requestQueue)
     {
 
         StringRequest request = new StringRequest(Request.Method.POST, insertUrl, new Response.Listener<String>() {
@@ -36,9 +36,9 @@ class DAL {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                         result = "success";
+                         result = success;
                     } else {
-                         result = "fail";
+                         result = success;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

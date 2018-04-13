@@ -8,7 +8,7 @@ import com.android.volley.RequestQueue;
 
 public class Customer {
 
-    public Customer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, RequestQueue requestQueue)
+    public Customer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password)
     {
          this.FirstName = FirstName;
          this.LastName = LastName;
@@ -83,7 +83,7 @@ public class Customer {
         Password = password;
     }
 
-    public String InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, RequestQueue requestQueue)
+    public boolean InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, RequestQueue requestQueue)
     {
        return dl.InsertCustomer(FirstName, LastName, Email, Phone, Password, requestQueue);
     }
