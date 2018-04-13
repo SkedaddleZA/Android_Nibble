@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etName,etSurname,etEmail,etPhone,etPassword,etCPassword;
     Button bRegister;
     RequestQueue requestQueue;
-    String insertUrl = "http://chrismb2gun.heliohost.org/registerCustomer.php";
+
     ProgressBar pb_Register;
     TextView tvLogin;
 
@@ -95,49 +95,16 @@ public class RegisterActivity extends AppCompatActivity {
                     messageshow("Password mismatch");
 
                     }else{
-                    StringRequest request = new StringRequest(Request.Method.POST, insertUrl, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                boolean success = jsonResponse.getBoolean("success");
-                                if (success) {
-                                    pb_Register.setVisibility(View.INVISIBLE);
-
-                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                    RegisterActivity.this.startActivity(intent);
-                                } else {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                    builder.setMessage("Register Failed")
-                                            .setNegativeButton("Retry", null)
-                                            .create()
-                                            .show();
-                                    pb_Register.setVisibility(View.INVISIBLE);
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-
-                        }
-                    }) {
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String, String> parameters = new HashMap<String, String>();
-                            parameters.put("firstname", etName.getText().toString());
-                            parameters.put("lastname", etSurname.getText().toString());
-                            parameters.put("email", etEmail.getText().toString());
-                            parameters.put("phone", etPhone.getText().toString());
-                            parameters.put("password", etPassword.getText().toString());
-
-                            return parameters;
-
-                        }
-                    };
-                    requestQueue.add(request);
+                 Customer newCustomer = new Customer(name, surname, email, phone, password, requestQueue);
+                 String result = newCustomer.InsertCustomer(name, surname, email, phone, password, requestQueue);
+                 if (result == "success") {
+                     Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                     RegisterActivity.this.startActivity(loginIntent);
+                 }
+                 else
+                 {
+                     messageshow("Failed to Register");
+                 }
                 }
 
 
