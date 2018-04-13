@@ -27,12 +27,13 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-
+    //Declare all variables
     EditText etName,etSurname,etEmail,etPhone,etPassword,etCPassword;
     Button bRegister;
     RequestQueue requestQueue;
     String insertUrl = "http://chrismb2gun.heliohost.org/registerCustomer.php";
     ProgressBar pb_Register;
+    TextView tvLogin;
 
 
 
@@ -40,13 +41,24 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);//Change screen transition method
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//Prevent keyboard opening on activity launch
 
-        final TextView tvLogin = (TextView) findViewById(R.id.tvLogin);
+        //Link GUI elements to variables
+        tvLogin = findViewById(R.id.tvLogin);
+        etName =  findViewById(R.id.etName);
+        etSurname =  findViewById(R.id.etSurname);
+        etEmail =  findViewById(R.id.etEmail);
+        etPhone =  findViewById(R.id.etPhone);
+        etPassword =  findViewById(R.id.etPassword);
+        etCPassword =  findViewById(R.id.etCPassword);
+        bRegister =  findViewById(R.id.bRegister);
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        pb_Register = findViewById(R.id.pb_Register);
 
+        //Button to Change screen to Login screen
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,25 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-
-        etName =  findViewById(R.id.etName);
-
-        etSurname =  findViewById(R.id.etSurname);
-
-        etEmail =  findViewById(R.id.etEmail);
-
-        etPhone =  findViewById(R.id.etPhone);
-
-        etPassword =  findViewById(R.id.etPassword);
-
-        etCPassword =  findViewById(R.id.etCPassword);
-
-        bRegister =  findViewById(R.id.bRegister);
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
-        pb_Register = findViewById(R.id.pb_Register);
-
-
-        LoginActivity.buttonEffect(bRegister);
+        CommonMethods.buttonEffect(bRegister);//Button Press effect implementation
 
 
         bRegister.setOnClickListener(new View.OnClickListener() {
@@ -151,12 +145,14 @@ public class RegisterActivity extends AppCompatActivity {
 
             }//endbregister
 
+            //Dialog function is used many times so creating a method decreased amount of code
             public void messageshow(String message){
                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                 builder.setMessage(message)
                         .setNegativeButton("Retry", null)
                         .create()
                         .show();
+
                 pb_Register.setVisibility(View.INVISIBLE);
             }
         });
