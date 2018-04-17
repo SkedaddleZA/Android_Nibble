@@ -28,8 +28,8 @@ class DAL {
 
     boolean result;
     String[] arrloginResponse= new String[4];
-    String insertUrl = "http://chrismb2gun.heliohost.org/registerCustomer.php";
-    private static final String loginUrl = "http://chrismb2gun.heliohost.org/loginCustomer.php";
+    private static final String insertUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/registerCustomer.php";
+    private static final String loginUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/loginCustomer.php";
    //Insert customer procedure
     public void InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
     {
