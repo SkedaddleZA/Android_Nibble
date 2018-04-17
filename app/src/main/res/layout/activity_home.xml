@@ -60,8 +60,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="@color/primaryDarkColor"
+                    android:background="@drawable/rounded_corners_pd"
                     android:paddingBottom="20dp"
                     app:srcCompat="@android:drawable/star_on" />
 
@@ -71,8 +70,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="@color/primaryDarkColor"
+                    android:background="@drawable/rounded_corners_pd"
                     android:paddingBottom="20dp"
                     app:srcCompat="@android:drawable/star_big_on" />
 
@@ -82,8 +80,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="@color/primaryDarkColor"
+                    android:background="@drawable/rounded_corners_pd"
                     android:paddingBottom="20dp"
                     app:srcCompat="@android:drawable/star_on" />
 
@@ -100,8 +97,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="@color/primaryDarkColor"
+                    android:background="@drawable/rounded_corners_pd"
                     android:text="SPECIALS"
                     android:textColor="@color/primaryTextColor" />
 
@@ -111,8 +107,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="@color/primaryDarkColor"
+                    android:background="@drawable/rounded_corners_pd"
                     android:text="TRENDING"
                     android:textColor="@color/primaryTextColor" />
             </LinearLayout>
@@ -128,8 +123,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="@color/primaryDarkColor"
+                    android:background="@drawable/rounded_corners_pd"
                     android:text="RECOMMENDED"
                     android:textColor="@color/primaryTextColor" />
 
@@ -139,8 +133,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="@color/primaryDarkColor"
+                    android:background="@drawable/rounded_corners_pd"
                     android:text="NEW"
                     android:textColor="@color/primaryTextColor" />
             </LinearLayout>
