@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.nibble.skedaddle.nibble.HomeActivity">
-//test
+    //test
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,35 +55,84 @@
                 android:layout_height="80dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imageView7"
+                <RelativeLayout
+                    android:id="@+id/rlRestaurant"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corners_pd"
-                    android:paddingBottom="20dp"
-                    app:srcCompat="@android:drawable/star_on" />
+                    android:layout_weight="1">
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corners_pd"
-                    android:paddingBottom="20dp"
-                    app:srcCompat="@android:drawable/star_big_on" />
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_corners_pd"
+                        android:paddingBottom="20dp"
+                        app:srcCompat="@android:drawable/star_on" />
 
-                <ImageView
-                    android:id="@+id/imageView6"
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="40dp"
+                        android:gravity="center"
+                        android:text="Restaurant Type"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corners_pd"
-                    android:paddingBottom="20dp"
-                    app:srcCompat="@android:drawable/star_on" />
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_corners_pd"
+                        android:paddingBottom="20dp"
+                        app:srcCompat="@android:drawable/star_big_on" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="40dp"
+                        android:gravity="center"
+                        android:text="Food Type"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_corners_pd"
+                        android:paddingBottom="20dp"
+                        app:srcCompat="@android:drawable/star_on" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="40dp"
+                        android:gravity="center"
+                        android:text="Location"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="14sp" />
+                </RelativeLayout>
 
             </LinearLayout>
 

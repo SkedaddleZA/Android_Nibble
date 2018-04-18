@@ -26,10 +26,10 @@ import java.util.Map;
 class DAL {
     //declaration of global variables
 
-    boolean result;
-    String[] arrloginResponse= new String[4];
     private static final String insertUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/registerCustomer.php";
     private static final String loginUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/loginCustomer.php";
+    private static final String restaurantTypeUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/restaurantTypes.php";
+
    //Insert customer procedure
     public void InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
     {
@@ -76,6 +76,19 @@ class DAL {
         };
         requestQueue.add(request);
     }
+
+    public void GetRestaurantTypes(Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        StringRequest request = new StringRequest(Request.Method.GET, restaurantTypeUrl, listener ,new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+        };
+        requestQueue.add(request);
+    }
+
 }
 
 

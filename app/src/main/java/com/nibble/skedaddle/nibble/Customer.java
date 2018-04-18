@@ -93,5 +93,11 @@ public class Customer {
     {
         dl.LoginCustomer(Email, Password, listener, requestQueue);
     }
+    //
+    public void GetRestaurantTypes(Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        dl.GetRestaurantTypes(listener, requestQueue);
+    }
+
 
 }

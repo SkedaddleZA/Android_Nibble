@@ -35,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     RequestQueue requestQueue;
     Button bLogin;
     TextView tvRegister;
-    String loginUrl = "http://chrismb2gun.heliohost.org/loginCustomer.php"; //SICT-IIS.nmmu.ac.za/loginCustomer.php
     ProgressBar pbSignIn;
 
 
@@ -86,11 +85,13 @@ public class LoginActivity extends AppCompatActivity {
                             pbSignIn.setVisibility(View.INVISIBLE);
                             if (success) {
 
+                                int customerid = jsonResponse.getInt("customerid");
                                 String name = jsonResponse.getString("firstname");
                                 String surname = jsonResponse.getString("lastname");
                                 String phone = jsonResponse.getString("phone");
 
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                intent.putExtra("customerid", customerid);
                                 intent.putExtra("firstname", name);
                                 intent.putExtra("lastname", surname);
                                 intent.putExtra("email", email);
