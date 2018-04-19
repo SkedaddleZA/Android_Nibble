@@ -10,8 +10,9 @@ import com.android.volley.toolbox.StringRequest;
 
 public class Customer {
 
-    public Customer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password)
+    public Customer(final int CustomerID, final String FirstName, final String LastName, final String Email, final String Phone, final String Password)
     {
+        this.CustomerID = CustomerID;
          this.FirstName = FirstName;
          this.LastName = LastName;
          this.Email = Email;
@@ -93,11 +94,7 @@ public class Customer {
     {
         dl.LoginCustomer(Email, Password, listener, requestQueue);
     }
-    //
-    public void GetRestaurantTypes(Response.Listener<String> listener, RequestQueue requestQueue)
-    {
-        dl.GetRestaurantTypes(listener, requestQueue);
-    }
+
 
 
 }

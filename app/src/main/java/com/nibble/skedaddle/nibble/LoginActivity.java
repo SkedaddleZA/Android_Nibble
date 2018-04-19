@@ -25,6 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,17 +87,15 @@ public class LoginActivity extends AppCompatActivity {
                             pbSignIn.setVisibility(View.INVISIBLE);
                             if (success) {
 
-                                int customerid = jsonResponse.getInt("customerid");
-                                String name = jsonResponse.getString("firstname");
-                                String surname = jsonResponse.getString("lastname");
-                                String phone = jsonResponse.getString("phone");
+                                final int customerid = jsonResponse.getInt("customerid");
+                                final String name = jsonResponse.getString("firstname");
+                                final String surname = jsonResponse.getString("lastname");
+                                final String phone = jsonResponse.getString("phone");
+
+                                String[] customerdetails = {Integer.toString(customerid),name,surname,email,phone,password} ;
 
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                intent.putExtra("customerid", customerid);
-                                intent.putExtra("firstname", name);
-                                intent.putExtra("lastname", surname);
-                                intent.putExtra("email", email);
-                                intent.putExtra("phone", phone);
+                                intent.putExtra("customerdetails",customerdetails);
                                 LoginActivity.this.startActivity(intent);
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);

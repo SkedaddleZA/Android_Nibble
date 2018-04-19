@@ -29,6 +29,7 @@ class DAL {
     private static final String insertUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/registerCustomer.php";
     private static final String loginUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/loginCustomer.php";
     private static final String restaurantTypeUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/restaurantTypes.php";
+    private static final String restaurantsByTypeUrl ="http://SICT-IIS.nmmu.ac.za/skedaddle/getRestaurantsByType.php";
 
    //Insert customer procedure
     public void InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
@@ -88,6 +89,29 @@ class DAL {
         };
         requestQueue.add(request);
     }
+
+    public void GetRestaurants(final String RestaurantType, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        StringRequest request = new StringRequest(Request.Method.POST, restaurantsByTypeUrl, listener ,new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("restauranttype", RestaurantType);
+
+                return parameters;
+
+            }
+
+        };
+        requestQueue.add(request);
+    }
+
+
 
 }
 
