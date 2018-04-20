@@ -32,9 +32,10 @@ public String test;
     private ListView lvRestaurants;
     private Spinner spinner;
     private ArrayList<String> dropdown, restlist;
+    private String[] restaurantdetails;
     private JSONArray result;
     private RequestQueue requestQueue;
-
+    private TextView tvr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +57,16 @@ public String test;
         restlist = new ArrayList<>();
         spinner = findViewById(R.id.sRTypes);
         lvRestaurants = findViewById(R.id.lvRestaurants);
+        tvr = findViewById(R.id.tvrType);
+        restaurantdetails = new String[7];
 
         getRestaurantTypes();
-        final TextView tvrType = findViewById(R.id.tvrType);
+
+
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //tvrType.setText("Spinner selected : ");
-                //tvrType.setText(tvrType.getText() + parent.getItemAtPosition(position).toString());
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -80,12 +83,11 @@ public String test;
                                     e.printStackTrace();
                                 }
                             }
-//additems to LISTVIEW
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
+                        //FIlls lvRestaurants with all items from restlist array
                         lvRestaurants.setAdapter(new ArrayAdapter<>(RestaurantSearchActivity.this, android.R.layout.simple_list_item_1, restlist));
 
 
@@ -103,7 +105,29 @@ public String test;
             }
         });
 
+        lvRestaurants.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    JSONObject json = result.getJSONObject(position);
+                    //put all selected restaurant details into an array
+                    restaurantdetails[0] = Integer.toString(json.getInt("restaurantid"));
+                    restaurantdetails[1] = json.getString("restaurantname");
+                    restaurantdetails[2] = json.getString("address");
+                    restaurantdetails[3] = json.getString("phone");
+                    restaurantdetails[4] = json.getString("restauranttype");
+                    restaurantdetails[5] = json.getString("gpslocation");
+                    restaurantdetails[6] = json.getString("email");
 
+                    Intent restaurant = new Intent(RestaurantSearchActivity.this, RestaurantActivity.class);
+                    restaurant.putExtra("restaurantdetails",restaurantdetails);
+                    RestaurantSearchActivity.this.startActivity(restaurant);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
