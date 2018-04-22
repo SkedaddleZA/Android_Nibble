@@ -1,4 +1,4 @@
-package com.nibble.skedaddle.nibble;
+package com.nibble.skedaddle.nibble.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.WindowManager;
 import android.widget.EditText;
+
+import com.nibble.skedaddle.nibble.R;
 
 public class BookingActivity extends AppCompatActivity {
 

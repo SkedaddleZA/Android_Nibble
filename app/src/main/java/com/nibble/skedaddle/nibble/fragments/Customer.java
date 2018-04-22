@@ -1,8 +1,7 @@
-package com.nibble.skedaddle.nibble;
+package com.nibble.skedaddle.nibble.fragments;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
 
 /**
  * Created by s216431174 on 2018/04/13.

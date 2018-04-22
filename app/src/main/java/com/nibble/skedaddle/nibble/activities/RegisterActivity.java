@@ -1,4 +1,4 @@
-package com.nibble.skedaddle.nibble;
+package com.nibble.skedaddle.nibble.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -11,19 +11,15 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.nibble.skedaddle.nibble.CommonMethods;
+import com.nibble.skedaddle.nibble.fragments.Customer;
+import com.nibble.skedaddle.nibble.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
