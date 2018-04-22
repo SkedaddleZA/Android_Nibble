@@ -47,7 +47,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/rounded_corners_pd"
                         android:paddingBottom="20dp"
-                        app:srcCompat="@android:drawable/star_on" />
+                        android:src="@android:drawable/star_on" />
 
                     <TextView
                         android:id="@+id/textView"
@@ -73,7 +73,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/rounded_corners_pd"
                         android:paddingBottom="20dp"
-                        app:srcCompat="@android:drawable/star_big_on" />
+                        android:src="@android:drawable/star_big_on" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -99,7 +99,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/rounded_corners_pd"
                         android:paddingBottom="20dp"
-                        app:srcCompat="@android:drawable/star_on" />
+                        android:src="@android:drawable/star_on" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -171,7 +171,7 @@
                 android:scaleType="center"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
-                app:srcCompat="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -180,7 +180,7 @@
                 android:scaleType="center"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
-                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                android:src="@android:drawable/ic_menu_my_calendar" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -189,7 +189,7 @@
                 android:scaleType="center"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
-                app:srcCompat="@android:drawable/ic_menu_myplaces" />
+                android:src="@android:drawable/ic_menu_myplaces" />
         </LinearLayout>
     </LinearLayout>
 
