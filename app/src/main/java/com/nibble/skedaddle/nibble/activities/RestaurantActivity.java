@@ -42,7 +42,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
                 .enableAutoManage(this,this)
                 .addConnectionCallbacks(this)
                 .addApi(LocationServices.API)
-                .build();
+                .build(); //creates locations api and builds it
 
         //Uses the MainFragment(MapFragment) to create a map from the FrameLayout on the Layout Screen
         mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.container_main);
@@ -67,11 +67,12 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
             }
         });//
 
+        //Create Map Marker for restaurant that is chosen
         String latlng = restaurantdetails[5];
         String[] separated = latlng.split("#");
         double lat = Double.parseDouble(separated[0]);
         double lon = Double.parseDouble(separated[1]);
-        LatLng location = new LatLng(lat, lon);
+        LatLng location = new LatLng(lat, lon);//
 
         mainFragment.setRestaurantMarker(location);//MUST BE AFTER THE CREATION OF THE MAP right above ^
 
@@ -80,7 +81,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
 
 
     }
-
+    //Interface inherited methods
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
