@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.nibble.skedaddle.nibble.R;
 
-public class HomeActivity extends AppCompatActivity {//my tollie
+public class HomeActivity extends AppCompatActivity {//my naam tollie
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
