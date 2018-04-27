@@ -1,4 +1,4 @@
-package com.nibble.skedaddle.nibble.fragments;
+package com.nibble.skedaddle.nibble.classes;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;

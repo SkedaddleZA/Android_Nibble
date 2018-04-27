@@ -14,7 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.nibble.skedaddle.nibble.R;
-import com.nibble.skedaddle.nibble.fragments.Restaurant;
+import com.nibble.skedaddle.nibble.classes.Restaurant;
 
 import org.json.JSONArray;
 import org.json.JSONException;

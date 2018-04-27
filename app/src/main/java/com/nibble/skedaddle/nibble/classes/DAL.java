@@ -1,4 +1,4 @@
-package com.nibble.skedaddle.nibble.fragments;
+package com.nibble.skedaddle.nibble.classes;
 
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;

@@ -15,7 +15,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.nibble.skedaddle.nibble.CommonMethods;
-import com.nibble.skedaddle.nibble.fragments.Customer;
+import com.nibble.skedaddle.nibble.classes.Customer;
 import com.nibble.skedaddle.nibble.R;
 
 import org.json.JSONException;
