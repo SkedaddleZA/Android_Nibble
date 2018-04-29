@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -55,6 +56,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         //used to go to create booking request screen
         final Intent restaurant = getIntent();
         final String[] restaurantdetails = restaurant.getStringArrayExtra("restaurantdetails");
+        final String[] customerdetails = restaurant.getStringArrayExtra("customerdetails");
         bRBooking = findViewById(R.id.bRBooking);
         tvRestaurantDetails = findViewById(R.id.tvRestaurantDetails);
         tvRestaurantDetails.setText(restaurantdetails[0] + " " + restaurantdetails[1] + " " + restaurantdetails[2]);
@@ -63,6 +65,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
             public void onClick(View v) {
                 Intent rbooking = new Intent(RestaurantActivity.this, BookingActivity.class);
                 rbooking.putExtra("restaurantdetails", restaurantdetails);
+                rbooking.putExtra("customerdetails",customerdetails);
                 RestaurantActivity.this.startActivity(rbooking);
             }
         });//
@@ -77,6 +80,17 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         mainFragment.setRestaurantMarker(location);//MUST BE AFTER THE CREATION OF THE MAP right above ^
 
 
+        ImageView bHome = findViewById(R.id.bHome);
+        bHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Home = new Intent(RestaurantActivity.this, HomeActivity.class);
+                Home.putExtra("customerdetails", customerdetails);
+                RestaurantActivity.this.startActivity(Home);
+                RestaurantActivity.this.finish();
+
+            }
+        });
 
 
 

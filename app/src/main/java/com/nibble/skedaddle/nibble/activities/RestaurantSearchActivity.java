@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,7 +50,7 @@ public String test;
         //
 
         //
-
+        ImageView bHome = findViewById(R.id.bHome);
         dropdown = new ArrayList<>();
         restlist = new ArrayList<>();
         spinner = findViewById(R.id.sRTypes);
@@ -57,6 +60,18 @@ public String test;
 
         getRestaurantTypes();
 
+
+        bHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Home = new Intent(RestaurantSearchActivity.this, HomeActivity.class);
+                Home.putExtra("customerdetails", customerdetails);
+                RestaurantSearchActivity.this.startActivity(Home);
+                RestaurantSearchActivity.this.finish();
+
+
+            }
+        });
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -116,7 +131,9 @@ public String test;
 
                     Intent restaurant = new Intent(RestaurantSearchActivity.this, RestaurantActivity.class);
                     restaurant.putExtra("restaurantdetails",restaurantdetails);
+                    restaurant.putExtra("customerdetails",customerdetails);
                     RestaurantSearchActivity.this.startActivity(restaurant);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -155,6 +172,8 @@ public String test;
         Restaurant restauranttype = new Restaurant();
         restauranttype.GetRestaurantTypes(responseListener, requestQueue);
     }
+
+
 
 
 }

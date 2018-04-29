@@ -18,8 +18,8 @@ public class HomeActivity extends AppCompatActivity {//my naam tollie
 
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
-        Intent intent = getIntent();
-        final String[] customerdetails = intent.getStringArrayExtra("customerdetails");
+        Intent Home = getIntent();
+        final String[] customerdetails = Home.getStringArrayExtra("customerdetails");
 
 
         TextView tvDetails = (TextView) findViewById(R.id.tvDetails);
@@ -37,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {//my naam tollie
                 Intent restaurantSearch = new Intent(HomeActivity.this, RestaurantSearchActivity.class);
                 restaurantSearch.putExtra("customerdetails",customerdetails);
                 HomeActivity.this.startActivity(restaurantSearch);
+                //HomeActivity.this.finish();
 
             }
         });

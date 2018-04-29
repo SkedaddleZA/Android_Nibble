@@ -15,17 +15,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
             android:orientation="vertical"
-            android:weightSum="10">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:orientation="horizontal">
-
-            </LinearLayout>
+            android:weightSum="8">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,11 +133,11 @@
                 android:layout_height="0dp"
                 android:layout_weight="3"
                 android:orientation="horizontal">
+
                 <FrameLayout
+                    android:id="@+id/container_main"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/container_main">
-                </FrameLayout>
+                    android:layout_height="match_parent"></FrameLayout>
 
             </LinearLayout>
 
@@ -174,6 +174,7 @@
                 android:src="@android:drawable/star_big_off" />
 
             <ImageView
+                android:id="@+id/bHome"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

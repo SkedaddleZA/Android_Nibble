@@ -85,9 +85,11 @@ public class LoginActivity extends AppCompatActivity {
 
                                 String[] customerdetails = {Integer.toString(customerid),name,surname,email,phone,password} ;
 
-                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                intent.putExtra("customerdetails",customerdetails);
-                                LoginActivity.this.startActivity(intent);
+
+                                Intent Home = new Intent(LoginActivity.this, HomeActivity.class);
+                                Home.putExtra("customerdetails",customerdetails);
+                                LoginActivity.this.startActivity(Home);
+                                LoginActivity.this.finish();
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                 builder.setMessage("Login Failed")

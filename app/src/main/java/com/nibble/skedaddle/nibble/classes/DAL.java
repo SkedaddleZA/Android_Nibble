@@ -30,6 +30,7 @@ class DAL {
     private static final String loginUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/loginCustomer.php";
     private static final String restaurantTypeUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/restaurantTypes.php";
     private static final String restaurantsByTypeUrl ="http://SICT-IIS.nmmu.ac.za/skedaddle/getRestaurantsByType.php";
+    private static final String requestBookingUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/bookingRequest.php";
 
    //Insert customer procedure
     public void InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
@@ -111,7 +112,30 @@ class DAL {
         requestQueue.add(request);
     }
 
+    public void RequestBooking(final String CustomerID, final String RestaurantID, final String DateTime, final String NumOfGuests, final String Comment, final String RequestDateTime, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        StringRequest request = new StringRequest(Request.Method.POST, requestBookingUrl, listener, new Response.ErrorListener() {//Create a StringRequest which POSTS data to the database then records the response in listener variable
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("customerid", CustomerID);
+                parameters.put("restaurantid", RestaurantID);
+                parameters.put("datetime", DateTime);
+                parameters.put("numofguests", NumOfGuests);
+                parameters.put("comment", Comment);
+                parameters.put("requestdatetime", RequestDateTime);
+
+                return parameters;
+
+            }
+        };
+        requestQueue.add(request);//Runs the request which POSTS the data
+    }
 
 }
 

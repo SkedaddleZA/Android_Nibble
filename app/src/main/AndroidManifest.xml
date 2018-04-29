@@ -31,7 +31,9 @@
         <activity android:name=".activities.HomeActivity" />
         <activity android:name=".activities.RestaurantSearchActivity" />
         <activity android:name=".activities.RestaurantActivity" />
-        <activity android:name=".activities.BookingActivity"></activity>
+        <activity android:name=".activities.BookingActivity"
+                  android:windowSoftInputMode="adjustResize">
+        </activity>
     </application>
 
 </manifest>
