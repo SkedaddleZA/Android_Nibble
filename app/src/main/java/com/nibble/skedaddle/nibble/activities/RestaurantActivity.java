@@ -3,20 +3,23 @@ package com.nibble.skedaddle.nibble.activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.location.LocationListener;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -25,6 +28,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.nibble.skedaddle.nibble.R;
 import com.nibble.skedaddle.nibble.fragments.MainFragment;
 
+import org.json.JSONArray;
+
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 
 public class RestaurantActivity  extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationListener{
 
@@ -32,7 +41,11 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
     private Button bRBooking;
     private GoogleApiClient mGoogleApiClient;
     final int PERMISSION_LOCATION = 111;
+    private String[] restaurantdetails, restaurantfulldetails, customerdetails;
     private MainFragment mainFragment;
+    private ImageView restImage;
+    private JSONArray result;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +67,13 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
 
 
         //used to go to create booking request screen
-        final Intent restaurant = getIntent();
-        final String[] restaurantdetails = restaurant.getStringArrayExtra("restaurantdetails");
-        final String[] customerdetails = restaurant.getStringArrayExtra("customerdetails");
+        //restaurantfulldetails = new String[15];
+        final Intent restaurantintent = getIntent();
+        restaurantfulldetails = restaurantintent.getStringArrayExtra("restaurantdetails");
+        customerdetails = restaurantintent.getStringArrayExtra("customerdetails");
         bRBooking = findViewById(R.id.bRBooking);
         tvRestaurantDetails = findViewById(R.id.tvRestaurantDetails);
-        tvRestaurantDetails.setText(restaurantdetails[0] + " " + restaurantdetails[1] + " " + restaurantdetails[2]);
+        tvRestaurantDetails.setText(restaurantfulldetails[0] + " " + restaurantfulldetails[1] + " " + restaurantfulldetails[2]);
         bRBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +85,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         });//
 
         //Create Map Marker for restaurant that is chosen
-        String latlng = restaurantdetails[5];
+        String latlng = restaurantfulldetails[4];
         String[] separated = latlng.split("#");
         double lat = Double.parseDouble(separated[0]);
         double lon = Double.parseDouble(separated[1]);
@@ -93,6 +107,12 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         });
 
 
+        //Decode Base64 string (Image) from the array and display it in ImageView
+        restImage = findViewById(R.id.restImage);
+        byte[] decodedString = Base64.decode(restaurantfulldetails[14],Base64.DEFAULT);
+        InputStream inputStream  = new ByteArrayInputStream(decodedString);
+        Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
+        restImage.setImageBitmap(bitmap);
 
     }
     //Interface inherited methods
@@ -163,4 +183,5 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         }
 
     }
+
 }

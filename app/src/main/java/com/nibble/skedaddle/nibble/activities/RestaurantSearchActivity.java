@@ -30,7 +30,7 @@ public String test;
     private ListView lvRestaurants;
     private Spinner spinner;
     private ArrayList<String> dropdown, restlist;
-    private String[] restaurantdetails;
+    private String[] restaurantdetails, restaurantfulldetails, customerdetails;
     private JSONArray result;
     private RequestQueue requestQueue;
     private TextView tvr;
@@ -43,7 +43,7 @@ public String test;
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         final Intent restaurantSearch = getIntent();
-        final String[] customerdetails = restaurantSearch.getStringArrayExtra("customerdetails");
+        customerdetails = restaurantSearch.getStringArrayExtra("customerdetails");
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
 
@@ -56,7 +56,8 @@ public String test;
         spinner = findViewById(R.id.sRTypes);
         lvRestaurants = findViewById(R.id.lvRestaurants);
         tvr = findViewById(R.id.tvrType);
-        restaurantdetails = new String[7];
+        restaurantdetails = new String[2];
+        restaurantfulldetails = new String[15];
 
         getRestaurantTypes();
 
@@ -119,27 +120,19 @@ public String test;
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    JSONObject json = result.getJSONObject(position);
-                    //put all selected restaurant details into an array
-                    restaurantdetails[0] = Integer.toString(json.getInt("restaurantid"));
-                    restaurantdetails[1] = json.getString("restaurantname");
-                    restaurantdetails[2] = json.getString("addressline1");
-                    restaurantdetails[3] = json.getString("phone");
-                    restaurantdetails[4] = json.getString("restauranttype");
-                    restaurantdetails[5] = json.getString("gpslocation");
-                    restaurantdetails[6] = json.getString("email");
+                JSONObject json = result.getJSONObject(position);
+                //put all selected restaurant details into an array
+                restaurantdetails[0] = Integer.toString(json.getInt("restaurantid"));
+                //restaurantdetails[1] = json.getString("restaurantname");
 
-                    Intent restaurant = new Intent(RestaurantSearchActivity.this, RestaurantActivity.class);
-                    restaurant.putExtra("restaurantdetails",restaurantdetails);
-                    restaurant.putExtra("customerdetails",customerdetails);
-                    RestaurantSearchActivity.this.startActivity(restaurant);
+                     GotoRestaurant();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
         });
+
 
     }
 
@@ -172,6 +165,62 @@ public String test;
         Restaurant restauranttype = new Restaurant();
         restauranttype.GetRestaurantTypes(responseListener, requestQueue);
     }
+
+    private void GotoRestaurant() {
+        //Start fetch restaurant details on click
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject j;
+                try {
+                    j = new JSONObject(response);
+                    result = j.getJSONArray("restaurant");
+                    for(int i=0;i<result.length();i++){
+                        try {
+                            JSONObject json = result.getJSONObject(i);
+                            restaurantfulldetails[0] = Integer.toString(json.getInt("restaurantid"));
+                            restaurantfulldetails[1] = json.getString("restaurantname");
+                            restaurantfulldetails[2] = json.getString("phone");
+                            restaurantfulldetails[3] = json.getString("restauranttype");
+                            restaurantfulldetails[4] = json.getString("gpslocation");
+                            restaurantfulldetails[5] = json.getString("email");
+                            restaurantfulldetails[6] = json.getString("addressline1");
+                            restaurantfulldetails[7] = json.getString("addressline2");
+                            restaurantfulldetails[8] = json.getString("suburbname");
+                            restaurantfulldetails[9] = json.getString("postalcode");
+                            restaurantfulldetails[10] = json.getString("cityname");
+                            restaurantfulldetails[11] = json.getString("opentime");
+                            restaurantfulldetails[12] = json.getString("closetime");
+                            restaurantfulldetails[13] = json.getString("websiteurl");
+                            restaurantfulldetails[14] = json.getString("logo");
+
+
+                            Intent restaurantintent = new Intent(RestaurantSearchActivity.this, RestaurantActivity.class);
+                            restaurantintent.putExtra("restaurantdetails",restaurantfulldetails);
+                            restaurantintent.putExtra("customerdetails",customerdetails);
+                            RestaurantSearchActivity.this.startActivity(restaurantintent);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+            Restaurant restaurantobject = new Restaurant();
+            restaurantobject.GetRestaurantDetails(restaurantdetails[0], responseListener, requestQueue);
+            //end of fetch
+
+
+
+
+    }
+
 
 
 
