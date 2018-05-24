@@ -123,7 +123,7 @@ public String test;
                     //put all selected restaurant details into an array
                     restaurantdetails[0] = Integer.toString(json.getInt("restaurantid"));
                     restaurantdetails[1] = json.getString("restaurantname");
-                    restaurantdetails[2] = json.getString("address");
+                    restaurantdetails[2] = json.getString("addressline1");
                     restaurantdetails[3] = json.getString("phone");
                     restaurantdetails[4] = json.getString("restauranttype");
                     restaurantdetails[5] = json.getString("gpslocation");

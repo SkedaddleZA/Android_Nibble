@@ -25,42 +25,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/primaryColor"
+            android:clipToPadding="false"
             android:orientation="vertical"
-            android:weightSum="12">
+            android:weightSum="22">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:srcCompat="@android:drawable/btn_star_big_on" />
+                android:layout_weight="20"
+                android:background="@color/primaryColor"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:weightSum="10">
 
                 <TextView
+                    android:id="@+id/textView12"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="SPECIAL"
-                    android:textSize="30sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="8"
-                android:orientation="vertical"
-                android:weightSum="8">
+                    android:text="Search By"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="24sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="3">
 
@@ -68,79 +61,56 @@
                         android:id="@+id/rlRestaurant"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/imageView7"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="5dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/rounded_corners_pd"
-                            android:paddingBottom="20dp"
-                            app:srcCompat="@android:drawable/star_on" />
+                        android:layout_weight="1"
+                        android:background="@color/primaryColor">
 
                         <TextView
                             android:id="@+id/textView"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginTop="40dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/rounded_corners_underline"
                             android:gravity="center"
                             android:text="Restaurant Type"
-                            android:textColor="@color/primaryColor"
-                            android:textSize="14sp" />
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="10sp" />
+
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/imageView5"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="5dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/rounded_corners_pd"
-                            android:paddingBottom="20dp"
-                            app:srcCompat="@android:drawable/star_big_on" />
+                        android:layout_weight="1"
+                        android:background="@color/primaryColor">
 
                         <TextView
                             android:id="@+id/textView2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginTop="40dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/rounded_corners_underline"
                             android:gravity="center"
                             android:text="Food Type"
-                            android:textColor="@color/primaryColor"
-                            android:textSize="14sp" />
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="10sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/imageView6"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="5dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/rounded_corners_pd"
-                            android:paddingBottom="20dp"
-                            app:srcCompat="@android:drawable/star_on" />
+                        android:layout_weight="1"
+                        android:background="@color/primaryColor">
 
                         <TextView
                             android:id="@+id/textView3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginTop="40dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/rounded_corners_underline"
                             android:gravity="center"
                             android:text="Location"
-                            android:textColor="@color/primaryColor"
-                            android:textSize="14sp" />
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="10sp" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -148,57 +118,50 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="8"
+                    android:backgroundTint="#96F5F5F5"
+                    android:elevation="5dp"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="3">
 
-                    <Button
-                        android:id="@+id/button4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/rounded_corners_pd"
-                        android:text="SPECIALS"
-                        android:textColor="@color/primaryTextColor" />
+                    <ViewFlipper
+                        android:id="@+id/viewflipper"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autoStart="true"
+                        android:flipInterval="2000">
 
-                    <Button
-                        android:id="@+id/button3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/rounded_corners_pd"
-                        android:text="TRENDING"
-                        android:textColor="@color/primaryTextColor" />
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/backgroundhome5" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/backgroundhome" />
 
-                    <Button
-                        android:id="@+id/button6"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/rounded_corners_pd"
-                        android:text="RECOMMENDED"
-                        android:textColor="@color/primaryTextColor" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/backgroundhome2" />
 
-                    <Button
-                        android:id="@+id/button5"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/rounded_corners_pd"
-                        android:text="NEW"
-                        android:textColor="@color/primaryTextColor" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/backgroundhome3" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/backgroundhome4" />
+                    </ViewFlipper>
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -207,35 +170,77 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
+                android:background="@drawable/rounded_corners_upperline"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    app:srcCompat="@android:drawable/star_big_off" />
 
-                <ImageView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                    android:layout_weight="1">
 
-                <ImageView
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom|center"
+                        android:text="Home"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="10sp" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="11dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/home" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    app:srcCompat="@android:drawable/ic_menu_myplaces" />
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom|center"
+                        android:text="My Bookings"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="10sp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="12dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/calendar" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom|center"
+                        android:text="Profile"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="10sp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="12dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/user" />
+                </RelativeLayout>
+
             </LinearLayout>
         </LinearLayout>
 

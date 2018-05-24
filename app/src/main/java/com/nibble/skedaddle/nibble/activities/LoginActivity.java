@@ -82,9 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                                 final String name = jsonResponse.getString("firstname");
                                 final String surname = jsonResponse.getString("lastname");
                                 final String phone = jsonResponse.getString("phone");
-
                                 String[] customerdetails = {Integer.toString(customerid),name,surname,email,phone,password} ;
-
 
                                 Intent Home = new Intent(LoginActivity.this, HomeActivity.class);
                                 Home.putExtra("customerdetails",customerdetails);
@@ -103,10 +101,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 };
-
                 Customer loginCustomer = new Customer();
                 loginCustomer.LoginCustomer(email, password, responseListener, requestQueue);
-
             }
         });
 
