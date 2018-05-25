@@ -72,13 +72,11 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         restaurantfulldetails = restaurantintent.getStringArrayExtra("restaurantdetails");
         customerdetails = restaurantintent.getStringArrayExtra("customerdetails");
         bRBooking = findViewById(R.id.bRBooking);
-        tvRestaurantDetails = findViewById(R.id.tvRestaurantDetails);
-        tvRestaurantDetails.setText(restaurantfulldetails[0] + " " + restaurantfulldetails[1] + " " + restaurantfulldetails[2]);
         bRBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent rbooking = new Intent(RestaurantActivity.this, BookingActivity.class);
-                rbooking.putExtra("restaurantdetails", restaurantdetails);
+                rbooking.putExtra("restaurantdetails", restaurantfulldetails);
                 rbooking.putExtra("customerdetails",customerdetails);
                 RestaurantActivity.this.startActivity(rbooking);
             }

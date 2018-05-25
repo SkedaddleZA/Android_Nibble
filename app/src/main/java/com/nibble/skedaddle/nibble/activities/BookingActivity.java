@@ -1,17 +1,21 @@
 package com.nibble.skedaddle.nibble.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -25,6 +29,8 @@ import com.nibble.skedaddle.nibble.classes.Customer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,13 +41,13 @@ public class BookingActivity extends AppCompatActivity {
     private CalendarView cvDate;
     private TimePicker tpTime;
     private Button bBook, bNext;
-    private Time time;
     private TextView tvRestaurant;
-    private String date,datetime, comment, nowdate, nowdatetime;
+    private String time, date,datetime, comment, nowdate, nowdatetime;
     private SimpleDateFormat sdf;
     private RequestQueue requestQueue;
-    private EditText etNum;
+    private EditText etNum, etComment;
     private LinearLayout llstep2, llstep1;
+    private ImageView restImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +60,10 @@ public class BookingActivity extends AppCompatActivity {
         final String[] restaurantdetails = rbooking.getStringArrayExtra("restaurantdetails");
         final String[] customerdetails = rbooking.getStringArrayExtra("customerdetails");
 
+        etComment = findViewById(R.id.etComment);
+        restImage = findViewById(R.id.restImage);
         cvDate = findViewById(R.id.cvDate);
         tpTime = findViewById(R.id.tpTime);
-        tvRestaurant = findViewById(R.id.tvRestaurant);
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         bBook = findViewById(R.id.bBook);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -66,7 +73,14 @@ public class BookingActivity extends AppCompatActivity {
         llstep1 = findViewById(R.id.llstep1);
         bNext = findViewById(R.id.bNext);
         llstep2.setVisibility(View.INVISIBLE);
-        tvRestaurant.setText(restaurantdetails[1]);
+
+
+        //Decode Base64 string (Image) from the array and display it in ImageView
+        restImage = findViewById(R.id.restImage);
+        byte[] decodedString = Base64.decode(restaurantdetails[14],Base64.DEFAULT);
+        InputStream inputStream  = new ByteArrayInputStream(decodedString);
+        Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
+        restImage.setImageBitmap(bitmap);
 
 
         bNext.setOnClickListener(new View.OnClickListener() {
@@ -98,9 +112,11 @@ public class BookingActivity extends AppCompatActivity {
                 }else {
                     int hour = tpTime.getHour();
                     int minute = tpTime.getMinute();
-                    datetime = date + " " + String.valueOf(hour) + ":" + String.valueOf(minute) + ":00";
+                    time = String.valueOf(hour) + ":" + String.valueOf(minute) + ":00";
+                    datetime = date + " " + time;
                     nowdatetime = sdf.format(cvDate.getDate());
 
+                    comment = etComment.getText().toString();
                     //tvRestaurant.setText(nowdatetime);
                     //tvRestaurant.setText(datetime);
 
@@ -133,7 +149,7 @@ public class BookingActivity extends AppCompatActivity {
                     };
 
                     Customer bookingRequest = new Customer();//Create Customer Object
-                    bookingRequest.RequestBooking(customerdetails[0], restaurantdetails[0], datetime, etNum.getText().toString(), comment, nowdatetime, responseListener,requestQueue);//Call the InsertCustomer procedure and
+                    bookingRequest.RequestBooking(customerdetails[0], restaurantdetails[0], datetime, etNum.getText().toString(), comment, nowdatetime, date, time, responseListener,requestQueue);//Call the CreateBOoking request procedure
 
 
                 }

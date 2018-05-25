@@ -14,152 +14,229 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="12">
+        android:weightSum="22">
 
-        <TextView
-            android:id="@+id/tvRestaurant"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:text="RestaurantName"
-            android:textSize="30sp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="8">
+            android:layout_weight="20"
+            android:orientation="vertical"
+            android:weightSum="10">
 
             <LinearLayout
-                android:id="@+id/llstep2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="8">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_dark"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/textView5"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="3"
-                    android:gravity="center"
-                    android:text="Number Of Guests"
-                    android:textSize="24sp" />
-
-                <EditText
-                    android:id="@+id/etNum"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginRight="100dp"
-                    android:layout_weight="4"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:inputType="numberSigned"
-                    android:maxLength="1"
-                    android:textSize="30sp" />
-
-                <Button
-                    android:id="@+id/bBook"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_gravity="bottom"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Request Booking" />
+                    android:gravity="center"
+                    android:text="Request Booking"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/llstep1"
+            <ImageView
+                android:id="@+id/restImage"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="8">
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                app:srcCompat="@color/colorPrimaryDark" />
 
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="4">
-
-                    <CalendarView
-                        android:id="@+id/cvDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3" />
-                </ScrollView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7">
 
                 <LinearLayout
+                    android:id="@+id/llstep2"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="3"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="7">
 
-                    <TimePicker
-                        android:id="@+id/tpTime"
+                    <TextView
+                        android:id="@+id/textView4"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="Number Of Guests"
+                        android:textSize="24sp"
+                        android:elevation="1dp"/>
+
+                    <EditText
+                        android:id="@+id/etNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="100dp"
+                        android:layout_marginRight="100dp"
+                        android:layout_weight="2"
+                        android:elevation="1dp"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="(1-9)"
+                        android:inputType="numberSigned"
+                        android:maxLength="1"
+                        android:textSize="30sp" />
+
+                    <EditText
+                        android:id="@+id/etComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:elevation="1dp"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="Comment"
+                        android:inputType="textMultiLine" />
+
+                    <Button
+                        android:id="@+id/bBook"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="bottom"
                         android:layout_weight="1"
-                        android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+                        android:backgroundTint="@color/primaryDarkColor"
+                        android:text="Request Booking"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llstep1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="7">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="4">
+
+                        <CalendarView
+                            android:id="@+id/cvDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3" />
+                    </ScrollView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="2"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TimePicker
+                            android:id="@+id/tpTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/bNext"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/primaryDarkColor"
+                        android:text="Next"
+                        android:textColor="@android:color/white" />
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/bNext"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="Next" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:orientation="vertical"
-            android:weightSum="2">
+            android:background="@drawable/rounded_corners_upperline"
+            android:orientation="horizontal">
 
-            <LinearLayout
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:layout_weight="1">
 
-                <ImageView
-                    android:id="@+id/imageView4"
+                <TextView
+                    android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="bottom|center"
+                    android:text="Home"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:id="@+id/bHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="11dp"
                     android:layout_weight="1"
-                    android:scaleType="center"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    app:srcCompat="@android:drawable/star_big_off" />
+                    android:src="@drawable/home" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom|center"
+                    android:text="My Bookings"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="10sp" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="12dp"
                     android:layout_weight="1"
-                    android:scaleType="center"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                    android:src="@drawable/calendar" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom|center"
+                    android:text="Profile"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="10sp" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="12dp"
                     android:layout_weight="1"
-                    android:scaleType="center"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    app:srcCompat="@android:drawable/ic_menu_myplaces" />
-            </LinearLayout>
+                    android:src="@drawable/user" />
+            </RelativeLayout>
+
         </LinearLayout>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

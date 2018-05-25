@@ -1,9 +1,11 @@
 package com.nibble.skedaddle.nibble.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,7 +58,7 @@ public String test;
         spinner = findViewById(R.id.sRTypes);
         lvRestaurants = findViewById(R.id.lvRestaurants);
         tvr = findViewById(R.id.tvrType);
-        restaurantdetails = new String[2];
+        restaurantdetails = new String[3];
         restaurantfulldetails = new String[15];
 
         getRestaurantTypes();
@@ -89,7 +91,8 @@ public String test;
                             for(int i=0;i<result.length();i++){
                                 try {
                                     JSONObject json = result.getJSONObject(i);
-                                    restlist.add(json.getString("restaurantname"));
+                                    restlist.add(json.getString("restaurantname") + ", " + json.getString("suburbname"));
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -99,7 +102,22 @@ public String test;
                             e.printStackTrace();
                         }
                         //FIlls lvRestaurants with all items from restlist array
-                        lvRestaurants.setAdapter(new ArrayAdapter<>(RestaurantSearchActivity.this, android.R.layout.simple_list_item_1, restlist));
+                        lvRestaurants.setAdapter(new ArrayAdapter<String>(RestaurantSearchActivity.this, android.R.layout.simple_list_item_1, restlist) {
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
+                                // Get the Item from ListView
+                                View view = super.getView(position, convertView, parent);
+
+                                // Initialize a TextView for ListView each Item
+                                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                                // Set the text color of TextView (ListView Item)
+                                tv.setTextColor(Color.BLACK);
+
+                                // Generate ListView Item using TextView
+                                return view;
+                            }
+                        });
 
 
                     }

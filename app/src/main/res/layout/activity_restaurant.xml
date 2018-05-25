@@ -9,29 +9,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/primaryColor"
         android:orientation="vertical"
-        android:weightSum="12">
+        android:weightSum="22">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/restImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@color/colorPrimaryDark" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="8"
+            android:layout_weight="20"
             android:orientation="vertical"
-            android:weightSum="8">
+            android:weightSum="10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_dark"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Restaurant Profile"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,83 +43,102 @@
                 android:layout_weight="2"
                 android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:id="@+id/rlRestaurant"
+                <ImageView
+                    android:id="@+id/restImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:src="@color/colorPrimaryDark" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/imageView7"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:background="@drawable/rounded_corners_pd"
-                        android:paddingBottom="20dp"
-                        android:src="@android:drawable/star_on" />
+                        android:background="@color/primaryColor">
 
-                    <TextView
-                        android:id="@+id/textView"
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/rounded_corners_underline"
+                            android:gravity="center"
+                            android:text="Contact"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="10sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="40dp"
-                        android:gravity="center"
-                        android:text="Contact"
-                        android:textColor="@color/primaryColor"
-                        android:textSize="14sp" />
-                </RelativeLayout>
+                        android:layout_weight="1"
+                        android:background="@color/primaryColor">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/rounded_corners_underline"
+                            android:gravity="center"
+                            android:text="Website"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="10sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/primaryColor">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/rounded_corners_underline"
+                            android:gravity="center"
+                            android:text="Menu"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="10sp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/rounded_corners_pd"
-                        android:paddingBottom="20dp"
-                        android:src="@android:drawable/star_big_on" />
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="40dp"
-                        android:gravity="center"
-                        android:text="Website"
-                        android:textColor="@color/primaryColor"
-                        android:textSize="14sp" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <ImageView
-                        android:id="@+id/imageView6"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/rounded_corners_pd"
-                        android:paddingBottom="20dp"
-                        android:src="@android:drawable/star_on" />
+                    android:layout_weight="1"
+                    android:background="@color/primaryColor">
 
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="40dp"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/rounded_corners_underline"
                         android:gravity="center"
-                        android:text="Menu"
-                        android:textColor="@color/primaryColor"
-                        android:textSize="14sp" />
+                        android:text="Reviews"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="10sp" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -123,21 +146,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvRestaurantDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="TextView" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:orientation="horizontal">
 
                 <FrameLayout
@@ -158,6 +167,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/primaryDarkColor"
                     android:text="Request Booking" />
             </LinearLayout>
 
@@ -167,37 +177,79 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
+            android:background="@drawable/rounded_corners_upperline"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:scaleType="center"
-                android:scaleX="1.5"
-                android:scaleY="1.5"
-                android:src="@android:drawable/star_big_off" />
 
-            <ImageView
-                android:id="@+id/bHome"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:scaleType="center"
-                android:scaleX="1.5"
-                android:scaleY="1.5"
-                android:src="@android:drawable/ic_menu_my_calendar" />
+                android:layout_weight="1">
 
-            <ImageView
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom|center"
+                    android:text="Home"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:id="@+id/bHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/home" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:scaleType="center"
-                android:scaleX="1.5"
-                android:scaleY="1.5"
-                android:src="@android:drawable/ic_menu_myplaces" />
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom|center"
+                    android:text="My Bookings"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="12dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/calendar" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom|center"
+                    android:text="Profile"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="12dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/user" />
+            </RelativeLayout>
+
         </LinearLayout>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
