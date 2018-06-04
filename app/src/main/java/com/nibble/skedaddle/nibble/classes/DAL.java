@@ -32,8 +32,10 @@ class DAL {
     private static final String restaurantsByTypeUrl ="http://SICT-IIS.nmmu.ac.za/skedaddle/getRestaurantsByType.php";
     private static final String requestBookingUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/bookingRequest.php";
     private static final String restaurantDetails ="http://SICT-IIS.nmmu.ac.za/skedaddle/getRestaurantDetails.php";
-    private static final String myBookingrequest ="http://SICT-IIS.nmmu.ac.za/skedaddle/getMyBookingRequest.php";
-
+    private static final String myBookingrequest ="http://SICT-IIS.nmmu.ac.za/skedaddle/getBookingRequest.php";
+    private static final String myBookingDetails ="http://SICT-IIS.nmmu.ac.za/skedaddle/getBookingDetails.php";
+    private static final String updateBookingStatus="http://SICT-IIS.nmmu.ac.za/skedaddle/UpdateBookingStatus.php";
+    private static final String menuInfo="http://SICT-IIS.nmmu.ac.za/skedaddle/getMenuInfo.php";
    //Insert customer procedure
     public void InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
     {
@@ -182,6 +184,69 @@ class DAL {
         };
         requestQueue.add(request);//Runs the request which POSTS the data
     }
+
+    public void GetBookingDetails(final String CustomerID, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        StringRequest request = new StringRequest(Request.Method.POST, myBookingDetails, listener ,new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("customerid", CustomerID);
+
+                return parameters;
+
+            }
+
+        };
+        requestQueue.add(request);
+    }
+
+    public void UpdateBookingStatus(final String Status, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        StringRequest request = new StringRequest(Request.Method.POST, updateBookingStatus, listener, new Response.ErrorListener() {//Create a StringRequest which POSTS data to the database then records the response in listener variable
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("status", Status);
+
+                return parameters;
+
+            }
+        };
+        requestQueue.add(request);//Runs the request which POSTS the data
+    }
+
+    public void GetMenuInfo(final String MenuCategoryID, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        StringRequest request = new StringRequest(Request.Method.POST, menuInfo, listener ,new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("menucategoryid", MenuCategoryID);
+
+                return parameters;
+
+            }
+
+        };
+        requestQueue.add(request);
+    }
+
 
 }
 
