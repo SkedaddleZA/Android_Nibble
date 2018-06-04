@@ -21,6 +21,8 @@ import com.nibble.skedaddle.nibble.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+
 public class LoginActivity extends AppCompatActivity {
 
     //Declare all variables
@@ -67,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 pbSignIn.setVisibility(View.VISIBLE);
                 final String email = etEmail.getText().toString();
-                final String password = etPassword.getText().toString();
+                final String password = CommonMethods.sha256(etPassword.getText().toString());
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -106,5 +108,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
     }
+
 }

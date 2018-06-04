@@ -113,7 +113,7 @@
                     android:ems="10"
                     android:gravity="center"
                     android:hint="Phone"
-                    android:inputType="textPersonName"
+                    android:inputType="numberSigned"
                     android:textColor="@color/colorAccent"
                     android:textColorHint="@color/secondaryLightColor" />
 
