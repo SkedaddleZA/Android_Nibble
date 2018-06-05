@@ -80,52 +80,8 @@ public String test;
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        JSONObject j;
-                        try {
-                            j = new JSONObject(response);
-                            result = j.getJSONArray("restaurants");
-                            for(int i=0;i<result.length();i++){
-                                try {
-                                    JSONObject json = result.getJSONObject(i);
-                                    restlist.add(json.getString("restaurantname") + ", " + json.getString("suburbname"));
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        //FIlls lvRestaurants with all items from restlist array
-                        lvRestaurants.setAdapter(new ArrayAdapter<String>(RestaurantSearchActivity.this, android.R.layout.simple_list_item_1, restlist) {
-                            @Override
-                            public View getView(int position, View convertView, ViewGroup parent) {
-                                // Get the Item from ListView
-                                View view = super.getView(position, convertView, parent);
-
-                                // Initialize a TextView for ListView each Item
-                                TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                                // Set the text color of TextView (ListView Item)
-                                tv.setTextColor(Color.BLACK);
-
-                                // Generate ListView Item using TextView
-                                return view;
-                            }
-                        });
-
-
-                    }
-                };
-                Restaurant restaurants = new Restaurant();
-                restaurants.GetRestaurants(parent.getItemAtPosition(position).toString(),responseListener, requestQueue);
-
-
+                final String itematposition = parent.getItemAtPosition(position).toString();
+                FillListView(itematposition);
             }
 
             @Override
@@ -142,8 +98,8 @@ public String test;
                 //put all selected restaurant details into an array
                 restaurantdetails[0] = Integer.toString(json.getInt("restaurantid"));
                 //restaurantdetails[1] = json.getString("restaurantname");
-
                      GotoRestaurant();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -217,6 +173,7 @@ public String test;
                             restaurantintent.putExtra("restaurantdetails",restaurantfulldetails);
                             restaurantintent.putExtra("customerdetails",customerdetails);
                             RestaurantSearchActivity.this.startActivity(restaurantintent);
+                            RestaurantSearchActivity.this.finish();//THIS IS A WORKAROUND TO NOT KNOWING HOW TO REFRESH A PREVIOUS SCREEN WHEN ANDROID BACK BUTTON PRESSED
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -237,10 +194,59 @@ public String test;
 
 
 
+
+
     }
 
 
+    private void FillListView(String itematposition){
+        restlist.clear();
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject j;
+                try {
+                    j = new JSONObject(response);
+                    result = j.getJSONArray("restaurants");
+                    for(int i=0;i<result.length();i++){
+                        try {
+                            JSONObject json = result.getJSONObject(i);
+                            restlist.add(json.getString("restaurantname") + ", " + json.getString("suburbname"));
 
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //FIlls lvRestaurants with all items from restlist array
+                lvRestaurants.setAdapter(new ArrayAdapter<String>(RestaurantSearchActivity.this, android.R.layout.simple_list_item_1, restlist) {
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        // Get the Item from ListView
+                        View view = super.getView(position, convertView, parent);
+
+                        // Initialize a TextView for ListView each Item
+                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                        // Set the text color of TextView (ListView Item)
+                        tv.setTextColor(Color.BLACK);
+
+                        // Generate ListView Item using TextView
+                        return view;
+                    }
+                });
+
+
+            }
+        };
+        Restaurant restaurants = new Restaurant();
+        restaurants.GetRestaurants(itematposition,responseListener, requestQueue);
+
+
+    }
 
 
 }
