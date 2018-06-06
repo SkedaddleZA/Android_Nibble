@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -33,9 +35,11 @@ public String test;
     private Spinner spinner;
     private ArrayList<String> dropdown, restlist;
     private String[] restaurantdetails, restaurantfulldetails, customerdetails;
-    private JSONArray result;
+    private JSONArray result, restresult;
     private RequestQueue requestQueue;
     private TextView tvr;
+    private ProgressBar pbLoadRest;
+    private RelativeLayout bHome, bBookings, bProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,9 @@ public String test;
         //
 
         //
-        ImageView bHome = findViewById(R.id.bHome);
+        bHome = findViewById(R.id.bHome);
+        bBookings = findViewById(R.id.bBookings);
+        bProfile = findViewById(R.id.bProfile);
         dropdown = new ArrayList<>();
         restlist = new ArrayList<>();
         spinner = findViewById(R.id.sRTypes);
@@ -60,10 +66,11 @@ public String test;
         tvr = findViewById(R.id.tvrType);
         restaurantdetails = new String[3];
         restaurantfulldetails = new String[15];
-
+        pbLoadRest = findViewById(R.id.pb_loadrest);
+        pbLoadRest.setVisibility(View.INVISIBLE);
         getRestaurantTypes();
 
-
+        //Menu Bar functions
         bHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,11 +78,17 @@ public String test;
                 Home.putExtra("customerdetails", customerdetails);
                 RestaurantSearchActivity.this.startActivity(Home);
                 RestaurantSearchActivity.this.finish();
-
-
             }
         });
-
+        bBookings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Bookings = new Intent(RestaurantSearchActivity.this, ViewBookingsActivity.class);
+                Bookings.putExtra("customerdetails", customerdetails);
+                RestaurantSearchActivity.this.startActivity(Bookings);
+            }
+        });
+        //
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -98,7 +111,9 @@ public String test;
                 //put all selected restaurant details into an array
                 restaurantdetails[0] = Integer.toString(json.getInt("restaurantid"));
                 //restaurantdetails[1] = json.getString("restaurantname");
-                     GotoRestaurant();
+
+                    pbLoadRest.setVisibility(View.VISIBLE); //Due to non instant loading
+                    GotoRestaurant();
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -148,10 +163,10 @@ public String test;
                 JSONObject j;
                 try {
                     j = new JSONObject(response);
-                    result = j.getJSONArray("restaurant");
-                    for(int i=0;i<result.length();i++){
+                    restresult = j.getJSONArray("restaurant");
+                    for(int i=0;i<restresult.length();i++){
                         try {
-                            JSONObject json = result.getJSONObject(i);
+                            JSONObject json = restresult.getJSONObject(i);
                             restaurantfulldetails[0] = Integer.toString(json.getInt("restaurantid"));
                             restaurantfulldetails[1] = json.getString("restaurantname");
                             restaurantfulldetails[2] = json.getString("phone");
@@ -168,13 +183,13 @@ public String test;
                             restaurantfulldetails[13] = json.getString("websiteurl");
                             restaurantfulldetails[14] = json.getString("logo");
 
-
+                            pbLoadRest.setVisibility(View.INVISIBLE); //Due to non instant loading
                             Intent restaurantintent = new Intent(RestaurantSearchActivity.this, RestaurantActivity.class);
                             restaurantintent.putExtra("restaurantdetails",restaurantfulldetails);
                             restaurantintent.putExtra("customerdetails",customerdetails);
                             RestaurantSearchActivity.this.startActivity(restaurantintent);
-                            RestaurantSearchActivity.this.finish();//THIS IS A WORKAROUND TO NOT KNOWING HOW TO REFRESH A PREVIOUS SCREEN WHEN ANDROID BACK BUTTON PRESSED
-
+                            //RestaurantSearchActivity.this.finish();//THIS IS A WORKAROUND TO NOT KNOWING HOW TO REFRESH A PREVIOUS SCREEN WHEN ANDROID BACK BUTTON PRESSED
+                                                                    //FIXED USING DIFFEREN JSON OBJECT
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

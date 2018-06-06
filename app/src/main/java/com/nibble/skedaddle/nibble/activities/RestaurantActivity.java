@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -46,6 +47,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
     private ImageView restImage;
     private JSONArray result;
     private RequestQueue requestQueue;
+    private RelativeLayout bHome, bBookings, bProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +93,10 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
 
         mainFragment.setRestaurantMarker(location);//MUST BE AFTER THE CREATION OF THE MAP right above ^
 
-
-        ImageView bHome = findViewById(R.id.bHome);
+        bHome = findViewById(R.id.bHome);
+        bBookings = findViewById(R.id.bBookings);
+        bProfile = findViewById(R.id.bProfile);
+        //Menu Bar functions
         bHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,9 +104,17 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
                 Home.putExtra("customerdetails", customerdetails);
                 RestaurantActivity.this.startActivity(Home);
                 RestaurantActivity.this.finish();
-
             }
         });
+        bBookings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Bookings = new Intent(RestaurantActivity.this, ViewBookingsActivity.class);
+                Bookings.putExtra("customerdetails", customerdetails);
+                RestaurantActivity.this.startActivity(Bookings);
+            }
+        });
+        //
 
 
         //Decode Base64 string (Image) from the array and display it in ImageView
