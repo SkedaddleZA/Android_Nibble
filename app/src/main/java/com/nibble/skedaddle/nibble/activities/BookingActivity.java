@@ -17,6 +17,7 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -48,6 +49,7 @@ public class BookingActivity extends AppCompatActivity {
     private EditText etNum, etComment;
     private LinearLayout llstep2, llstep1;
     private ImageView restImage;
+    private RelativeLayout bHome, bBookings, bProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,9 @@ public class BookingActivity extends AppCompatActivity {
         llstep1 = findViewById(R.id.llstep1);
         bNext = findViewById(R.id.bNext);
         llstep2.setVisibility(View.INVISIBLE);
-
+        bHome = findViewById(R.id.bHome);
+        bBookings = findViewById(R.id.bBookings);
+        bProfile = findViewById(R.id.bProfile);
 
         //Decode Base64 string (Image) from the array and display it in ImageView
         restImage = findViewById(R.id.restImage);
@@ -81,6 +85,28 @@ public class BookingActivity extends AppCompatActivity {
         InputStream inputStream  = new ByteArrayInputStream(decodedString);
         Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
         restImage.setImageBitmap(bitmap);
+
+        //Menu Bar Functions
+        bHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Home = new Intent(BookingActivity.this, HomeActivity.class);
+                Home.putExtra("customerdetails", customerdetails);
+                BookingActivity.this.startActivity(Home);
+                BookingActivity.this.finish();
+            }
+        });
+        bBookings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Bookings = new Intent(BookingActivity.this, ViewBookingsActivity.class);
+                Bookings.putExtra("customerdetails", customerdetails);
+                BookingActivity.this.startActivity(Bookings);
+            }
+        });
+        //
+
+
 
 
         bNext.setOnClickListener(new View.OnClickListener() {
