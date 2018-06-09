@@ -49,13 +49,13 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:id="@+id/rlRestaurant"
+                    android:id="@+id/rlMenu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/tvrType"
+                        android:id="@+id/tvmType"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -70,7 +70,7 @@
                     android:layout_weight="1">
 
                     <Spinner
-                        android:id="@+id/sRTypes"
+                        android:id="@+id/sMTypes"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </RelativeLayout>
@@ -78,7 +78,7 @@
             </LinearLayout>
 
             <ListView
-                android:id="@+id/lvRestaurants"
+                android:id="@+id/lvMenus"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="6">

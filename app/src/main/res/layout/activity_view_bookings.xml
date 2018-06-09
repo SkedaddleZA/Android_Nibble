@@ -55,7 +55,7 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/tvrType"
+                        android:id="@+id/tvbType"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -67,7 +67,7 @@
             </LinearLayout>
 
             <ListView
-                android:id="@+id/lvRestaurants"
+                android:id="@+id/lvMyBooking"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="6">

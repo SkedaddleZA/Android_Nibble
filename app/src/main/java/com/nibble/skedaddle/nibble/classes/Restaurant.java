@@ -111,6 +111,10 @@ public class Restaurant {
     {
         dl.GetRestaurants(RestaurantType, listener, requestQueue);
     }
+    public void GetRestaurantsByFoodType(final String TypeName,Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        dl.GetRestaurantsByFoodType(TypeName, listener, requestQueue);
+    }
 
     public void GetRestaurantDetails(final String RestaurantID,Response.Listener<String> listener, RequestQueue requestQueue)
     {
