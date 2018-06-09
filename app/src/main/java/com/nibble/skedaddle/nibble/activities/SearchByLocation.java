@@ -1,9 +1,23 @@
 package com.nibble.skedaddle.nibble.activities;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,6 +31,13 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.LocationSource;
+import com.google.android.gms.maps.model.LatLng;
 import com.nibble.skedaddle.nibble.R;
 import com.nibble.skedaddle.nibble.classes.Restaurant;
 
@@ -24,19 +45,32 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
-public class SearchByLocation extends AppCompatActivity {
+public class SearchByLocation extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationListener {
 
     private ListView lvRestaurants;
     private Spinner spinner;
     private ArrayList<String> dropdown, restlist;
     private String[] restaurantdetails, restaurantfulldetails, customerdetails;
+    private float[] distances = new float[3];
+    private ArrayList<Double> distancesArray = new ArrayList<>();
+    private ArrayList<Double> distancesArray2 = new ArrayList<>();
+    private ArrayList<Integer> orderofresult = new ArrayList<>();
     private JSONArray result, restresult;
     private RequestQueue requestQueue;
     private TextView tvr;
     private ProgressBar pbLoadRest;
     private RelativeLayout bHome, bBookings, bProfile;
+    private int countSuburb;
+    private String mySuburb;
+    private double latitude, longitude;
+    private GoogleApiClient mGoogleApiClient;
+    final int PERMISSION_LOCATION = 111;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +96,14 @@ public class SearchByLocation extends AppCompatActivity {
         pbLoadRest = findViewById(R.id.pb_loadrest);
         pbLoadRest.setVisibility(View.INVISIBLE);
 
-        getLocations();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this)
+                .addConnectionCallbacks(this)
+                .addApi(LocationServices.API)
+                .build(); //creates locations api and builds it
+
+
+
 
 
         //Menu Bar functions
@@ -102,7 +143,7 @@ public class SearchByLocation extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    JSONObject json = result.getJSONObject(position);
+                    JSONObject json = result.getJSONObject(orderofresult.get(position));
                     //put all selected restaurant details into an array
                     restaurantdetails[0] = Integer.toString(json.getInt("restaurantid"));
                     //restaurantdetails[1] = json.getString("restaurantname");
@@ -121,6 +162,7 @@ public class SearchByLocation extends AppCompatActivity {
 
     }
     private void getLocations(){
+        dropdown.clear();//IT ARE NOT MAKE SENSE THAT IT IS REQUIRED HERE BUT NOT IN SearchByType
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -131,13 +173,23 @@ public class SearchByLocation extends AppCompatActivity {
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            dropdown.add(json.getString("suburbname"));
+                            String suburb = json.getString("suburbname");
+                            if (suburb.matches(mySuburb)){
+                                countSuburb = i;
+                            }else
+                            {
+                                countSuburb = -2;
+                            }
+                            dropdown.add(suburb);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                     spinner.setAdapter(new ArrayAdapter<>(SearchByLocation.this, android.R.layout.simple_spinner_dropdown_item, dropdown));
-
+                    if (countSuburb != -2)
+                    spinner.setSelection(countSuburb);
+                    else
+                        tvr.setText("Location" + Html.fromHtml("<br/>") + "No Restaurants in your Suburb.");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -152,6 +204,8 @@ public class SearchByLocation extends AppCompatActivity {
 
     private void FillListView(String itematposition){
         restlist.clear();
+        distancesArray.clear();
+        orderofresult.clear();
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -162,12 +216,56 @@ public class SearchByLocation extends AppCompatActivity {
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            restlist.add(json.getString("restaurantname"));
 
+                            //convert string coords to location object
+                            String latlng = json.getString("gpslocation");
+                            String[] separated = latlng.split("#");
+                            double lat = Double.parseDouble(separated[0]);
+                            double lon = Double.parseDouble(separated[1]);
+                            //
+
+                            Location.distanceBetween(lat,lon,latitude,longitude, distances);
+                            String x = Float.toString(distances[0]);
+                            distancesArray.add(Double.parseDouble(x));
+
+                            String abrev;
+                            if(Double.parseDouble(x) > 999)
+                            {
+                                float roundedKM = Math.round(Float.parseFloat(x)) / 1000;
+                                abrev = "km";
+                                x = Float.toString(roundedKM);
+                            }else
+                            {
+                                abrev = "m";
+                            }
+
+                            restlist.add(json.getString("restaurantname") + ", " + x + " " + abrev);
+                            orderofresult.add(i);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+                    for(int i=0;i<distancesArray.size() -1;i++){
+                        for(int k= i+1;k<distancesArray.size();k++){
+                           if(distancesArray.get(k) < distancesArray.get(i)){
+                               double temp = distancesArray.get(i);
+                               distancesArray.set(i,distancesArray.get(k));
+                               distancesArray.set(k,temp);
+
+                               String stemp = restlist.get(i);
+                               restlist.set(i,restlist.get(k));
+                               restlist.set(k,stemp);
+
+                               int itemp = orderofresult.get(i);
+                               orderofresult.set(i,orderofresult.get(k));
+                               orderofresult.set(k,itemp);
+                           }
+
+                        }
+
+                    }
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -257,6 +355,95 @@ public class SearchByLocation extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onLocationChanged(Location location) {
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
 
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(this, Locale.getDefault());
+
+        try {
+
+            addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+            String knownName = addresses.get(0).getFeatureName();
+
+            String[] arrArray = address.split("\\s*,\\s*");
+            mySuburb = arrArray[1];
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        getLocations();
+
+
+    }
+    public void startLocationServices() {
+        Log.v("Donkey", "Starting Location Services called");
+        try {
+            LocationRequest req = LocationRequest.create().setPriority(LocationRequest.PRIORITY_LOW_POWER);
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, req, this);
+            Log.v("Donkey", "Requesting Location Updates");
+
+        } catch (SecurityException exception) {
+            Log.v("Donkey", exception.toString());
+        }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_LOCATION);
+            Log.v("Donkey", "Requesting Permissions");
+        } else {
+            startLocationServices();
+            Log.v("Donkey", "Starting Location Services from onConnected");
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    protected void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case PERMISSION_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startLocationServices();
+                    Log.v("Donkey", "Permission Granted - Starting Services");
+                } else {
+                    Log.v("Donkey", "Permission DENIED");
+                }
+            }
+        }
+
+    }
 
 }

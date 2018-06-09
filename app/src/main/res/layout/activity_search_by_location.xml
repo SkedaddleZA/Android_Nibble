@@ -131,7 +131,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="11dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/home" />
+                    android:src="@drawable/home" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -154,7 +154,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/calendar" />
+                    android:src="@drawable/calendar" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -177,7 +177,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/user" />
+                    android:src="@drawable/user" />
             </RelativeLayout>
 
         </LinearLayout>
