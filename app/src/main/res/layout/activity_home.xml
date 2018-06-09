@@ -188,7 +188,7 @@
                         android:layout_height="match_parent"
                         android:gravity="bottom|center"
                         android:text="Home"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="#2567a5"
                         android:textSize="10sp" />
 
                     <ImageView
@@ -197,7 +197,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="11dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/home" />
+                        app:srcCompat="@drawable/homeactive" />
                 </RelativeLayout>
 
                 <RelativeLayout
