@@ -26,8 +26,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class RestaurantSearchActivity extends AppCompatActivity {
-public String test;
+public class SearchByLocation extends AppCompatActivity {
+
     private ListView lvRestaurants;
     private Spinner spinner;
     private ArrayList<String> dropdown, restlist;
@@ -41,18 +41,14 @@ public String test;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_search);
+        setContentView(R.layout.activity_search_by_location);
 
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
-        final Intent restaurantSearch = getIntent();
-        customerdetails = restaurantSearch.getStringArrayExtra("customerdetails");
+        final Intent locationSearch = getIntent();
+        customerdetails = locationSearch.getStringArrayExtra("customerdetails");
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-
-        //
-
-        //
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
         bProfile = findViewById(R.id.bRProfile);
@@ -65,24 +61,26 @@ public String test;
         restaurantfulldetails = new String[15];
         pbLoadRest = findViewById(R.id.pb_loadrest);
         pbLoadRest.setVisibility(View.INVISIBLE);
-        getRestaurantTypes();
+
+        getLocations();
+
 
         //Menu Bar functions
         bHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Home = new Intent(RestaurantSearchActivity.this, HomeActivity.class);
+                Intent Home = new Intent(SearchByLocation.this, HomeActivity.class);
                 Home.putExtra("customerdetails", customerdetails);
-                RestaurantSearchActivity.this.startActivity(Home);
-                RestaurantSearchActivity.this.finish();
+                SearchByLocation.this.startActivity(Home);
+                SearchByLocation.this.finish();
             }
         });
         bBookings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Bookings = new Intent(RestaurantSearchActivity.this, ViewBookingsActivity.class);
+                Intent Bookings = new Intent(SearchByLocation.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
-                RestaurantSearchActivity.this.startActivity(Bookings);
+                SearchByLocation.this.startActivity(Bookings);
             }
         });
         //
@@ -104,52 +102,101 @@ public String test;
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                JSONObject json = result.getJSONObject(position);
-                //put all selected restaurant details into an array
-                restaurantdetails[0] = Integer.toString(json.getInt("restaurantid"));
-                //restaurantdetails[1] = json.getString("restaurantname");
+                    JSONObject json = result.getJSONObject(position);
+                    //put all selected restaurant details into an array
+                    restaurantdetails[0] = Integer.toString(json.getInt("restaurantid"));
+                    //restaurantdetails[1] = json.getString("restaurantname");
 
                     pbLoadRest.setVisibility(View.VISIBLE); //Due to non instant loading
                     GotoRestaurant();
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
 
 
+
+    }
+    private void getLocations(){
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject j;
+                try {
+                    j = new JSONObject(response);
+                    result = j.getJSONArray("locations");
+                    for(int i=0;i<result.length();i++){
+                        try {
+                            JSONObject json = result.getJSONObject(i);
+                            dropdown.add(json.getString("suburbname"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    spinner.setAdapter(new ArrayAdapter<>(SearchByLocation.this, android.R.layout.simple_spinner_dropdown_item, dropdown));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        };
+        Restaurant restloc = new Restaurant();
+        restloc.GetLocations(responseListener, requestQueue);
     }
 
-    private void getRestaurantTypes(){
+    private void FillListView(String itematposition){
+        restlist.clear();
         Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        JSONObject j;
+            @Override
+            public void onResponse(String response) {
+                JSONObject j;
+                try {
+                    j = new JSONObject(response);
+                    result = j.getJSONArray("restaurants");
+                    for(int i=0;i<result.length();i++){
                         try {
-                            j = new JSONObject(response);
-                            result = j.getJSONArray("restauranttypes");
-                            for(int i=0;i<result.length();i++){
-                                try {
-                                    JSONObject json = result.getJSONObject(i);
-                                    dropdown.add(json.getString("restauranttype"));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            spinner.setAdapter(new ArrayAdapter<>(RestaurantSearchActivity.this, android.R.layout.simple_spinner_dropdown_item, dropdown));
+                            JSONObject json = result.getJSONObject(i);
+                            restlist.add(json.getString("restaurantname"));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
-
                     }
-                };
-        Restaurant restauranttype = new Restaurant();
-        restauranttype.GetRestaurantTypes(responseListener, requestQueue);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //FIlls lvRestaurants with all items from restlist array
+                lvRestaurants.setAdapter(new ArrayAdapter<String>(SearchByLocation.this, android.R.layout.simple_list_item_1, restlist) {
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        // Get the Item from ListView
+                        View view = super.getView(position, convertView, parent);
+
+                        // Initialize a TextView for ListView each Item
+                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                        // Set the text color of TextView (ListView Item)
+                        tv.setTextColor(Color.BLACK);
+
+                        // Generate ListView Item using TextView
+                        return view;
+                    }
+                });
+
+
+            }
+        };
+        Restaurant restaurants = new Restaurant();
+        restaurants.GetRestaurantsByLocation(itematposition,responseListener, requestQueue);
+
+
     }
 
     private void GotoRestaurant() {
@@ -181,12 +228,11 @@ public String test;
                             restaurantfulldetails[14] = json.getString("logo");
 
                             pbLoadRest.setVisibility(View.INVISIBLE); //Due to non instant loading
-                            Intent restaurantintent = new Intent(RestaurantSearchActivity.this, RestaurantActivity.class);
+                            Intent restaurantintent = new Intent(SearchByLocation.this, RestaurantActivity.class);
                             restaurantintent.putExtra("restaurantdetails",restaurantfulldetails);
                             restaurantintent.putExtra("customerdetails",customerdetails);
-                            RestaurantSearchActivity.this.startActivity(restaurantintent);
-                            //RestaurantSearchActivity.this.finish();//THIS IS A WORKAROUND TO NOT KNOWING HOW TO REFRESH A PREVIOUS SCREEN WHEN ANDROID BACK BUTTON PRESSED
-                                                                    //FIXED USING DIFFEREN JSON OBJECT
+                            SearchByLocation.this.startActivity(restaurantintent);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -199,9 +245,9 @@ public String test;
             }
         };
 
-            Restaurant restaurantobject = new Restaurant();
-            restaurantobject.GetRestaurantDetails(restaurantdetails[0], responseListener, requestQueue);
-            //end of fetch
+        Restaurant restaurantobject = new Restaurant();
+        restaurantobject.GetRestaurantDetails(restaurantdetails[0], responseListener, requestQueue);
+        //end of fetch
 
 
 
@@ -211,55 +257,6 @@ public String test;
     }
 
 
-    private void FillListView(String itematposition){
-        restlist.clear();
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                JSONObject j;
-                try {
-                    j = new JSONObject(response);
-                    result = j.getJSONArray("restaurants");
-                    for(int i=0;i<result.length();i++){
-                        try {
-                            JSONObject json = result.getJSONObject(i);
-                            restlist.add(json.getString("restaurantname") + ", " + json.getString("suburbname"));
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                //FIlls lvRestaurants with all items from restlist array
-                lvRestaurants.setAdapter(new ArrayAdapter<String>(RestaurantSearchActivity.this, android.R.layout.simple_list_item_1, restlist) {
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        // Get the Item from ListView
-                        View view = super.getView(position, convertView, parent);
-
-                        // Initialize a TextView for ListView each Item
-                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                        // Set the text color of TextView (ListView Item)
-                        tv.setTextColor(Color.BLACK);
-
-                        // Generate ListView Item using TextView
-                        return view;
-                    }
-                });
-
-
-            }
-        };
-        Restaurant restaurants = new Restaurant();
-        restaurants.GetRestaurants(itematposition,responseListener, requestQueue);
-
-
-    }
 
 
 }
-

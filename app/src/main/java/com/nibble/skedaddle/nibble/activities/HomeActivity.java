@@ -9,8 +9,12 @@ import android.widget.TextView;
 
 import com.nibble.skedaddle.nibble.R;
 
+import org.w3c.dom.Text;
+
 public class HomeActivity extends AppCompatActivity {//my naam tollie
 
+    private RelativeLayout bHome, bProfile, bBookings, rlRestaurant, rlFood, rlLocation;
+    private TextView tvDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,14 +26,12 @@ public class HomeActivity extends AppCompatActivity {//my naam tollie
         final String[] customerdetails = Home.getStringArrayExtra("customerdetails");
 
 
-        TextView tvDetails = (TextView) findViewById(R.id.tvDetails);
-
+        bBookings = findViewById(R.id.bBookings);
+        tvDetails = findViewById(R.id.tvDetails);
         tvDetails.setText("Signed in as " + customerdetails[1] + " " + customerdetails[2]);
-
-        RelativeLayout rlRestaurant;
-
-
         rlRestaurant = findViewById(R.id.rlRestaurant);
+        rlFood = findViewById(R.id.rlFood);
+        rlLocation = findViewById(R.id.rlLocation);
 
         rlRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +43,38 @@ public class HomeActivity extends AppCompatActivity {//my naam tollie
 
             }
         });
+        rlFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent foodSearch = new Intent(HomeActivity.this, SearchByFoodTypeActivity.class);
+                foodSearch.putExtra("customerdetails",customerdetails);
+                HomeActivity.this.startActivity(foodSearch);
+                //HomeActivity.this.finish();
+
+            }
+        });
+        rlLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent locationSearch = new Intent(HomeActivity.this, SearchByLocation.class);
+                locationSearch.putExtra("customerdetails",customerdetails);
+                HomeActivity.this.startActivity(locationSearch);
+                //HomeActivity.this.finish();
+
+            }
+        });
+
+
+        //Menu Bar functions
+        bBookings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Bookings = new Intent(HomeActivity.this, ViewBookingsActivity.class);
+                Bookings.putExtra("customerdetails", customerdetails);
+                HomeActivity.this.startActivity(Bookings);
+            }
+        });
+        //
 
     }
 }

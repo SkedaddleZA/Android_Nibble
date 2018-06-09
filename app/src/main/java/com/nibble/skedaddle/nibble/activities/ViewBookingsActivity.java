@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,6 +25,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
     private String[] restaurantdetails, customerdetails, restaurantfulldetails;
     private JSONArray result;
     private RequestQueue requestQueue;
+    private RelativeLayout bHome,bProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,9 @@ public class ViewBookingsActivity extends AppCompatActivity {
         customerdetails = viewbooking.getStringArrayExtra("customerdetails");
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-        ImageView bHome = findViewById(R.id.bHome);
-        lvMyBooking = findViewById(R.id.lvMyBooking);
+        bHome = findViewById(R.id.bHome);
+
+        lvMyBooking = findViewById(R.id.lvMyBookings);
         restaurantdetails = new String[3];
         restaurantfulldetails = new String[3];
 

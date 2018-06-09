@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
     private JSONArray result;
     private RequestQueue requestQueue;
     private TextView tvf;
+    private RelativeLayout bHome, bBookings, bProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +49,18 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
         customerdetails = foodSearch.getStringArrayExtra("customerdetails");
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-        ImageView bHome = findViewById(R.id.bHome);
         dropdown = new ArrayList<>();
         restlist = new ArrayList<>();
         spinner = findViewById(R.id.sFTypes);
         lvFood = findViewById(R.id.lvFood);
-        tvf = findViewById(R.id.tvfType);
+        bHome = findViewById(R.id.bHome);
+        bBookings = findViewById(R.id.bBookings);
+
         restaurantdetails = new String[3];
 
         getFoodTypes();
 
+        //Menu Bar functions
         bHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,10 +68,18 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
                 Home.putExtra("customerdetails", customerdetails);
                 SearchByFoodTypeActivity.this.startActivity(Home);
                 SearchByFoodTypeActivity.this.finish();
-
-
             }
         });
+        bBookings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Bookings = new Intent(SearchByFoodTypeActivity.this, ViewBookingsActivity.class);
+                Bookings.putExtra("customerdetails", customerdetails);
+                SearchByFoodTypeActivity.this.startActivity(Bookings);
+            }
+        });
+        //
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -83,7 +95,7 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
                             for(int i=0;i<result.length();i++){
                                 try {
                                     JSONObject json = result.getJSONObject(i);
-                                    restlist.add(json.getString("restaurantname") + ", " + json.getString("suburbname")+ "\t " +json.getString("date") );
+                                    restlist.add(json.getString("restaurantname") + ", " + json.getString("suburbname"));
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();

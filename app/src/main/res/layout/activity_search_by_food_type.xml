@@ -12,8 +12,10 @@
         android:background="@android:color/white"
         android:orientation="vertical"
         android:weightSum="22"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,12 +65,6 @@
                         android:textColor="@android:color/white"
                         android:textSize="14sp" />
 
-                    <Spinner
-                        android:id="@+id/sFTypes"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -76,6 +72,12 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
+                    <Spinner
+                        android:id="@+id/sFTypes"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -99,6 +101,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/bHome"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -113,7 +116,6 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/bHome"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="11dp"
@@ -122,6 +124,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bBookings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -144,6 +147,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bRProfile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">

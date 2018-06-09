@@ -95,7 +95,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
 
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
-        bProfile = findViewById(R.id.bProfile);
+        bProfile = findViewById(R.id.bRProfile);
         //Menu Bar functions
         bHome.setOnClickListener(new View.OnClickListener() {
             @Override

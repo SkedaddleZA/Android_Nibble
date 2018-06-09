@@ -78,6 +78,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rlFood"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -96,6 +97,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rlLocation"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -175,6 +177,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/bHome"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
@@ -198,6 +201,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/bBookings"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
@@ -220,6 +224,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/bRProfile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">

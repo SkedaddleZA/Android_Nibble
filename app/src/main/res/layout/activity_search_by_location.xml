@@ -4,21 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.nibble.skedaddle.nibble.activities.RestaurantActivity">
+    tools:context="com.nibble.skedaddle.nibble.activities.SearchByLocation">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryColor"
+        android:background="@android:color/white"
         android:orientation="vertical"
-        android:weightSum="22">
+        android:weightSum="22"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="20"
             android:orientation="vertical"
-            android:weightSum="10">
+            android:weightSum="9">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,7 +37,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Restaurant Profile"
+                    android:text="Search By Location"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -41,135 +45,61 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
+                android:background="@color/primaryDarkColor"
+                android:baselineAligned="false"
+                android:elevation="10dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/restImage"
+                <RelativeLayout
+                    android:id="@+id/rlRestaurant"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@color/colorPrimaryDark" />
-            </LinearLayout>
+                    android:layout_weight="1">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:orientation="vertical"
-                android:weightSum="2">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <RelativeLayout
+                    <TextView
+                        android:id="@+id/tvrType"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/primaryColor">
-
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/rounded_corners_underline"
-                            android:gravity="center"
-                            android:text="Contact"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="10sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/primaryColor">
-
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/rounded_corners_underline"
-                            android:gravity="center"
-                            android:text="Website"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="10sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/rlContact"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/primaryColor">
-
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/rounded_corners_underline"
-                            android:gravity="center"
-                            android:text="Menu"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="10sp" />
-
-                    </RelativeLayout>
-
-                </LinearLayout>
+                        android:gravity="center"
+                        android:text="Location"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/primaryColor">
+                    android:layout_weight="1">
 
-                    <TextView
-                        android:id="@+id/textView3"
+                    <Spinner
+                        android:id="@+id/sRTypes"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/rounded_corners_underline"
-                        android:gravity="center"
-                        android:text="Reviews"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="10sp" />
+                        android:layout_height="match_parent" />
                 </RelativeLayout>
 
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="4"
-                android:orientation="horizontal">
+                android:layout_weight="6">
 
-                <FrameLayout
-                    android:id="@+id/container_main"
+                <ProgressBar
+                    android:id="@+id/pb_loadrest"
+                    style="?android:attr/progressBarStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></FrameLayout>
+                    android:layout_height="50dp"
+                    android:layout_marginTop="100dp"
+                    android:visibility="invisible" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/bRBooking"
+                <ListView
+                    android:id="@+id/lvRestaurants"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/primaryDarkColor"
-                    android:text="Request Booking" />
-            </LinearLayout>
+                    android:layout_weight="1">
+
+                </ListView>
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -201,7 +131,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="11dp"
                     android:layout_weight="1"
-                    android:src="@drawable/home" />
+                    app:srcCompat="@drawable/home" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -224,7 +154,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"
                     android:layout_weight="1"
-                    android:src="@drawable/calendar" />
+                    app:srcCompat="@drawable/calendar" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -247,11 +177,10 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"
                     android:layout_weight="1"
-                    android:src="@drawable/user" />
+                    app:srcCompat="@drawable/user" />
             </RelativeLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

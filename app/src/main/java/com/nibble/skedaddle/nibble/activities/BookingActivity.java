@@ -7,8 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.View;
 import android.view.WindowManager;
@@ -32,10 +30,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class BookingActivity extends AppCompatActivity {
 
@@ -77,7 +72,7 @@ public class BookingActivity extends AppCompatActivity {
         llstep2.setVisibility(View.INVISIBLE);
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
-        bProfile = findViewById(R.id.bProfile);
+        bProfile = findViewById(R.id.bRProfile);
 
         //Decode Base64 string (Image) from the array and display it in ImageView
         restImage = findViewById(R.id.restImage);

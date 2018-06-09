@@ -12,8 +12,10 @@
         android:background="@android:color/white"
         android:orientation="vertical"
         android:weightSum="22"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,7 +69,7 @@
             </LinearLayout>
 
             <ListView
-                android:id="@+id/lvMyBooking"
+                android:id="@+id/lvMyBookings"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="6">
@@ -85,6 +87,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/bHome"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -99,7 +102,6 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/bHome"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="11dp"
@@ -108,6 +110,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bBookings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -130,6 +133,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bProfile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">

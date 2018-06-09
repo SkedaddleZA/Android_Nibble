@@ -106,14 +106,14 @@
                     android:id="@+id/bCancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/bProfile"
-                    android:layout_alignStart="@+id/bProfile"
+                    android:layout_alignEnd="@+id/bRProfile"
+                    android:layout_alignStart="@+id/bRProfile"
                     android:layout_below="@+id/bConfirm"
                     android:layout_marginTop="26dp"
                     android:text="Cancel Request" />
 
                 <Button
-                    android:id="@+id/bProfile"
+                    android:id="@+id/bRProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/bCancel"
@@ -133,6 +133,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/bHome"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -147,7 +148,6 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/bHome"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="11dp"
@@ -156,6 +156,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bBookings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -178,6 +179,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bProfile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">

@@ -120,7 +120,14 @@ public class Restaurant {
     {
         dl.GetRestaurantDetails(RestaurantID, listener, requestQueue);
     }
-
+    public void GetLocations(Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        dl.GetLocations(listener, requestQueue);
+    }
+    public void GetRestaurantsByLocation(final String SuburbName,Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        dl.GetRestaurantsByLocation(SuburbName, listener, requestQueue);
+    }
 
 
 }

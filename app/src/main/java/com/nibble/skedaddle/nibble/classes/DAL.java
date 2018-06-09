@@ -38,6 +38,8 @@ class DAL {
     private static final String menuInfo="http://SICT-IIS.nmmu.ac.za/skedaddle/getMenuInfo.php";
     private static final String foodType="http://SICT-IIS.nmmu.ac.za/skedaddle/getFoodType.php";
     private static final String menuCategory="http://SICT-IIS.nmmu.ac.za/skedaddle/getMenuCategory.php";
+    private static final String locationsUrl ="http://SICT-IIS.nmmu.ac.za/skedaddle/getLocations.php";
+    private static final String restaurantsByLocationUrl ="http://SICT-IIS.nmmu.ac.za/skedaddle/getRestaurantsByLocation.php";
    //Insert customer procedure
     public void InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
     {
@@ -273,9 +275,38 @@ class DAL {
         requestQueue.add(request);
     }
 
+    public void GetLocations(Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        StringRequest request = new StringRequest(Request.Method.GET, locationsUrl, listener ,new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
+            }
+        }) {
+        };
+        requestQueue.add(request);
+    }
 
+    public void GetRestaurantsByLocation(final String SuburbName, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        StringRequest request = new StringRequest(Request.Method.POST, restaurantsByLocationUrl, listener ,new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("suburbname", SuburbName);
+
+                return parameters;
+
+            }
+
+        };
+        requestQueue.add(request);
+    }
 
 
 
