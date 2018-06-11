@@ -40,7 +40,8 @@
         <activity android:name=".activities.MenuActivity" />
         <activity android:name=".activities.ViewBookingsActivity" />
         <activity android:name=".activities.SearchByFoodTypeActivity" />
-        <activity android:name=".activities.SearchByLocation"></activity>
+        <activity android:name=".activities.SearchByLocation" />
+        <activity android:name=".activities.BookingConfirmationActivity"></activity>
     </application>
 
 </manifest>

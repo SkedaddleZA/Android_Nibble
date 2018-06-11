@@ -230,7 +230,7 @@ class DAL {
         requestQueue.add(request);
     }
 
-    public void GetBookingDetails(final String CustomerID, Response.Listener<String> listener, RequestQueue requestQueue)
+    public void GetBookingRequests(final String CustomerID, Response.Listener<String> listener, RequestQueue requestQueue)
     {
         StringRequest request = new StringRequest(Request.Method.POST, myBookingrequest, listener ,new Response.ErrorListener() {
             @Override

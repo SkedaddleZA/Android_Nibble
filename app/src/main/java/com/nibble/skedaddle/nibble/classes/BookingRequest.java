@@ -99,9 +99,9 @@ public class BookingRequest {
         dl.UpdateBookingStatus(Status, listener, requestQueue);
     }
 
-    public void GetBookingDetails(final String CustomerID, Response.Listener<String> listener, RequestQueue requestQueue)
+    public void GetBookingRequests(final String CustomerID, Response.Listener<String> listener, RequestQueue requestQueue)
     {
-        dl.GetBookingDetails(CustomerID, listener, requestQueue);
+        dl.GetBookingRequests(CustomerID, listener, requestQueue);
     }
 
 
