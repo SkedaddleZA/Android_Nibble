@@ -43,8 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="@color/primaryColor"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/coachmen" />
+                android:scaleType="fitCenter" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,25 +55,26 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/date_txt"
+                    android:id="@+id/rText"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:textColor="@color/colorPrimaryDark" />
 
                 <TextView
-                    android:id="@+id/time_txt"
+                    android:id="@+id/dText"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:text="piet"
                     android:textColor="@color/colorPrimaryDark" />
 
                 <TextView
-                    android:id="@+id/guest_txt"
+                    android:id="@+id/gText"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_weight="1"
-                    android:textColor="@color/primaryColor" />
+                    android:textColor="@color/colorPrimary" />
             </LinearLayout>
 
             <RelativeLayout

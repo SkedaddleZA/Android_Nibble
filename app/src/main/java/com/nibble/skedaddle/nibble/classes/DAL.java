@@ -34,12 +34,14 @@ class DAL {
     private static final String requestBookingUrl = "http://SICT-IIS.nmmu.ac.za/skedaddle/bookingRequest.php";
     private static final String restaurantDetails ="http://SICT-IIS.nmmu.ac.za/skedaddle/getRestaurantDetails.php";
     private static final String myBookingrequest ="http://SICT-IIS.nmmu.ac.za/skedaddle/getBookingRequest.php";
-    private static final String updateBookingStatus="http://SICT-IIS.nmmu.ac.za/skedaddle/UpdateBookingStatus.php";
+    private static final String updateStatus="http://SICT-IIS.nmmu.ac.za/skedaddle/UpdateStatus.php";
     private static final String menuInfo="http://SICT-IIS.nmmu.ac.za/skedaddle/getMenuInfo.php";
     private static final String foodType="http://SICT-IIS.nmmu.ac.za/skedaddle/foodType.php";
     private static final String menuCategory="http://SICT-IIS.nmmu.ac.za/skedaddle/getMenuCategory.php";
     private static final String locationsUrl ="http://SICT-IIS.nmmu.ac.za/skedaddle/getLocations.php";
     private static final String restaurantsByLocationUrl ="http://SICT-IIS.nmmu.ac.za/skedaddle/getRestaurantsByLocation.php";
+    private static final String getBookingDetails = "http://SICT-IIS.nmmu.ac.za/skedaddle/getBookingDetails.php";
+
    //Insert customer procedure
     public void InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
     {
@@ -168,9 +170,9 @@ class DAL {
         requestQueue.add(request);//Runs the request which POSTS the data
     }
 
-    public void UpdateBookingStatus(final String Status, Response.Listener<String> listener, RequestQueue requestQueue)
+    public void UpdateBookingStatus(final String BookingRequestID, final String Status, Response.Listener<String> listener, RequestQueue requestQueue)
     {
-        StringRequest request = new StringRequest(Request.Method.POST, updateBookingStatus, listener, new Response.ErrorListener() {//Create a StringRequest which POSTS data to the database then records the response in listener variable
+        StringRequest request = new StringRequest(Request.Method.POST, updateStatus, listener, new Response.ErrorListener() {//Create a StringRequest which POSTS data to the database then records the response in listener variable
             @Override
             public void onErrorResponse(VolleyError error) {
 
@@ -179,6 +181,7 @@ class DAL {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("bookingrequestid", BookingRequestID);
                 parameters.put("status", Status);
 
                 return parameters;
@@ -299,6 +302,27 @@ class DAL {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
                 parameters.put("suburbname", SuburbName);
+
+                return parameters;
+
+            }
+
+        };
+        requestQueue.add(request);
+    }
+
+    public void GetBookingDetails(final String BookingRequestID, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        StringRequest request = new StringRequest(Request.Method.POST, getBookingDetails, listener ,new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("bookingrequestid", BookingRequestID);
 
                 return parameters;
 

@@ -94,14 +94,19 @@ public class BookingRequest {
         Time = Time;
     }
 
-    public void UpdateBookingStatus(final String Status, Response.Listener<String> listener, RequestQueue requestQueue)
+    public void UpdateBookingStatus(final String BookingRequestID, final String Status, Response.Listener<String> listener, RequestQueue requestQueue)
     {
-        dl.UpdateBookingStatus(Status, listener, requestQueue);
+        dl.UpdateBookingStatus(BookingRequestID, Status, listener, requestQueue);
     }
 
     public void GetBookingRequests(final String CustomerID, Response.Listener<String> listener, RequestQueue requestQueue)
     {
         dl.GetBookingRequests(CustomerID, listener, requestQueue);
+    }
+
+    public void GetBookingDetails(final String BookingRequestID, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        dl.GetBookingDetails(BookingRequestID, listener, requestQueue);
     }
 
 
