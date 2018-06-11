@@ -36,7 +36,7 @@ class DAL {
     private static final String myBookingrequest ="http://SICT-IIS.nmmu.ac.za/skedaddle/getBookingRequest.php";
     private static final String updateBookingStatus="http://SICT-IIS.nmmu.ac.za/skedaddle/UpdateBookingStatus.php";
     private static final String menuInfo="http://SICT-IIS.nmmu.ac.za/skedaddle/getMenuInfo.php";
-    private static final String foodType="http://SICT-IIS.nmmu.ac.za/skedaddle/getFoodType.php";
+    private static final String foodType="http://SICT-IIS.nmmu.ac.za/skedaddle/foodType.php";
     private static final String menuCategory="http://SICT-IIS.nmmu.ac.za/skedaddle/getMenuCategory.php";
     private static final String locationsUrl ="http://SICT-IIS.nmmu.ac.za/skedaddle/getLocations.php";
     private static final String restaurantsByLocationUrl ="http://SICT-IIS.nmmu.ac.za/skedaddle/getRestaurantsByLocation.php";

@@ -47,7 +47,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
     private ImageView restImage;
     private JSONArray result;
     private RequestQueue requestQueue;
-    private RelativeLayout bHome, bBookings, bProfile;
+    private RelativeLayout bHome, bBookings, bProfile, rlMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,18 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
             getSupportFragmentManager().beginTransaction().add(R.id.container_main, mainFragment).commit();
         }//
 
+
+        rlMenu=findViewById(R.id.rlMenu);
+        rlMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent menuSearch = new Intent(RestaurantActivity.this, MenuActivity.class);
+                menuSearch.putExtra("customerdetails", customerdetails);
+                RestaurantActivity.this.startActivity(menuSearch);
+
+            }
+
+        });
 
         //used to go to create booking request screen
         //restaurantfulldetails = new String[15];
@@ -96,7 +108,10 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
         bProfile = findViewById(R.id.bRProfile);
+
         //Menu Bar functions
+
+
         bHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
