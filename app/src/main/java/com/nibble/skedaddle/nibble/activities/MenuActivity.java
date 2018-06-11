@@ -25,12 +25,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 import static com.nibble.skedaddle.nibble.R.layout.activity_menu;
 
 public class MenuActivity extends AppCompatActivity {
-    public String test;
     private ListView lvMenus;
     private Spinner spinner;
     private ArrayList<String> dropdown, restlist;
@@ -39,6 +41,7 @@ public class MenuActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private TextView tvm;
     private RelativeLayout bHome, bBookings, bProfile;
+    private NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class MenuActivity extends AppCompatActivity {
         final Intent menuSearch = getIntent();
         customerdetails = menuSearch.getStringArrayExtra("customerdetails");
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-
+        format.setCurrency((Currency.getInstance("ZAR")));
         dropdown = new ArrayList<>();
         restlist = new ArrayList<>();
         spinner = findViewById(R.id.sMTypes);
@@ -58,10 +61,9 @@ public class MenuActivity extends AppCompatActivity {
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
 
-        menudetails = new String[3];
+        //menudetails = new String[3];
 
         getMenuCategory();
-
         bHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +84,8 @@ public class MenuActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                final String itematpos=parent.getItemAtPosition(position).toString();
+                restlist.clear();
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -93,7 +96,7 @@ public class MenuActivity extends AppCompatActivity {
                             for(int i=0;i<result.length();i++){
                                 try {
                                     JSONObject json = result.getJSONObject(i);
-                                    restlist.add(json.getString("itemname") + ", " + json.getString("itemprice"));
+                                    restlist.add(json.getString("itemname") + ", " + format.format(Double.parseDouble(json.getString("itemprice"))));
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -124,8 +127,8 @@ public class MenuActivity extends AppCompatActivity {
 
                     }
                 };
-                MenuCategory menucategory = new MenuCategory();
-                menucategory.GetMenuCategory(responseListener, requestQueue);
+                MenuItems menuItems = new MenuItems();
+                menuItems.GetMenuInfo(itematpos, responseListener, requestQueue);
 
 
             }
@@ -135,24 +138,6 @@ public class MenuActivity extends AppCompatActivity {
                 //Another interface callback
             }
         });
-
-        lvMenus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    JSONObject json = result.getJSONObject(position);
-
-                    menudetails[0] = Integer.toString(json.getInt("menuitemid"));
-
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-
     }
     private void getMenuCategory(){
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -161,7 +146,7 @@ public class MenuActivity extends AppCompatActivity {
                 JSONObject j;
                 try {
                     j = new JSONObject(response);
-                    result = j.getJSONArray("name");
+                    result = j.getJSONArray("names");
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);

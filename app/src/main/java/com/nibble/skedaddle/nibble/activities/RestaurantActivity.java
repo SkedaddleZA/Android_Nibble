@@ -68,17 +68,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         }//
 
 
-        rlMenu=findViewById(R.id.rlMenu);
-        rlMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent menuSearch = new Intent(RestaurantActivity.this, MenuActivity.class);
-                menuSearch.putExtra("customerdetails", customerdetails);
-                RestaurantActivity.this.startActivity(menuSearch);
 
-            }
-
-        });
 
         //used to go to create booking request screen
         //restaurantfulldetails = new String[15];
@@ -108,7 +98,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
         bProfile = findViewById(R.id.bRProfile);
-
+        rlMenu=findViewById(R.id.rlMenu);
         //Menu Bar functions
 
 
@@ -130,6 +120,18 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
             }
         });
         //
+
+        rlMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent menuSearch = new Intent(RestaurantActivity.this, MenuActivity.class);
+                menuSearch.putExtra("customerdetails", customerdetails);
+                RestaurantActivity.this.startActivity(menuSearch);
+
+            }
+
+        });
+
 
 
         //Decode Base64 string (Image) from the array and display it in ImageView

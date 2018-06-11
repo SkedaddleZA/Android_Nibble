@@ -188,7 +188,7 @@ class DAL {
         requestQueue.add(request);//Runs the request which POSTS the data
     }
 
-    public void GetMenuInfo(final String MenuCategoryID, Response.Listener<String> listener, RequestQueue requestQueue)
+    public void GetMenuInfo(final String Name, Response.Listener<String> listener, RequestQueue requestQueue)
     {
         StringRequest request = new StringRequest(Request.Method.POST, menuInfo, listener ,new Response.ErrorListener() {
             @Override
@@ -199,7 +199,7 @@ class DAL {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("menucategoryid", MenuCategoryID);
+                parameters.put("name", Name);
 
                 return parameters;
 

@@ -10,7 +10,7 @@ import com.android.volley.Response;
  */
 
 public class MenuItems {
-    public MenuItems(final String MenuItemI, final String MenuCategoryID, final String ItemName, final String ItemDescription, final String ItemPrice)
+    public MenuItems(final String MenuItemID, final String MenuCategoryID, final String ItemName, final String ItemDescription, final String ItemPrice)
     {
         this.MenuItemID=MenuItemID;
         this.ItemName=ItemName;
@@ -65,9 +65,9 @@ public class MenuItems {
         MenuCategoryID = MenuCategoryID;
     }
 
-    public void GetMenuInfo(final String MenuCategoryID, Response.Listener<String> listener, RequestQueue requestQueue)
+    public void GetMenuInfo(final String Name, Response.Listener<String> listener, RequestQueue requestQueue)
     {
-        dl.GetMenuInfo(MenuCategoryID, listener, requestQueue);
+        dl.GetMenuInfo(Name, listener, requestQueue);
     }
 
 }
