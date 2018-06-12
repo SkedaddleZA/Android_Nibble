@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -67,7 +68,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
     private ProgressBar pbLoadRest;
     private RelativeLayout bHome, bBookings, bProfile;
     private int countSuburb;
-    private String mySuburb;
+    private String mySuburb = "";
     private double latitude, longitude;
     private GoogleApiClient mGoogleApiClient;
     final int PERMISSION_LOCATION = 111;
@@ -174,11 +175,12 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                         try {
                             JSONObject json = result.getJSONObject(i);
                             String suburb = json.getString("suburbname");
-                            if (suburb.matches(mySuburb)){
-                                countSuburb = i;
-                            }else
-                            {
-                                countSuburb = -2;
+                            if(!suburb.matches("")) {
+                                if (suburb.matches(mySuburb)) {
+                                    countSuburb = i;
+                                } else {
+                                    countSuburb = -2;
+                                }
                             }
                             dropdown.add(suburb);
                         } catch (JSONException e) {
@@ -188,8 +190,13 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                     spinner.setAdapter(new ArrayAdapter<>(SearchByLocation.this, android.R.layout.simple_spinner_dropdown_item, dropdown));
                     if (countSuburb != -2)
                     spinner.setSelection(countSuburb);
-                    else
-                        tvr.setText("Location" + Html.fromHtml("<br/>") + "No Restaurants in your Suburb.");
+                    else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SearchByLocation.this);
+                        builder.setMessage("There are no restaurants in your suburb.")
+                                .setNegativeButton("OK", null)
+                                .create()
+                                .show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -236,7 +243,9 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                                 x = Float.toString(roundedKM);
                             }else
                             {
+                                float roundedM = Math.round(Float.parseFloat(x)*10) / 10;
                                 abrev = "m";
+                                x = Float.toString(roundedM);
                             }
 
                             restlist.add(json.getString("restaurantname") + ", " + x + " " + abrev);

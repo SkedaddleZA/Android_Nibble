@@ -1,5 +1,6 @@
 package com.nibble.skedaddle.nibble.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -149,10 +150,22 @@ public class BookingActivity extends AppCompatActivity {
                                 JSONObject jsonResponse = new JSONObject(response);//create JSONOBject called jsonResponse which contains all the data that was responded from the POST
                                 boolean success = jsonResponse.getBoolean("success");//get the boolean value which is in the "success" holder IN the JSON output and put it in a boolean
                                 if (success) {//if the process was successful go to login screen
-                                    Intent Home = new Intent(BookingActivity.this, HomeActivity.class);
-                                    Home.putExtra("customerdetails", customerdetails);
-                                    BookingActivity.this.startActivity(Home);
-                                    BookingActivity.this.finish();
+
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
+                                    builder.setMessage("Booking Request successfully made!")
+                                            .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    Intent Home = new Intent(BookingActivity.this, HomeActivity.class);
+                                                    Home.putExtra("customerdetails", customerdetails);
+                                                    BookingActivity.this.startActivity(Home);
+                                                    BookingActivity.this.finish();
+                                                }
+                                            })
+                                            .create()
+                                            .show();
+
 
 
                                 } else {
