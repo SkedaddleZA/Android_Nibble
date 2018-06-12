@@ -72,6 +72,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
     private double latitude, longitude;
     private GoogleApiClient mGoogleApiClient;
     final int PERMISSION_LOCATION = 111;
+    private boolean useLocation = false, errorAlreadyDisplayed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +104,8 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                 .addApi(LocationServices.API)
                 .build(); //creates locations api and builds it
 
-
+        if(!useLocation)
+            getLocations();
 
 
 
@@ -178,7 +180,10 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                             if(!suburb.matches("")) {
                                 if (suburb.matches(mySuburb)) {
                                     countSuburb = i;
-                                } else {
+                                } else if(!useLocation) {
+                                    countSuburb = -3;
+                                }
+                                else {
                                     countSuburb = -2;
                                 }
                             }
@@ -190,12 +195,15 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                     spinner.setAdapter(new ArrayAdapter<>(SearchByLocation.this, android.R.layout.simple_spinner_dropdown_item, dropdown));
                     if (countSuburb != -2)
                     spinner.setSelection(countSuburb);
-                    else{
-                        AlertDialog.Builder builder = new AlertDialog.Builder(SearchByLocation.this);
-                        builder.setMessage("There are no restaurants in your suburb.")
-                                .setNegativeButton("OK", null)
-                                .create()
-                                .show();
+                    else if(countSuburb == -2) {
+                        if(!errorAlreadyDisplayed) {
+                            errorAlreadyDisplayed = true;
+                            AlertDialog.Builder builder = new AlertDialog.Builder(SearchByLocation.this);
+                            builder.setMessage("There are no restaurants in your suburb.")
+                                    .setNegativeButton("OK", null)
+                                    .create()
+                                    .show();
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -368,6 +376,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
     public void onLocationChanged(Location location) {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
+        useLocation = true;
 
         Geocoder geocoder;
         List<Address> addresses;
