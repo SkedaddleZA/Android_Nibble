@@ -157,8 +157,10 @@ public class RegisterActivity extends AppCompatActivity {
                 //Simple input not null/empty check
                 if(password.matches(""))  {
                     messageshow("Please enter password.");
-                }else if(!password.matches(cpassword)){
+                }else if(!password.matches(cpassword)) {
                     messageshow("Password mismatch");
+                }else if(password.length() < 8 || password.length() > 15) {
+                        messageshow("Password recommended between 8 and 15 digits");
 
                     }else{
                     //Create a response listener which listens if there is a response, and stores the response

@@ -143,7 +143,7 @@ class DAL {
         requestQueue.add(request);
     }
 
-    public void RequestBooking(final String CustomerID, final String RestaurantID, final String DateTime, final String NumOfGuests, final String Comment, final String RequestDateTime, final String Date, final String Time, Response.Listener<String> listener, RequestQueue requestQueue)
+    public void RequestBooking(final String CustomerID, final String RestaurantID, final String NumOfGuests, final String Comment, final String RequestDateTime, final String Date, final String Time, Response.Listener<String> listener, RequestQueue requestQueue)
     {
         StringRequest request = new StringRequest(Request.Method.POST, requestBookingUrl, listener, new Response.ErrorListener() {//Create a StringRequest which POSTS data to the database then records the response in listener variable
             @Override
@@ -156,7 +156,6 @@ class DAL {
                 Map<String, String> parameters = new HashMap<String, String>();
                 parameters.put("customerid", CustomerID);
                 parameters.put("restaurantid", RestaurantID);
-                parameters.put("datetime", DateTime);
                 parameters.put("numofguests", NumOfGuests);
                 parameters.put("comment", Comment);
                 parameters.put("requestdatetime", RequestDateTime);

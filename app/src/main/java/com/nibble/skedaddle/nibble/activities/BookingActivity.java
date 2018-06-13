@@ -24,6 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.nibble.skedaddle.nibble.R;
+import com.nibble.skedaddle.nibble.classes.BookingRequest;
 import com.nibble.skedaddle.nibble.classes.Customer;
 
 import org.json.JSONException;
@@ -118,7 +119,9 @@ public class BookingActivity extends AppCompatActivity {
         bSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!etNum.getText().toString().matches("0"))
                 etNum.setText(Integer.toString(Integer.parseInt(etNum.getText().toString()) - 1));
+
             }
         });
 
@@ -145,9 +148,18 @@ public class BookingActivity extends AppCompatActivity {
                                 .create()
                                 .show();
                     }else{
-                        llstep1.setVisibility(View.INVISIBLE);
-                        llstep2.setVisibility(View.VISIBLE);
-                        tvDateTime.setText(datetime);
+                        if (date == null)
+                        {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
+                            builder.setMessage("Please enter date.")
+                                    .setNegativeButton("OK", null)
+                                    .create()
+                                    .show();
+                        }else {
+                            llstep1.setVisibility(View.INVISIBLE);
+                            llstep2.setVisibility(View.VISIBLE);
+                            tvDateTime.setText(datetime);
+                        }
                     }
                     } catch (ParseException e) {
                     e.printStackTrace();
@@ -170,14 +182,7 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (date == null)
-                {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
-                    builder.setMessage("Please enter date.")
-                            .setNegativeButton("OK", null)
-                            .create()
-                            .show();
-                }else {
+
                     nowdatetime = sdf.format(cvDate.getDate());
 
                     comment = etComment.getText().toString();
@@ -222,14 +227,14 @@ public class BookingActivity extends AppCompatActivity {
                         }
                     };
 
-                    Customer bookingRequest = new Customer();//Create Customer Object
-                    bookingRequest.RequestBooking(customerdetails[0], restaurantdetails[0], datetime, etNum.getText().toString(), comment, nowdatetime, date, time, responseListener,requestQueue);//Call the CreateBOoking request procedure
+                    BookingRequest bookingRequest = new BookingRequest();//Create Customer Object
+                    bookingRequest.RequestBooking(customerdetails[0], restaurantdetails[0], etNum.getText().toString(), comment, nowdatetime, date, time, responseListener,requestQueue);//Call the CreateBOoking request procedure
 
 
                 }
 
 
-            }
+
         });
 
 

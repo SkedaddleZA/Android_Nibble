@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -47,7 +48,8 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
     private ImageView restImage;
     private JSONArray result;
     private RequestQueue requestQueue;
-    private RelativeLayout bHome, bBookings, bProfile, rlMenu;
+    private RelativeLayout bHome, bBookings, bProfile, rlMenu, rlContact, rlWebsite;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,8 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         bBookings = findViewById(R.id.bBookings);
         bProfile = findViewById(R.id.bRProfile);
         rlMenu=findViewById(R.id.rlMenu);
+        rlContact =findViewById(R.id.rlContact);
+        rlWebsite = findViewById(R.id.rlWebsite);
         //Menu Bar functions
 
 
@@ -132,6 +136,24 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
 
         });
 
+        rlContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + restaurantfulldetails[2]));
+                startActivity(intent);
+            }
+        });
+        rlWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                url = restaurantfulldetails[13];
+                if (!url.startsWith("http://") && !url.startsWith("https://"))
+                    url = "http://" + url;
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browserIntent);
+            }
+        });
 
 
         //Decode Base64 string (Image) from the array and display it in ImageView

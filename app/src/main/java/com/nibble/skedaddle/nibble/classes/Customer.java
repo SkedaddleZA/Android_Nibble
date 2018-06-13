@@ -93,10 +93,7 @@ public class Customer {
     {
         dl.LoginCustomer(Email, Password, listener, requestQueue);
     }
-    public void RequestBooking(final String CustomerID, final String RestaurantID, final String DateTime, final String NumOfGuests, final String Comment, final String RequestDateTime, final String Date, final String Time, Response.Listener<String> listener, RequestQueue requestQueue)
-    {
-        dl.RequestBooking(CustomerID, RestaurantID, DateTime, NumOfGuests, Comment, RequestDateTime, Date, Time, listener, requestQueue);
-    }
+
 
 
 
