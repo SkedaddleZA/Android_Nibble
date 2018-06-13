@@ -67,12 +67,11 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
     private TextView tvr;
     private ProgressBar pbLoadRest;
     private RelativeLayout bHome, bBookings, bProfile;
-    private int countSuburb;
+    private int countSuburb = -2;
     private String mySuburb = "";
     private double latitude, longitude;
     private GoogleApiClient mGoogleApiClient;
     final int PERMISSION_LOCATION = 111;
-    private boolean useLocation = false, errorAlreadyDisplayed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +102,6 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                 .addConnectionCallbacks(this)
                 .addApi(LocationServices.API)
                 .build(); //creates locations api and builds it
-
-        if(!useLocation)
-            getLocations();
 
 
 
@@ -164,7 +160,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
 
 
     }
-    private void getLocations(){
+    private void getLocations(final String mySuburbName){
         dropdown.clear();//IT ARE NOT MAKE SENSE THAT IT IS REQUIRED HERE BUT NOT IN SearchByType
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -178,13 +174,8 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                             JSONObject json = result.getJSONObject(i);
                             String suburb = json.getString("suburbname");
                             if(!suburb.matches("")) {
-                                if (suburb.matches(mySuburb)) {
+                                if (suburb.matches(mySuburbName)) {
                                     countSuburb = i;
-                                } else if(!useLocation) {
-                                    countSuburb = -3;
-                                }
-                                else {
-                                    countSuburb = -2;
                                 }
                             }
                             dropdown.add(suburb);
@@ -196,14 +187,12 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                     if (countSuburb != -2)
                     spinner.setSelection(countSuburb);
                     else if(countSuburb == -2) {
-                        if(!errorAlreadyDisplayed) {
-                            errorAlreadyDisplayed = true;
                             AlertDialog.Builder builder = new AlertDialog.Builder(SearchByLocation.this);
                             builder.setMessage("There are no restaurants in your suburb.")
                                     .setNegativeButton("OK", null)
                                     .create()
                                     .show();
-                        }
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -376,7 +365,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
     public void onLocationChanged(Location location) {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
-        useLocation = true;
+        countSuburb = -2;
 
         Geocoder geocoder;
         List<Address> addresses;
@@ -398,7 +387,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
             e.printStackTrace();
         }
 
-        getLocations();
+        getLocations(mySuburb);
 
 
     }

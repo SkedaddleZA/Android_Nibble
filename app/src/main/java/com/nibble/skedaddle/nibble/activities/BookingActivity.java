@@ -31,16 +31,19 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BookingActivity extends AppCompatActivity {
 
     private CalendarView cvDate;
     private TimePicker tpTime;
-    private Button bBook, bNext;
-    private TextView tvRestaurant;
+    private Button bBook, bNext, bAdd, bSub;
+    private TextView tvDateTime;
     private String time, date,datetime, comment, nowdate, nowdatetime;
-    private SimpleDateFormat sdf;
+    private SimpleDateFormat sdf, sdftime;
     private RequestQueue requestQueue;
     private EditText etNum, etComment;
     private LinearLayout llstep2, llstep1;
@@ -63,6 +66,7 @@ public class BookingActivity extends AppCompatActivity {
         cvDate = findViewById(R.id.cvDate);
         tpTime = findViewById(R.id.tpTime);
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdftime = new SimpleDateFormat("HH:mm:ss");
         bBook = findViewById(R.id.bBook);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         etNum = findViewById(R.id.etNum);
@@ -74,6 +78,9 @@ public class BookingActivity extends AppCompatActivity {
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
         bProfile = findViewById(R.id.bRProfile);
+        bAdd = findViewById(R.id.bAdd);
+        bSub = findViewById(R.id.bSub);
+        tvDateTime = findViewById(R.id.tvdatetime);
 
         //Decode Base64 string (Image) from the array and display it in ImageView
         restImage = findViewById(R.id.restImage);
@@ -102,14 +109,53 @@ public class BookingActivity extends AppCompatActivity {
         });
         //
 
+        bAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etNum.setText(Integer.toString(Integer.parseInt(etNum.getText().toString()) + 1));
+            }
+        });
+        bSub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etNum.setText(Integer.toString(Integer.parseInt(etNum.getText().toString()) - 1));
+            }
+        });
+
 
 
 
         bNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                llstep1.setVisibility(View.INVISIBLE);
-                llstep2.setVisibility(View.VISIBLE);
+                int hour = tpTime.getHour();
+                int minute = tpTime.getMinute();
+                time = String.valueOf(hour) + ":" + String.valueOf(minute) + ":00";
+                datetime = date + " " + time;
+
+                try {
+                    Date opentime = sdftime.parse(restaurantdetails[11]);
+                    Date closetime = sdftime.parse(restaurantdetails[12]);
+
+                    Date myTime = sdftime.parse(time);
+                    if (myTime.before(opentime) || closetime.before(myTime) ) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
+                        builder.setMessage("Please enter a time when restaurant is open. (" + restaurantdetails[11] + " - " + restaurantdetails[12] + ")" )
+                                .setNegativeButton("OK", null)
+                                .create()
+                                .show();
+                    }else{
+                        llstep1.setVisibility(View.INVISIBLE);
+                        llstep2.setVisibility(View.VISIBLE);
+                        tvDateTime.setText(datetime);
+                    }
+                    } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+
+
             }
         });
 
@@ -132,15 +178,9 @@ public class BookingActivity extends AppCompatActivity {
                             .create()
                             .show();
                 }else {
-                    int hour = tpTime.getHour();
-                    int minute = tpTime.getMinute();
-                    time = String.valueOf(hour) + ":" + String.valueOf(minute) + ":00";
-                    datetime = date + " " + time;
                     nowdatetime = sdf.format(cvDate.getDate());
 
                     comment = etComment.getText().toString();
-                    //tvRestaurant.setText(nowdatetime);
-                    //tvRestaurant.setText(datetime);
 
 
                    Response.Listener<String> responseListener = new Response.Listener<String>() {
