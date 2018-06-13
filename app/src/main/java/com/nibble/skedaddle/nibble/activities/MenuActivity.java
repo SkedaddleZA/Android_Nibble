@@ -42,6 +42,7 @@ public class MenuActivity extends AppCompatActivity {
     private TextView tvm;
     private RelativeLayout bHome, bBookings, bProfile;
     private NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
+    private String restaurantid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,9 @@ public class MenuActivity extends AppCompatActivity {
 
         final Intent menuSearch = getIntent();
         customerdetails = menuSearch.getStringArrayExtra("customerdetails");
+        restaurantid = menuSearch.getStringExtra("restaurantid");
+
+
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         format.setCurrency((Currency.getInstance("ZAR")));
         dropdown = new ArrayList<>();
@@ -128,7 +132,7 @@ public class MenuActivity extends AppCompatActivity {
                     }
                 };
                 MenuItems menuItems = new MenuItems();
-                menuItems.GetMenuInfo(itematpos, responseListener, requestQueue);
+                menuItems.GetMenuInfo(itematpos, restaurantid, responseListener, requestQueue);
 
 
             }
@@ -166,6 +170,6 @@ public class MenuActivity extends AppCompatActivity {
             }
         };
         MenuCategory menuCategory = new MenuCategory();
-        menuCategory.GetMenuCategory(responseListener, requestQueue);
+        menuCategory.GetMenuCategory(restaurantid, responseListener, requestQueue);
     }
 }

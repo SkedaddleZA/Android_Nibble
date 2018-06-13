@@ -65,9 +65,9 @@ public class MenuItems {
         MenuCategoryID = MenuCategoryID;
     }
 
-    public void GetMenuInfo(final String Name, Response.Listener<String> listener, RequestQueue requestQueue)
+    public void GetMenuInfo(final String Name, final String RestaurantID, Response.Listener<String> listener, RequestQueue requestQueue)
     {
-        dl.GetMenuInfo(Name, listener, requestQueue);
+        dl.GetMenuInfo(Name, RestaurantID, listener, requestQueue);
     }
 
 }

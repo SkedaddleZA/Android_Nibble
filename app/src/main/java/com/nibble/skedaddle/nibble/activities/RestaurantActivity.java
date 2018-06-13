@@ -130,6 +130,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
             public void onClick(View v) {
                 Intent menuSearch = new Intent(RestaurantActivity.this, MenuActivity.class);
                 menuSearch.putExtra("customerdetails", customerdetails);
+                menuSearch.putExtra("restaurantid", restaurantfulldetails[0]);
                 RestaurantActivity.this.startActivity(menuSearch);
 
             }

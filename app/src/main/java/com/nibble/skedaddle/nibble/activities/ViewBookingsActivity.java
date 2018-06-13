@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,17 +27,18 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-
 
 public class ViewBookingsActivity extends AppCompatActivity {
     private ListView lvMyBooking;
-    private String[] restaurantdetails, customerdetails;
-    private JSONArray result;
+    private String[] restaurantdetails, customerdetails, bookingrequestdetails;
+    private JSONArray result, restresult;
     private RequestQueue requestQueue;
     private RelativeLayout bHome,bProfile;
     private ArrayList<String> restlist;
     private SimpleDateFormat sdf;
+    private ProgressBar pbLoadRest;
+    private String bookingrequestid;
+    private TextView tvHeadings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +54,13 @@ public class ViewBookingsActivity extends AppCompatActivity {
 
         bHome = findViewById(R.id.bHome);
         sdf = new SimpleDateFormat("DDD-dd-MMM");
+        pbLoadRest = findViewById(R.id.pb_loadrest);
+        pbLoadRest.setVisibility(View.INVISIBLE);
+        tvHeadings = findViewById(R.id.tvHeadings);
 
         lvMyBooking = findViewById(R.id.lvMyBookings);
         restaurantdetails = new String[3];
+        bookingrequestdetails = new String[6];
 
         bHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,18 +79,22 @@ public class ViewBookingsActivity extends AppCompatActivity {
         lvMyBooking.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 try {
                     JSONObject json = result.getJSONObject(position);
-                            Intent Booking = new Intent(ViewBookingsActivity.this, BookingConfirmationActivity.class);
-                            Booking.putExtra("customerdetails", customerdetails);
-                            Booking.putExtra("bookingrequestid", json.getString("bookingrequestid"));
-                            ViewBookingsActivity.this.startActivity(Booking);
 
+                    bookingrequestid = Integer.toString(json.getInt("bookingrequestid"));
 
+                    pbLoadRest.setVisibility(View.VISIBLE);
+
+                    GotoBookingRequest();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+
+
 
             }
         });
@@ -99,12 +109,10 @@ public class ViewBookingsActivity extends AppCompatActivity {
                 try {
                     j = new JSONObject(response);
                     result = j.getJSONArray("bookingrequests");
-
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            restlist.add("\tRestaurant: "+(json.getString("restaurantname") + "\n\tDate: " + json.getString("date")+ "\n\tGuests: " + json.getString("numofguests")));
-
+                            restlist.add(json.getString("restaurantname") + ", " + json.getString("date")+", " + json.getString("numofguests") + " Guests");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -139,4 +147,54 @@ public class ViewBookingsActivity extends AppCompatActivity {
 
 
     }
+
+    private void GotoBookingRequest() {
+        //Start fetch restaurant details on click
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject j;
+                try {
+                    j = new JSONObject(response);
+                    restresult = j.getJSONArray("bookingrequests");
+                    for(int i=0;i<restresult.length();i++){
+                        try {
+                            JSONObject json = restresult.getJSONObject(i);
+                            bookingrequestdetails[0] = Integer.toString(json.getInt("restaurantid")); // need this to get rest profile button working
+                            bookingrequestdetails[1] = json.getString("restaurantname");
+                            bookingrequestdetails[2] = json.getString("date");
+                            bookingrequestdetails[3] = json.getString("time");
+                            bookingrequestdetails[4] = json.getString("numofguests");
+                            bookingrequestdetails[5] = json.getString("logo");
+
+                            pbLoadRest.setVisibility(View.INVISIBLE); //Due to non instant loading
+                            Intent br = new Intent(ViewBookingsActivity.this, BookingConfirmationActivity.class);
+                            br.putExtra("bookingrequestdetails",bookingrequestdetails);
+                            br.putExtra("customerdetails",customerdetails);
+                            br.putExtra("bookingrequestid", bookingrequestid);
+                            ViewBookingsActivity.this.startActivity(br);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+        BookingRequest getbr = new BookingRequest();
+        getbr.GetBookingDetails(bookingrequestid, responseListener, requestQueue);
+        //end of fetch
+
+
+
+
+
+
+    }
+
 }

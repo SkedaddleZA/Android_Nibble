@@ -190,7 +190,7 @@ class DAL {
         requestQueue.add(request);//Runs the request which POSTS the data
     }
 
-    public void GetMenuInfo(final String Name, Response.Listener<String> listener, RequestQueue requestQueue)
+    public void GetMenuInfo(final String Name, final String RestaurantID, Response.Listener<String> listener, RequestQueue requestQueue)
     {
         StringRequest request = new StringRequest(Request.Method.POST, menuInfo, listener ,new Response.ErrorListener() {
             @Override
@@ -202,6 +202,7 @@ class DAL {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
                 parameters.put("name", Name);
+                parameters.put("restaurantid", RestaurantID);
 
                 return parameters;
 
@@ -265,14 +266,22 @@ class DAL {
         requestQueue.add(request);
     }
 
-    public void GetMenuCategory(Response.Listener<String> listener, RequestQueue requestQueue)
+    public void GetMenuCategory(final String RestaurantID, Response.Listener<String> listener, RequestQueue requestQueue)
     {
-        StringRequest request = new StringRequest(Request.Method.GET, menuCategory, listener ,new Response.ErrorListener() {
+        StringRequest request = new StringRequest(Request.Method.POST, menuCategory, listener ,new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
             }
         }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("restaurantid", RestaurantID);
+
+                return parameters;
+
+            }
         };
         requestQueue.add(request);
     }
