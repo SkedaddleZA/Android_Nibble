@@ -38,7 +38,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
     private Button bConfirm, bCancel,bRProfile;
     private RelativeLayout bHome,bBookings,bProfile;
     private RequestQueue requestQueue;
-    private TextView rText,dText,gText;
+    private TextView rText,dText,tText,gText;
     private JSONArray result;
     private ImageView restImage;
 
@@ -62,9 +62,10 @@ public class BookingConfirmationActivity extends AppCompatActivity {
         bProfile=findViewById(R.id.bProfile);
         bConfirm=findViewById(R.id.bConfirm);
         bCancel=findViewById(R.id.bCancel);
-        bRProfile=findViewById(R.id.bRBooking);
+        bRProfile=findViewById(R.id.bRProfile);
         rText=findViewById(R.id.rText);
         dText=findViewById(R.id.dText);
+        tText=findViewById(R.id.tText);
         gText=findViewById(R.id.gText);
         restImage=findViewById(R.id.restuarant_image);
 
@@ -166,6 +167,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
 
 
+
     }
     private void fillTextViews()
     {
@@ -179,9 +181,10 @@ public class BookingConfirmationActivity extends AppCompatActivity {
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            rText.setText(json.getString("restaurantname"));
-                            dText.setText(json.getString("date")+" "+ (json.getString("time")));
-                            gText.setText(Integer.toString(json.getInt("numofguests")));
+                            rText.setText("\t\tRestaurant name: "+json.getString("restaurantname"));
+                            dText.setText("\t\tDate: "+json.getString("date"));
+                            tText.setText("\t\tTime: "+json.getString("time").substring(0,5));
+                            gText.setText("\t\tGuests: "+(Integer.toString(json.getInt("numofguests"))));
 
                             byte[] decodedString = Base64.decode(json.getString("logo"),Base64.DEFAULT);
                             InputStream inputStream  = new ByteArrayInputStream(decodedString);

@@ -57,24 +57,34 @@
                 <TextView
                     android:id="@+id/rText"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="30dp"
                     android:layout_weight="1"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/dText"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="30dp"
                     android:layout_weight="1"
-                    android:text="piet"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tText"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/gText"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="30dp"
                     android:layout_weight="1"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -101,6 +111,7 @@
                     android:layout_alignStart="@+id/bCancel"
                     android:layout_below="@+id/llstep2"
                     android:layout_marginTop="26dp"
+                    android:background="@drawable/rounded_corners_pd"
                     android:text="Confirm Request" />
 
                 <Button
@@ -111,6 +122,7 @@
                     android:layout_alignStart="@+id/bRProfile"
                     android:layout_below="@+id/bConfirm"
                     android:layout_marginTop="26dp"
+                    android:background="@drawable/rounded_corners_pd"
                     android:text="Cancel Request" />
 
                 <Button
@@ -120,6 +132,7 @@
                     android:layout_below="@+id/bCancel"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="26dp"
+                    android:background="@drawable/rounded_corners_pd"
                     android:text="Restuarant Profile" />
 
             </RelativeLayout>

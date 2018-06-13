@@ -26,6 +26,8 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+
 
 public class ViewBookingsActivity extends AppCompatActivity {
     private ListView lvMyBooking;
@@ -97,10 +99,11 @@ public class ViewBookingsActivity extends AppCompatActivity {
                 try {
                     j = new JSONObject(response);
                     result = j.getJSONArray("bookingrequests");
+
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            restlist.add(json.getString("restaurantname") + ", " + json.getString("date")+", " + json.getString("numofguests") + " Guests");
+                            restlist.add("\tRestaurant: "+(json.getString("restaurantname") + "\n\tDate: " + json.getString("date")+ "\n\tGuests: " + json.getString("numofguests")));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
