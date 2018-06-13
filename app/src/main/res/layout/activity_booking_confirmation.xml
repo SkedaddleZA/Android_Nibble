@@ -83,6 +83,13 @@
                 android:layout_weight="7"
                 android:background="@color/primaryColor">>
 
+                <ProgressBar
+                    android:id="@+id/pb_loadrest"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:visibility="invisible" />
+
                 <LinearLayout
                     android:id="@+id/llstep2"
                     android:layout_width="match_parent"
@@ -120,7 +127,7 @@
                     android:layout_below="@+id/bCancel"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="26dp"
-                    android:text="Restuarant Profile" />
+                    android:text="Restaurant Profile" />
 
             </RelativeLayout>
         </LinearLayout>

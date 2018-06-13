@@ -62,8 +62,8 @@ public class MenuCategory {
         Active = Active;
     }
 
-    public void GetMenuCategory(Response.Listener<String> listener, RequestQueue requestQueue)
+    public void GetMenuCategory(final String RestaurantID, Response.Listener<String> listener, RequestQueue requestQueue)
     {
-        dl.GetMenuCategory(listener, requestQueue);
+        dl.GetMenuCategory(RestaurantID, listener, requestQueue);
     }
 }

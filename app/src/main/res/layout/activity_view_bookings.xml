@@ -44,37 +44,44 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
-                android:background="@color/primaryDarkColor"
-                android:baselineAligned="false"
-                android:elevation="10dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:id="@+id/rlRestaurant"
+                <TextView
+                    android:id="@+id/tvHeadings"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/tvbType"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="My Booking Requests"
-                        android:textColor="@android:color/white"
-                        android:textSize="14sp" />
-                </RelativeLayout>
-
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_corners_underline"
+                    android:gravity="left|center"
+                    android:paddingLeft="15dp"
+                    android:text="Restaurant | Date | Guests"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/lvMyBookings"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="6">
+                android:layout_weight="7">
 
-            </ListView>
+                <ProgressBar
+                    android:id="@+id/pb_loadrest"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="100dp"
+                    android:visibility="invisible" />
+
+                <ListView
+                    android:id="@+id/lvMyBookings"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6">
+
+                </ListView>
+
+            </RelativeLayout>
 
         </LinearLayout>
 

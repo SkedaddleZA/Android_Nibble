@@ -119,7 +119,7 @@ public class BookingActivity extends AppCompatActivity {
         bSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!etNum.getText().toString().matches("0"))
+                if(!etNum.getText().toString().matches("1"))
                 etNum.setText(Integer.toString(Integer.parseInt(etNum.getText().toString()) - 1));
 
             }

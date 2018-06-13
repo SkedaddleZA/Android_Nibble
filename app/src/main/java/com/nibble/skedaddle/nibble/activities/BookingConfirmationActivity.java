@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 public class BookingConfirmationActivity extends AppCompatActivity {
-    private String[] customerdetails;
+    private String[] customerdetails, bookingrequestdetails, restaurantfulldetails;
     private String bookingrequestid;
     private Button bConfirm, bCancel,bRProfile;
     private RelativeLayout bHome,bBookings,bProfile;
@@ -41,6 +42,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
     private TextView rText,dText,gText;
     private JSONArray result;
     private ImageView restImage;
+    private ProgressBar pbLoadRest;
 
 
 
@@ -53,20 +55,24 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
-        final Intent Booking = getIntent();
-        customerdetails = Booking.getStringArrayExtra("customerdetails");
-        bookingrequestid= Booking.getStringExtra("bookingrequestid");
+        final Intent br = getIntent();
+        bookingrequestdetails= br.getStringArrayExtra("bookingrequestdetails");
+        customerdetails = br.getStringArrayExtra("customerdetails");
+        bookingrequestid = br.getStringExtra("bookingrequestid");
 
+        restaurantfulldetails = new String[15];
         bHome=findViewById(R.id.bHome);
         bBookings=findViewById(R.id.bBookings);
         bProfile=findViewById(R.id.bProfile);
         bConfirm=findViewById(R.id.bConfirm);
         bCancel=findViewById(R.id.bCancel);
-        bRProfile=findViewById(R.id.bRBooking);
+        bRProfile=findViewById(R.id.bRProfile);
         rText=findViewById(R.id.rText);
         dText=findViewById(R.id.dText);
         gText=findViewById(R.id.gText);
         restImage=findViewById(R.id.restuarant_image);
+        pbLoadRest=findViewById(R.id.pb_loadrest);
+        pbLoadRest.setVisibility(View.INVISIBLE);
 
         fillTextViews();
 
@@ -164,30 +170,62 @@ public class BookingConfirmationActivity extends AppCompatActivity {
             }
         });
 
+        bRProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pbLoadRest.setVisibility(View.VISIBLE);
+                GotoRestaurant();
 
+            }
+        });
 
     }
-    private void fillTextViews()
-    {
+    private void fillTextViews() {
+
+        rText.setText(bookingrequestdetails[1]);
+        dText.setText(bookingrequestdetails[2] + " " + bookingrequestdetails[3]);
+        gText.setText(bookingrequestdetails[4]);
+        byte[] decodedString = Base64.decode(bookingrequestdetails[5], Base64.DEFAULT);
+        InputStream inputStream = new ByteArrayInputStream(decodedString);
+        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+        restImage.setImageBitmap(bitmap);
+    }
+
+    private void GotoRestaurant() {
+        //Start fetch restaurant details on click
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject j;
                 try {
                     j = new JSONObject(response);
-                    result = j.getJSONArray("bookingrequests");
+                    result = j.getJSONArray("restaurant");
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            rText.setText(json.getString("restaurantname"));
-                            dText.setText(json.getString("date")+" "+ (json.getString("time")));
-                            gText.setText(Integer.toString(json.getInt("numofguests")));
+                            restaurantfulldetails[0] = Integer.toString(json.getInt("restaurantid"));
+                            restaurantfulldetails[1] = json.getString("restaurantname");
+                            restaurantfulldetails[2] = json.getString("phone");
+                            restaurantfulldetails[3] = json.getString("restauranttype");
+                            restaurantfulldetails[4] = json.getString("gpslocation");
+                            restaurantfulldetails[5] = json.getString("email");
+                            restaurantfulldetails[6] = json.getString("addressline1");
+                            restaurantfulldetails[7] = json.getString("addressline2");
+                            restaurantfulldetails[8] = json.getString("suburbname");
+                            restaurantfulldetails[9] = json.getString("postalcode");
+                            restaurantfulldetails[10] = json.getString("cityname");
+                            restaurantfulldetails[11] = json.getString("opentime");
+                            restaurantfulldetails[12] = json.getString("closetime");
+                            restaurantfulldetails[13] = json.getString("websiteurl");
+                            restaurantfulldetails[14] = json.getString("logo");
 
-                            byte[] decodedString = Base64.decode(json.getString("logo"),Base64.DEFAULT);
-                            InputStream inputStream  = new ByteArrayInputStream(decodedString);
-                            Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
-                            restImage.setImageBitmap(bitmap);
-
+                            pbLoadRest.setVisibility(View.INVISIBLE); //Due to non instant loading
+                            Intent restaurantintent2 = new Intent(BookingConfirmationActivity.this, RestaurantActivity.class);
+                            restaurantintent2.putExtra("restaurantdetails",restaurantfulldetails);
+                            restaurantintent2.putExtra("customerdetails",customerdetails);
+                            BookingConfirmationActivity.this.startActivity(restaurantintent2);
+                            //RestaurantSearchActivity.this.finish();//THIS IS A WORKAROUND TO NOT KNOWING HOW TO REFRESH A PREVIOUS SCREEN WHEN ANDROID BACK BUTTON PRESSED
+                            //FIXED USING DIFFEREN JSON OBJECT
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -199,8 +237,16 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
             }
         };
-        BookingRequest bookingRequest = new BookingRequest();
-        bookingRequest.GetBookingDetails(bookingrequestid,responseListener, requestQueue);
+
+        Restaurant restaurantobject2 = new Restaurant();
+        restaurantobject2.GetRestaurantDetails(bookingrequestdetails[0], responseListener, requestQueue);
+        //end of fetch
+
+
+
+
+
 
     }
+
 }
