@@ -44,7 +44,7 @@ public class BookingActivity extends AppCompatActivity {
     private Button bBook, bNext, bAdd, bSub;
     private TextView tvDateTime;
     private String time, date,datetime, comment, nowdate, nowdatetime;
-    private SimpleDateFormat sdf, sdftime;
+    private SimpleDateFormat sdf, sdftime, sdfdate;
     private RequestQueue requestQueue;
     private EditText etNum, etComment;
     private LinearLayout llstep2, llstep1;
@@ -67,6 +67,7 @@ public class BookingActivity extends AppCompatActivity {
         cvDate = findViewById(R.id.cvDate);
         tpTime = findViewById(R.id.tpTime);
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdfdate = new SimpleDateFormat("yyyy-MM-dd");
         sdftime = new SimpleDateFormat("HH:mm:ss");
         bBook = findViewById(R.id.bBook);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -139,7 +140,9 @@ public class BookingActivity extends AppCompatActivity {
                 try {
                     Date opentime = sdftime.parse(restaurantdetails[11]);
                     Date closetime = sdftime.parse(restaurantdetails[12]);
-
+                    Date myDate = sdfdate.parse(date);
+                    nowdatetime = sdf.format(cvDate.getDate());
+                    Date nowDate = sdfdate.parse(nowdatetime);
                     Date myTime = sdftime.parse(time);
                     if (myTime.before(opentime) || closetime.before(myTime) ) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
@@ -148,10 +151,10 @@ public class BookingActivity extends AppCompatActivity {
                                 .create()
                                 .show();
                     }else{
-                        if (date == null)
+                        if (date == null || myDate.before(nowDate) )
                         {
                             AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
-                            builder.setMessage("Please enter date.")
+                            builder.setMessage("Please choose valid date.")
                                     .setNegativeButton("OK", null)
                                     .create()
                                     .show();
@@ -183,7 +186,7 @@ public class BookingActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                    nowdatetime = sdf.format(cvDate.getDate());
+                    //nowdatetime = sdf.format(cvDate.getDate());
 
                     comment = etComment.getText().toString();
 
