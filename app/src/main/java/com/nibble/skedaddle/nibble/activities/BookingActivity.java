@@ -135,7 +135,7 @@ public class BookingActivity extends AppCompatActivity {
                 int hour = tpTime.getHour();
                 int minute = tpTime.getMinute();
                 time = String.valueOf(hour) + ":" + String.valueOf(minute) + ":00";
-                datetime = date + " " + time;
+                datetime = date + " " + time.substring(0,5);
 
                 try {
                     Date opentime = sdftime.parse(restaurantdetails[11]);

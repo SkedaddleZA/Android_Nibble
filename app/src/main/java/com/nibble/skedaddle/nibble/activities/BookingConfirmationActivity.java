@@ -39,7 +39,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
     private Button bConfirm, bCancel,bRProfile;
     private RelativeLayout bHome,bBookings,bProfile;
     private RequestQueue requestQueue;
-    private TextView rText,dText,gText;
+    private TextView rText,dText,tText,gText;
     private JSONArray result;
     private ImageView restImage;
     private ProgressBar pbLoadRest;
@@ -69,6 +69,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
         bRProfile=findViewById(R.id.bRProfile);
         rText=findViewById(R.id.rText);
         dText=findViewById(R.id.dText);
+        tText=findViewById(R.id.tText);
         gText=findViewById(R.id.gText);
         restImage=findViewById(R.id.restuarant_image);
         pbLoadRest=findViewById(R.id.pb_loadrest);
@@ -181,10 +182,21 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
     }
     private void fillTextViews() {
+        String Confirm="";
+        if (bookingrequestdetails[6].matches("Y")) {
+            Confirm="Confirmed";
+        }
+        else if (bookingrequestdetails[6].matches("N")){
+            Confirm="Canceled";
+        }
+        else if (bookingrequestdetails[6].matches("P")){
+            Confirm="Pending";
+        }
 
-        rText.setText(bookingrequestdetails[1]);
-        dText.setText(bookingrequestdetails[2] + " " + bookingrequestdetails[3]);
-        gText.setText(bookingrequestdetails[4]);
+        rText.setText("\t\tRestaurant: "+bookingrequestdetails[1]);
+        dText.setText("\t\tDate: "+bookingrequestdetails[2]);
+        tText.setText("\t\tTime: "+bookingrequestdetails[3].substring(0,5));
+        gText.setText("\t\tGuests: "+bookingrequestdetails[4] + "    " + Confirm);
         byte[] decodedString = Base64.decode(bookingrequestdetails[5], Base64.DEFAULT);
         InputStream inputStream = new ByteArrayInputStream(decodedString);
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);

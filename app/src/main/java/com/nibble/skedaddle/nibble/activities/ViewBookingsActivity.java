@@ -60,7 +60,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
 
         lvMyBooking = findViewById(R.id.lvMyBookings);
         restaurantdetails = new String[3];
-        bookingrequestdetails = new String[6];
+        bookingrequestdetails = new String[7];
 
         bHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +112,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            restlist.add(json.getString("restaurantname") + ", " + json.getString("date")+", " + json.getString("numofguests") + " Guests");
+                            restlist.add("Restaurant:"+json.getString("restaurantname") + "\nDate: " + json.getString("date")+"\nGuests: " + json.getString("numofguests"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -166,6 +166,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
                             bookingrequestdetails[3] = json.getString("time");
                             bookingrequestdetails[4] = json.getString("numofguests");
                             bookingrequestdetails[5] = json.getString("logo");
+                            bookingrequestdetails[6] = json.getString("status");
 
                             pbLoadRest.setVisibility(View.INVISIBLE); //Due to non instant loading
                             Intent br = new Intent(ViewBookingsActivity.this, BookingConfirmationActivity.class);
