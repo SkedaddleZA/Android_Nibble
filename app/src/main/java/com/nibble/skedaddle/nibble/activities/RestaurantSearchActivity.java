@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.nibble.skedaddle.nibble.CustomListAdapters.RestList;
+import com.nibble.skedaddle.nibble.CustomModels.RestaurantModel;
 import com.nibble.skedaddle.nibble.R;
 import com.nibble.skedaddle.nibble.classes.Restaurant;
 
@@ -30,7 +34,8 @@ public class RestaurantSearchActivity extends AppCompatActivity {
 public String test;
     private ListView lvRestaurants;
     private Spinner spinner;
-    private ArrayList<String> dropdown, restlist;
+    private ArrayList<String> dropdown;
+    private ArrayList<RestaurantModel> restmodel;
     private String[] restaurantdetails, restaurantfulldetails, customerdetails;
     private JSONArray result, restresult;
     private RequestQueue requestQueue;
@@ -57,7 +62,7 @@ public String test;
         bBookings = findViewById(R.id.bBookings);
         bProfile = findViewById(R.id.bRProfile);
         dropdown = new ArrayList<>();
-        restlist = new ArrayList<>();
+        restmodel = new ArrayList<>();
         spinner = findViewById(R.id.sRTypes);
         lvRestaurants = findViewById(R.id.lvRestaurants);
         tvr = findViewById(R.id.tvrType);
@@ -104,6 +109,11 @@ public String test;
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
+                    //Animation for clicking on item
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(4000);
+                    view.startAnimation(animation1);
+
                 JSONObject json = result.getJSONObject(position);
                 //put all selected restaurant details into an array
                 restaurantdetails[0] = Integer.toString(json.getInt("restaurantid"));
@@ -212,7 +222,7 @@ public String test;
 
 
     private void FillListView(String itematposition){
-        restlist.clear();
+        restmodel.clear();
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -223,7 +233,7 @@ public String test;
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            restlist.add(json.getString("restaurantname") + ", " + json.getString("suburbname"));
+                            restmodel.add(new RestaurantModel(json.getString("restaurantname"), json.getString("suburbname")));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -234,22 +244,7 @@ public String test;
                     e.printStackTrace();
                 }
                 //FIlls lvRestaurants with all items from restlist array
-                lvRestaurants.setAdapter(new ArrayAdapter<String>(RestaurantSearchActivity.this, android.R.layout.simple_list_item_1, restlist) {
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        // Get the Item from ListView
-                        View view = super.getView(position, convertView, parent);
-
-                        // Initialize a TextView for ListView each Item
-                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                        // Set the text color of TextView (ListView Item)
-                        tv.setTextColor(Color.BLACK);
-
-                        // Generate ListView Item using TextView
-                        return view;
-                    }
-                });
+                lvRestaurants.setAdapter(new RestList(restmodel,getApplicationContext()));
 
 
             }

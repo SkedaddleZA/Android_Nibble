@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.nibble.skedaddle.nibble.CustomListAdapters.RestList;
+import com.nibble.skedaddle.nibble.CustomModels.RestaurantModel;
 import com.nibble.skedaddle.nibble.R;
 import com.nibble.skedaddle.nibble.classes.Restaurant;
 import com.nibble.skedaddle.nibble.classes.MenuItems;
@@ -35,7 +37,8 @@ import static com.nibble.skedaddle.nibble.R.layout.activity_menu;
 public class MenuActivity extends AppCompatActivity {
     private ListView lvMenus;
     private Spinner spinner;
-    private ArrayList<String> dropdown, restlist;
+    private ArrayList<String> dropdown;
+    private ArrayList<RestaurantModel> itemmodel;
     private String[] menudetails, customerdetails;
     private JSONArray result;
     private RequestQueue requestQueue;
@@ -59,7 +62,7 @@ public class MenuActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         format.setCurrency((Currency.getInstance("ZAR")));
         dropdown = new ArrayList<>();
-        restlist = new ArrayList<>();
+        itemmodel = new ArrayList<>();
         spinner = findViewById(R.id.sMTypes);
         lvMenus = findViewById(R.id.lvMenus);
         bHome = findViewById(R.id.bHome);
@@ -89,7 +92,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 final String itematpos=parent.getItemAtPosition(position).toString();
-                restlist.clear();
+                itemmodel.clear();
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -100,7 +103,7 @@ public class MenuActivity extends AppCompatActivity {
                             for(int i=0;i<result.length();i++){
                                 try {
                                     JSONObject json = result.getJSONObject(i);
-                                    restlist.add(json.getString("itemname") + ", " + format.format(Double.parseDouble(json.getString("itemprice"))));
+                                    itemmodel.add(new RestaurantModel(json.getString("itemname"), format.format(Double.parseDouble(json.getString("itemprice")))));
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -111,22 +114,7 @@ public class MenuActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         //FIlls lvRestaurants with all items from restlist array
-                        lvMenus.setAdapter(new ArrayAdapter<String>(MenuActivity.this, android.R.layout.simple_list_item_1, restlist) {
-                            @Override
-                            public View getView(int position, View convertView, ViewGroup parent) {
-                                // Get the Item from ListView
-                                View view = super.getView(position, convertView, parent);
-
-                                // Initialize a TextView for ListView each Item
-                                TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                                // Set the text color of TextView (ListView Item)
-                                tv.setTextColor(Color.BLACK);
-
-                                // Generate ListView Item using TextView
-                                return view;
-                            }
-                        });
+                        lvMenus.setAdapter(new RestList(itemmodel,getApplicationContext()));
 
 
                     }

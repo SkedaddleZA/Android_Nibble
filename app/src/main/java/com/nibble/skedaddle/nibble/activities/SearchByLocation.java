@@ -39,6 +39,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.model.LatLng;
+import com.nibble.skedaddle.nibble.CustomListAdapters.RestList;
+import com.nibble.skedaddle.nibble.CustomModels.RestaurantModel;
 import com.nibble.skedaddle.nibble.R;
 import com.nibble.skedaddle.nibble.classes.Restaurant;
 
@@ -56,11 +58,11 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
 
     private ListView lvRestaurants;
     private Spinner spinner;
-    private ArrayList<String> dropdown, restlist;
+    private ArrayList<String> dropdown;
+    private ArrayList<RestaurantModel> restmodel;
     private String[] restaurantdetails, restaurantfulldetails, customerdetails;
     private float[] distances = new float[3];
     private ArrayList<Double> distancesArray = new ArrayList<>();
-    private ArrayList<Double> distancesArray2 = new ArrayList<>();
     private ArrayList<Integer> orderofresult = new ArrayList<>();
     private JSONArray result, restresult;
     private RequestQueue requestQueue;
@@ -88,7 +90,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
         bBookings = findViewById(R.id.bBookings);
         bProfile = findViewById(R.id.bRProfile);
         dropdown = new ArrayList<>();
-        restlist = new ArrayList<>();
+        restmodel = new ArrayList<>();
         spinner = findViewById(R.id.sRTypes);
         lvRestaurants = findViewById(R.id.lvRestaurants);
         tvr = findViewById(R.id.tvrType);
@@ -207,7 +209,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
     }
 
     private void FillListView(String itematposition){
-        restlist.clear();
+        restmodel.clear();
         distancesArray.clear();
         orderofresult.clear();
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -245,7 +247,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                                 x = Float.toString(roundedM);
                             }
 
-                            restlist.add(json.getString("restaurantname") + ", " + x + " " + abrev);
+                            restmodel.add(new RestaurantModel(json.getString("restaurantname"), x + " " + abrev));
                             orderofresult.add(i);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -258,9 +260,9 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                                distancesArray.set(i,distancesArray.get(k));
                                distancesArray.set(k,temp);
 
-                               String stemp = restlist.get(i);
-                               restlist.set(i,restlist.get(k));
-                               restlist.set(k,stemp);
+                               RestaurantModel stemp = restmodel.get(i);
+                               restmodel.set(i,restmodel.get(k));
+                               restmodel.set(k,stemp);
 
                                int itemp = orderofresult.get(i);
                                orderofresult.set(i,orderofresult.get(k));
@@ -277,23 +279,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                     e.printStackTrace();
                 }
                 //FIlls lvRestaurants with all items from restlist array
-                lvRestaurants.setAdapter(new ArrayAdapter<String>(SearchByLocation.this, android.R.layout.simple_list_item_1, restlist) {
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        // Get the Item from ListView
-                        View view = super.getView(position, convertView, parent);
-
-                        // Initialize a TextView for ListView each Item
-                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                        // Set the text color of TextView (ListView Item)
-                        tv.setTextColor(Color.BLACK);
-
-                        // Generate ListView Item using TextView
-                        return view;
-                    }
-                });
-
+                lvRestaurants.setAdapter(new RestList(restmodel,getApplicationContext()));
 
             }
         };

@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.nibble.skedaddle.nibble.CustomListAdapters.RestList;
+import com.nibble.skedaddle.nibble.CustomModels.RestaurantModel;
 import com.nibble.skedaddle.nibble.R;
 import com.nibble.skedaddle.nibble.classes.FoodType;
 import com.nibble.skedaddle.nibble.classes.Restaurant;
@@ -31,7 +35,8 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
     public String test;
     private ListView lvFood;
     private Spinner spinner;
-    private ArrayList<String> dropdown, restlist;
+    private ArrayList<String> dropdown;
+    private ArrayList<RestaurantModel> restmodel;
     private String[] restaurantdetails, restaurantfulldetails, customerdetails;
     private JSONArray result, restresult;
     private RequestQueue requestQueue;
@@ -58,7 +63,7 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
         bBookings = findViewById(R.id.bBookings);
         bProfile = findViewById(R.id.bRProfile);
         dropdown = new ArrayList<>();
-        restlist = new ArrayList<>();
+        restmodel = new ArrayList<>();
         spinner = findViewById(R.id.sFTypes);
         lvFood = findViewById(R.id.lvFood);
         tvf = findViewById(R.id.tvfType);
@@ -105,6 +110,12 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
+
+                    //Animation for clicking on item
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(4000);
+                    view.startAnimation(animation1);
+
                     JSONObject json = result.getJSONObject(position);
                     //put all selected restaurant details into an array
                     restaurantdetails[0] = Integer.toString(json.getInt("restaurantid"));
@@ -213,7 +224,7 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
 
 
     private void FillListView(String itematposition){
-        restlist.clear();
+        restmodel.clear();
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -224,7 +235,7 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            restlist.add(json.getString("restaurantname") + ", " + json.getString("suburbname"));
+                            restmodel.add(new RestaurantModel(json.getString("restaurantname"), json.getString("suburbname")));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -235,22 +246,7 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 //FIlls lvRestaurants with all items from restlist array
-                lvFood.setAdapter(new ArrayAdapter<String>(SearchByFoodTypeActivity.this, android.R.layout.simple_list_item_1, restlist) {
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        // Get the Item from ListView
-                        View view = super.getView(position, convertView, parent);
-
-                        // Initialize a TextView for ListView each Item
-                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                        // Set the text color of TextView (ListView Item)
-                        tv.setTextColor(Color.BLACK);
-
-                        // Generate ListView Item using TextView
-                        return view;
-                    }
-                });
+                lvFood.setAdapter(new RestList(restmodel,getApplicationContext()));
 
 
             }
