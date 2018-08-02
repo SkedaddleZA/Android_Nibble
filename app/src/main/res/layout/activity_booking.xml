@@ -106,7 +106,7 @@
                             android:ems="10"
                             android:gravity="center"
                             android:inputType="numberSigned"
-                            android:maxLength="1"
+                            android:maxLength="2"
                             android:text="1"
                             android:textSize="30sp" />
 

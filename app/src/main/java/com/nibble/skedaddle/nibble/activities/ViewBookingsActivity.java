@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.nibble.skedaddle.nibble.CustomListAdapters.BookList;
+import com.nibble.skedaddle.nibble.CustomModels.BookingModel;
 import com.nibble.skedaddle.nibble.R;
 import com.nibble.skedaddle.nibble.classes.BookingRequest;
 import com.nibble.skedaddle.nibble.classes.Restaurant;
@@ -34,7 +36,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
     private JSONArray result, restresult;
     private RequestQueue requestQueue;
     private RelativeLayout bHome,bProfile;
-    private ArrayList<String> restlist;
+    private ArrayList<BookingModel> bookmodel;
     private SimpleDateFormat sdf;
     private ProgressBar pbLoadRest;
     private String bookingrequestid;
@@ -50,7 +52,8 @@ public class ViewBookingsActivity extends AppCompatActivity {
         final Intent viewbooking = getIntent();
         customerdetails = viewbooking.getStringArrayExtra("customerdetails");
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        restlist = new ArrayList<>();
+
+        bookmodel = new ArrayList<>();
 
         bHome = findViewById(R.id.bHome);
         sdf = new SimpleDateFormat("DDD-dd-MMM");
@@ -101,7 +104,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
 
     }
     private void FillListView(){
-        restlist.clear();
+        bookmodel.clear();
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -112,7 +115,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            restlist.add("Restaurant:"+json.getString("restaurantname") + "\nDate: " + json.getString("date")+"\nGuests: " + json.getString("numofguests"));
+                            bookmodel.add(new BookingModel(json.getString("restaurantname"), json.getString("date"), json.getString("numofguests"), json.getString("time")));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -122,22 +125,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 //FIlls lvRestaurants with all items from restlist array
-                lvMyBooking.setAdapter(new ArrayAdapter<String>(ViewBookingsActivity.this, android.R.layout.simple_list_item_1, restlist) {
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        // Get the Item from ListView
-                        View view = super.getView(position, convertView, parent);
-
-                        // Initialize a TextView for ListView each Item
-                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                        // Set the text color of TextView (ListView Item)
-                        tv.setTextColor(Color.BLACK);
-
-                        // Generate ListView Item using TextView
-                        return view;
-                    }
-                });
+                lvMyBooking.setAdapter(new BookList(bookmodel,getApplicationContext()));
 
 
             }
