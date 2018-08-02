@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ViewBookingsActivity extends AppCompatActivity {
     private ListView lvMyBooking;
@@ -56,7 +57,6 @@ public class ViewBookingsActivity extends AppCompatActivity {
         bookmodel = new ArrayList<>();
 
         bHome = findViewById(R.id.bHome);
-        sdf = new SimpleDateFormat("DDD-dd-MMM");
         pbLoadRest = findViewById(R.id.pb_loadrest);
         pbLoadRest.setVisibility(View.INVISIBLE);
         tvHeadings = findViewById(R.id.tvHeadings);
@@ -115,7 +115,21 @@ public class ViewBookingsActivity extends AppCompatActivity {
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            bookmodel.add(new BookingModel(json.getString("restaurantname"), json.getString("date"), json.getString("numofguests"), json.getString("time")));
+                            String date = json.getString("date");
+                            String OGDate="yyy-mm-dd";
+                            String EndDate="dd-MMM";
+                            String DateFormat="";
+                            SimpleDateFormat DateFormated = new SimpleDateFormat(OGDate);
+                            Date myDate = null;
+                            try {
+                                myDate = DateFormated.parse(date);
+                            } catch (java.text.ParseException e) {
+                                e.printStackTrace();
+                            }
+                            SimpleDateFormat timeFormat = new SimpleDateFormat(EndDate);
+                            DateFormat = timeFormat.format(myDate);
+
+                            bookmodel.add(new BookingModel(json.getString("restaurantname"), DateFormat, json.getString("numofguests")+"\tGuests", json.getString("time").substring(0,5)));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
