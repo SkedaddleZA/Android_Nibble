@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -127,7 +128,8 @@ public class BookingActivity extends AppCompatActivity {
         });
 
 
-
+        bNext.setEnabled(false);
+        bNext.setBackgroundTintList(getResources().getColorStateList(R.color.secondaryLightColor));
 
         bNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +179,8 @@ public class BookingActivity extends AppCompatActivity {
         cvDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                bNext.setEnabled(true);
+                bNext.setBackgroundTintList(getResources().getColorStateList(R.color.primaryDarkColor));
                 date = String.valueOf(year) + "-" + String.valueOf(month+1) + "-" + String.valueOf(dayOfMonth);
             }
         });
