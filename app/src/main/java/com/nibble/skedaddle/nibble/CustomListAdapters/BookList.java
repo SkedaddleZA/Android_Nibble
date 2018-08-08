@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nibble.skedaddle.nibble.CustomModels.BookingModel;
@@ -16,6 +17,8 @@ import com.nibble.skedaddle.nibble.CustomModels.RestaurantModel;
 import com.nibble.skedaddle.nibble.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class BookList extends ArrayAdapter<BookingModel> {
@@ -29,6 +32,7 @@ public class BookList extends ArrayAdapter<BookingModel> {
         TextView txtDate;
         TextView txtGuests;
         TextView txtTime;
+        ImageView imgStatus;
     }
 
     public BookList(ArrayList<BookingModel> data, Context context) {
@@ -55,12 +59,25 @@ public class BookList extends ArrayAdapter<BookingModel> {
         viewHolder.txtDate = (TextView) convertView.findViewById(R.id.date);
         viewHolder.txtGuests = (TextView) convertView.findViewById(R.id.guests);
         viewHolder.txtTime = (TextView) convertView.findViewById(R.id.time);
+        viewHolder.imgStatus = (ImageView) convertView.findViewById(R.id.ivStatus);
 
 
         viewHolder.txtRestaurantName.setText(dataModel.getRestaurantName());
         viewHolder.txtDate.setText(dataModel.getDate());
         viewHolder.txtGuests.setText(dataModel.getGuests());
         viewHolder.txtTime.setText(dataModel.getTime());
+        String status = dataModel.getStatus();
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("accept", R.drawable.accept);
+        map.put("decline", R.drawable.decline);
+        map.put("pending", R.drawable.pending);
+
+        switch(status){
+            case "Y": viewHolder.imgStatus.setImageResource(map.get("accept")); break;
+            case "N": viewHolder.imgStatus.setImageResource(map.get("decline")); break;
+            case "P": viewHolder.imgStatus.setImageResource(map.get("pending")); break;
+        }
 
         // Return the completed view to render on screen
         return convertView;

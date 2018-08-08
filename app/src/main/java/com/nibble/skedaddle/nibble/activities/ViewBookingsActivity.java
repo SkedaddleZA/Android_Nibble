@@ -129,7 +129,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
                             SimpleDateFormat timeFormat = new SimpleDateFormat(EndDate);
                             DateFormat = timeFormat.format(myDate);
 
-                            bookmodel.add(new BookingModel(json.getString("restaurantname"), DateFormat, json.getString("numofguests")+"\tGuests", json.getString("time").substring(0,5)));
+                            bookmodel.add(new BookingModel(json.getString("restaurantname"), DateFormat, json.getString("numofguests")+"\tGuests", json.getString("time").substring(0,5), json.getString("status")));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

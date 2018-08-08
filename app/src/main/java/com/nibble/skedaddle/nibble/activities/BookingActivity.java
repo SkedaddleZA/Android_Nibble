@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.TooltipCompat;
 import android.util.Base64;
 import android.view.View;
 import android.view.WindowManager;
@@ -126,7 +127,6 @@ public class BookingActivity extends AppCompatActivity {
 
             }
         });
-
 
         bNext.setEnabled(false);
         bNext.setBackgroundTintList(getResources().getColorStateList(R.color.secondaryLightColor));

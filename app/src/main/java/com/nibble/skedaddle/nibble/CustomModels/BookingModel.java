@@ -10,13 +10,15 @@ public class BookingModel {
     String date;
     String guests;
     String time;
+    String status;
 
 
-    public BookingModel(String restaurantname, String date, String guests, String time) {
+    public BookingModel(String restaurantname, String date, String guests, String time, String status) {
         this.restaurantname=restaurantname;
         this.date=date;
         this.guests=guests;
         this.time=time;
+        this.status=status;
 
     }
 
@@ -34,6 +36,10 @@ public class BookingModel {
 
     public String getTime() {
         return time;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
 
