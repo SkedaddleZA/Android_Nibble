@@ -41,7 +41,9 @@
         <activity android:name=".activities.ViewBookingsActivity" />
         <activity android:name=".activities.SearchByFoodTypeActivity" />
         <activity android:name=".activities.SearchByLocation" />
-        <activity android:name=".activities.BookingConfirmationActivity"></activity>
+        <activity android:name=".activities.BookingConfirmationActivity" />
+        <activity android:name=".activities.ViewReviews" />
+        <activity android:name=".activities.AddReview"></activity>
     </application>
 
 </manifest>
