@@ -161,7 +161,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
             public void onClick(View v) {
                 Intent reviews = new Intent(RestaurantActivity.this, ViewReviews.class);
                 reviews.putExtra("customerdetails", customerdetails);
-                reviews.putExtra("restaurantid", restaurantfulldetails[0]);
+                reviews.putExtra("restaurantdetails", restaurantfulldetails);
                 RestaurantActivity.this.startActivity(reviews);
             }
         });
