@@ -125,13 +125,13 @@
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rlReviews"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/primaryColor">
 
                     <TextView
-                        android:id="@+id/textView3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"

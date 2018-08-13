@@ -48,7 +48,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
     private ImageView restImage;
     private JSONArray result;
     private RequestQueue requestQueue;
-    private RelativeLayout bHome, bBookings, bProfile, rlMenu, rlContact, rlWebsite;
+    private RelativeLayout bHome, bBookings, bProfile, rlMenu, rlContact, rlWebsite, rlReviews;
     private String url;
 
     @Override
@@ -103,6 +103,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         rlMenu=findViewById(R.id.rlMenu);
         rlContact =findViewById(R.id.rlContact);
         rlWebsite = findViewById(R.id.rlWebsite);
+        rlReviews = findViewById(R.id.rlReviews);
         //Menu Bar functions
 
 
@@ -155,6 +156,17 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
                 startActivity(browserIntent);
             }
         });
+        rlReviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent reviews = new Intent(RestaurantActivity.this, ViewReviews.class);
+                reviews.putExtra("customerdetails", customerdetails);
+                reviews.putExtra("restaurantid", restaurantfulldetails[0]);
+                RestaurantActivity.this.startActivity(reviews);
+            }
+        });
+
+
 
 
         //Decode Base64 string (Image) from the array and display it in ImageView
