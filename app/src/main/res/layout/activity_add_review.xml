@@ -52,16 +52,86 @@
 
                 <TextView
                     android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Write a Review"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView15"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="7" />
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Rating:"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/nostar" />
+
+                    <ImageView
+                        android:id="@+id/iv2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/nostar" />
+
+                    <ImageView
+                        android:id="@+id/iv3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/nostar" />
+
+                    <ImageView
+                        android:id="@+id/iv4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/nostar" />
+
+                    <ImageView
+                        android:id="@+id/iv5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/nostar" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etContent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6"
+                android:ems="10"
+                android:inputType="textMultiLine" />
 
             <Button
                 android:id="@+id/bSReview"
