@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Android_Nibble1.iml" filepath="$PROJECT_DIR$/Android_Nibble1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Android_Nibble.iml" filepath="$PROJECT_DIR$/Android_Nibble.iml" />
+      <module fileurl="file://C:\Users\s216446546\StudioProjects\Android_Nibble\Android_Nibble1.iml" filepath="C:\Users\s216446546\StudioProjects\Android_Nibble\Android_Nibble1.iml" />
       <module fileurl="file://C:\Users\marno\Desktop\Android_Nibble1\Nibble.iml" filepath="C:\Users\marno\Desktop\Android_Nibble1\Nibble.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\marno\Desktop\Android_Nibble1\app\app.iml" filepath="C:\Users\marno\Desktop\Android_Nibble1\app\app.iml" />
