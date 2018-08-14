@@ -86,6 +86,10 @@ public class Review {
     {
         dl.GetReviews(Restaurantid, listener, requestQueue);
     }
+    public void InsertReview(final String CustomerID, final String RestaurantID, final String Comment, final String Date, final String Rating, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        dl.InsertReview(CustomerID, RestaurantID, Comment, Date, Rating, listener, requestQueue);
+    }
 
 
 

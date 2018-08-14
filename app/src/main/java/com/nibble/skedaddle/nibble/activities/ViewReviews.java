@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,6 +34,7 @@ public class ViewReviews extends AppCompatActivity {
     private JSONArray result;
     private RequestQueue requestQueue;
     private ListView lvReview;
+    private RelativeLayout bHome,bBookings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +46,36 @@ public class ViewReviews extends AppCompatActivity {
         customerdetails = reviews.getStringArrayExtra("customerdetails");
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
+        bHome = findViewById(R.id.bHome);
+        bBookings = findViewById(R.id.bBookings);
 
         revmodel = new ArrayList<>();
         bAddReview=findViewById(R.id.bAddReview);
         lvReview = findViewById(R.id.lvReview);
         FillListView();
+
+
+        //Menu Bar Functions
+        bHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Home = new Intent(ViewReviews.this, HomeActivity.class);
+                Home.putExtra("customerdetails", customerdetails);
+                ViewReviews.this.startActivity(Home);
+                ViewReviews.this.finish();
+            }
+        });
+        bBookings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Bookings = new Intent(ViewReviews.this, ViewBookingsActivity.class);
+                Bookings.putExtra("customerdetails", customerdetails);
+                ViewReviews.this.startActivity(Bookings);
+            }
+        });
+        //
+
+
 
         bAddReview.setOnClickListener(new View.OnClickListener() {
             @Override

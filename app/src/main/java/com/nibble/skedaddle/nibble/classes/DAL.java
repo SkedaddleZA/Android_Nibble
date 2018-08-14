@@ -42,6 +42,7 @@ class DAL {
     private static final String restaurantsByLocationUrl ="http://SICT-IIS.nmmu.ac.za/skedaddle/getRestaurantsByLocation.php";
     private static final String getBookingDetails = "http://SICT-IIS.nmmu.ac.za/skedaddle/getBookingDetails.php";
     private static final String getReviews = "http://SICT-IIS.nmmu.ac.za/skedaddle/getReviews.php";
+    private static final String insertReviewURL = "http://SICT-IIS.nmmu.ac.za/skedaddle/insertReview.php";
 
    //Insert customer procedure
     public void InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
@@ -353,6 +354,30 @@ class DAL {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
                 parameters.put("restaurantid", RestaurantID);
+
+                return parameters;
+
+            }
+        };
+        requestQueue.add(request);//Runs the request which POSTS the data
+    }
+
+    public void InsertReview(final String CustomerID, final String RestaurantID, final String Comment, final String Date, final String Rating, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        StringRequest request = new StringRequest(Request.Method.POST, insertReviewURL, listener, new Response.ErrorListener() {//Create a StringRequest which POSTS data to the database then records the response in listener variable
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("customerid", CustomerID);
+                parameters.put("restaurantid", RestaurantID);
+                parameters.put("comment", Comment);
+                parameters.put("date", Date);
+                parameters.put("rating", Rating);
 
                 return parameters;
 

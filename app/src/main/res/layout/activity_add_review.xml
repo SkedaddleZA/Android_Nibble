@@ -89,7 +89,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:padding="10dp"
-                        app:srcCompat="@drawable/nostar" />
+                        app:srcCompat="@drawable/star" />
 
                     <ImageView
                         android:id="@+id/iv2"
@@ -131,7 +131,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="6"
                 android:ems="10"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:textColor="@color/colorPrimaryDark" />
 
             <Button
                 android:id="@+id/bSReview"
