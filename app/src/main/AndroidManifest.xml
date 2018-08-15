@@ -43,7 +43,8 @@
         <activity android:name=".activities.SearchByLocation" />
         <activity android:name=".activities.BookingConfirmationActivity" />
         <activity android:name=".activities.ViewReviews" />
-        <activity android:name=".activities.AddReview"></activity>
+        <activity android:name=".activities.AddReview" />
+        <activity android:name=".activities.MyProfile"></activity>
     </application>
 
 </manifest>

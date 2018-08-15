@@ -26,6 +26,7 @@ public class HomeActivity extends AppCompatActivity {//my naam tollie
         final String[] customerdetails = Home.getStringArrayExtra("customerdetails");
 
 
+        bProfile = findViewById(R.id.bRProfile);
         bBookings = findViewById(R.id.bBookings);
         tvDetails = findViewById(R.id.tvDetails);
         tvDetails.setText("Signed in as " + customerdetails[1] + " " + customerdetails[2]);
@@ -72,6 +73,14 @@ public class HomeActivity extends AppCompatActivity {//my naam tollie
                 Intent Bookings = new Intent(HomeActivity.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 HomeActivity.this.startActivity(Bookings);
+            }
+        });
+        bProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myprofile = new Intent(HomeActivity.this, MyProfile.class);
+                myprofile.putExtra("customerdetails", customerdetails);
+                HomeActivity.this.startActivity(myprofile);
             }
         });
         //
