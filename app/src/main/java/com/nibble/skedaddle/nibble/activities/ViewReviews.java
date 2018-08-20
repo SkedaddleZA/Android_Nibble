@@ -23,7 +23,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ViewReviews extends AppCompatActivity {
 
@@ -106,7 +108,21 @@ public class ViewReviews extends AppCompatActivity {
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            revmodel.add(new ReviewModel(json.getString("comment"), json.getString("date"),json.getString("name"),Integer.toString(json.getInt("rating"))));
+                            String date = json.getString("date");
+                            String OGDate="yyy-MM-dd";
+                            String EndDate="dd-MMM";
+                            String DateFormat="";
+                            SimpleDateFormat DateFormated = new SimpleDateFormat(OGDate);
+                            Date myDate = null;
+                            try {
+                                myDate = DateFormated.parse(date);
+                            } catch (java.text.ParseException e) {
+                                e.printStackTrace();
+                            }
+                            SimpleDateFormat timeFormat = new SimpleDateFormat(EndDate);
+                            DateFormat = timeFormat.format(myDate);
+
+                            revmodel.add(new ReviewModel(json.getString("comment"), DateFormat,json.getString("name"),Integer.toString(json.getInt("rating"))));
 
                         } catch (JSONException e) {
                             e.printStackTrace();

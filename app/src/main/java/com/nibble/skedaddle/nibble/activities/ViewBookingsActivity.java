@@ -116,7 +116,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
                         try {
                             JSONObject json = result.getJSONObject(i);
                             String date = json.getString("date");
-                            String OGDate="yyy-mm-dd";
+                            String OGDate="yyy-MM-dd";
                             String EndDate="dd-MMM";
                             String DateFormat="";
                             SimpleDateFormat DateFormated = new SimpleDateFormat(OGDate);
