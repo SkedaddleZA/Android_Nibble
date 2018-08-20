@@ -64,7 +64,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="7">
+                android:layout_weight="8">
 
                 <LinearLayout
                     android:id="@+id/llStep1"
@@ -72,7 +72,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="7"
                     android:orientation="vertical"
-                    android:weightSum="5">
+                    android:weightSum="6">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -97,7 +97,9 @@
                             android:backgroundTint="@color/secondaryLightColor"
                             android:ems="10"
                             android:inputType="textPersonName"
-                            android:text="Name" />
+                            android:text="Name"
+                            android:textColor="@color/secondaryLightColor"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -123,7 +125,37 @@
                             android:backgroundTint="@color/secondaryLightColor"
                             android:ems="10"
                             android:inputType="textPersonName"
-                            android:text="Name" />
+                            android:text="Name"
+                            android:textColor="@color/secondaryLightColor"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Phone"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <EditText
+                            android:id="@+id/etPhone"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:backgroundTint="@color/secondaryLightColor"
+                            android:ems="10"
+                            android:inputType="textPersonName|numberSigned"
+                            android:text="Name"
+                            android:textColor="@color/secondaryLightColor"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -149,33 +181,9 @@
                             android:backgroundTint="@color/secondaryLightColor"
                             android:ems="10"
                             android:inputType="textPersonName"
-                            android:text="Name" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:weightSum="3">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Phone"
-                            android:textColor="@color/colorPrimaryDark" />
-
-                        <EditText
-                            android:id="@+id/etPhone"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:backgroundTint="@color/secondaryLightColor"
-                            android:ems="10"
-                            android:inputType="textPersonName"
-                            android:text="Name" />
+                            android:text="Name"
+                            android:textColor="@color/secondaryLightColor"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -195,6 +203,16 @@
 
                     </LinearLayout>
 
+                    <Button
+                        android:id="@+id/bSave"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/primaryDarkColor"
+                        android:text="Save"
+                        android:textColor="@android:color/white" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -203,7 +221,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="7"
                     android:orientation="vertical"
-                    android:weightSum="5">
+                    android:weightSum="6">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -227,8 +245,9 @@
                             android:layout_weight="2"
                             android:backgroundTint="@color/secondaryLightColor"
                             android:ems="10"
-                            android:inputType="textPersonName"
-                            android:text="Name" />
+                            android:inputType="textPersonName|textPassword"
+                            android:textColor="@color/secondaryLightColor"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -253,8 +272,9 @@
                             android:layout_weight="2"
                             android:backgroundTint="@color/secondaryLightColor"
                             android:ems="10"
-                            android:inputType="textPersonName"
-                            android:text="Name" />
+                            android:inputType="textPersonName|textPassword"
+                            android:textColor="@color/secondaryLightColor"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -276,16 +296,6 @@
 
                 </LinearLayout>
             </RelativeLayout>
-
-            <Button
-                android:id="@+id/bSave"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:backgroundTint="@color/primaryDarkColor"
-                android:text="Save"
-                android:textColor="@android:color/white" />
 
         </LinearLayout>
 

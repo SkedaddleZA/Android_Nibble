@@ -93,6 +93,10 @@ public class Customer {
     {
         dl.LoginCustomer(Email, Password, listener, requestQueue);
     }
+    public void UpdateCustomer(final String CustomerID, final String FirstName, final String LastName, final String Email, final String Phone, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        dl.UpdateCustomer(CustomerID, FirstName, LastName, Email, Phone, Password, listener, requestQueue);
+    }
 
 
 
