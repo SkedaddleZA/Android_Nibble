@@ -56,6 +56,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
 
         bookmodel = new ArrayList<>();
 
+        bProfile =findViewById(R.id.bProfile);
         bHome = findViewById(R.id.bHome);
         pbLoadRest = findViewById(R.id.pb_loadrest);
         pbLoadRest.setVisibility(View.INVISIBLE);
@@ -76,6 +77,15 @@ public class ViewBookingsActivity extends AppCompatActivity {
 
             }
         });
+        bProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myprofile = new Intent(ViewBookingsActivity.this, MyProfile.class);
+                myprofile.putExtra("customerdetails", customerdetails);
+                ViewBookingsActivity.this.startActivity(myprofile);
+            }
+        });
+        //
 
         FillListView();
 

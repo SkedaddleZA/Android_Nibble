@@ -67,6 +67,7 @@ public class MenuActivity extends AppCompatActivity {
         lvMenus = findViewById(R.id.lvMenus);
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
+        bProfile = findViewById(R.id.bProfile);
 
         //menudetails = new String[3];
 
@@ -88,6 +89,15 @@ public class MenuActivity extends AppCompatActivity {
                 MenuActivity.this.startActivity(Bookings);
             }
         });
+        bProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myprofile = new Intent(MenuActivity.this, MyProfile.class);
+                myprofile.putExtra("customerdetails", customerdetails);
+                MenuActivity.this.startActivity(myprofile);
+            }
+        });
+        //
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

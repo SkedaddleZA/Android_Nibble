@@ -36,7 +36,7 @@ public class ViewReviews extends AppCompatActivity {
     private JSONArray result;
     private RequestQueue requestQueue;
     private ListView lvReview;
-    private RelativeLayout bHome,bBookings;
+    private RelativeLayout bHome,bBookings, bProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class ViewReviews extends AppCompatActivity {
 
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
+        bProfile = findViewById(R.id.bProfile);
 
         revmodel = new ArrayList<>();
         bAddReview=findViewById(R.id.bAddReview);
@@ -73,6 +74,14 @@ public class ViewReviews extends AppCompatActivity {
                 Intent Bookings = new Intent(ViewReviews.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 ViewReviews.this.startActivity(Bookings);
+            }
+        });
+        bProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myprofile = new Intent(ViewReviews.this, MyProfile.class);
+                myprofile.putExtra("customerdetails", customerdetails);
+                ViewReviews.this.startActivity(myprofile);
             }
         });
         //

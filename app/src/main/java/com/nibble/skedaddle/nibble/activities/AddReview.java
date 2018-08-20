@@ -35,7 +35,7 @@ public class AddReview extends AppCompatActivity {
     private EditText etContent;
     private Button bSReview;
     private RequestQueue requestQueue;
-    private RelativeLayout bHome,bBookings;
+    private RelativeLayout bHome,bBookings, bProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +47,7 @@ public class AddReview extends AppCompatActivity {
 
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
+        bProfile = findViewById(R.id.bProfile);
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         iv1 = findViewById(R.id.iv1);
@@ -79,6 +80,14 @@ public class AddReview extends AppCompatActivity {
                 Intent Bookings = new Intent(AddReview.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 AddReview.this.startActivity(Bookings);
+            }
+        });
+        bProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myprofile = new Intent(AddReview.this, MyProfile.class);
+                myprofile.putExtra("customerdetails", customerdetails);
+                AddReview.this.startActivity(myprofile);
             }
         });
         //

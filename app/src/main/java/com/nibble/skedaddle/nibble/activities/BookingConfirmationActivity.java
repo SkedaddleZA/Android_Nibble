@@ -97,6 +97,14 @@ public class BookingConfirmationActivity extends AppCompatActivity {
                 BookingConfirmationActivity.this.startActivity(Bookings);
             }
         });
+        bProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myprofile = new Intent(BookingConfirmationActivity.this, MyProfile.class);
+                myprofile.putExtra("customerdetails", customerdetails);
+                BookingConfirmationActivity.this.startActivity(myprofile);
+            }
+        });
         //
 
         bConfirm.setOnClickListener(new View.OnClickListener() {

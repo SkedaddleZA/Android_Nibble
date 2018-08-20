@@ -124,6 +124,14 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
                 RestaurantActivity.this.startActivity(Bookings);
             }
         });
+        bProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myprofile = new Intent(RestaurantActivity.this, MyProfile.class);
+                myprofile.putExtra("customerdetails", customerdetails);
+                RestaurantActivity.this.startActivity(myprofile);
+            }
+        });
         //
 
         rlMenu.setOnClickListener(new View.OnClickListener() {

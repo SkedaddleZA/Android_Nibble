@@ -125,6 +125,14 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                 SearchByLocation.this.startActivity(Bookings);
             }
         });
+        bProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myprofile = new Intent(SearchByLocation.this, MyProfile.class);
+                myprofile.putExtra("customerdetails", customerdetails);
+                SearchByLocation.this.startActivity(myprofile);
+            }
+        });
         //
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

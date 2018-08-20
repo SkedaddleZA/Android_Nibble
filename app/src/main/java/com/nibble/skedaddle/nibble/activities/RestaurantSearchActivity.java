@@ -90,6 +90,14 @@ public String test;
                 RestaurantSearchActivity.this.startActivity(Bookings);
             }
         });
+        bProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myprofile = new Intent(RestaurantSearchActivity.this, MyProfile.class);
+                myprofile.putExtra("customerdetails", customerdetails);
+                RestaurantSearchActivity.this.startActivity(myprofile);
+            }
+        });
         //
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

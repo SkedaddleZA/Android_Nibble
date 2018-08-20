@@ -91,6 +91,14 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
                 SearchByFoodTypeActivity.this.startActivity(Bookings);
             }
         });
+        bProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myprofile = new Intent(SearchByFoodTypeActivity.this, MyProfile.class);
+                myprofile.putExtra("customerdetails", customerdetails);
+                SearchByFoodTypeActivity.this.startActivity(myprofile);
+            }
+        });
         //
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
