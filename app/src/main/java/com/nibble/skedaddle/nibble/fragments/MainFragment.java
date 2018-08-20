@@ -1,5 +1,10 @@
 package com.nibble.skedaddle.nibble.fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,6 +19,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -65,7 +72,11 @@ public class MainFragment extends Fragment implements OnMapReadyCallback {
     public void setUserMarker(LatLng latLng) {
         Log.v("Donkey", "Set User Location");
         if (userMarker == null) {
-        userMarker = new MarkerOptions().position(latLng).title("Me");
+
+        Bitmap markerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user);//custom bitmap
+        markerBitmap = scaleBitmap(markerBitmap,70,70);//call resize method
+
+        userMarker = new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)).position(latLng).title("Me");
         mMap.addMarker(userMarker);
 
         }
@@ -79,6 +90,23 @@ public class MainFragment extends Fragment implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(restaurant).title("Restaurant"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(restaurant));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f));*/
+    }
+    public static Bitmap scaleBitmap(Bitmap bitmap, int newWidth, int newHeight) {//Resize a custom bitmap image
+        Bitmap scaledBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
+
+        float scaleX = newWidth / (float) bitmap.getWidth();
+        float scaleY = newHeight / (float) bitmap.getHeight();
+        float pivotX = 0;
+        float pivotY = 0;
+
+        Matrix scaleMatrix = new Matrix();
+        scaleMatrix.setScale(scaleX, scaleY, pivotX, pivotY);
+
+        Canvas canvas = new Canvas(scaledBitmap);
+        canvas.setMatrix(scaleMatrix);
+        canvas.drawBitmap(bitmap, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
+
+        return scaledBitmap;
     }
 
 
