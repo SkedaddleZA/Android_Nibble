@@ -45,6 +45,8 @@
         <activity android:name=".activities.ViewReviews" />
         <activity android:name=".activities.AddReview" />
         <activity android:name=".activities.MyProfile"></activity>
+
+        <receiver android:name="com.nibble.skedaddle.nibble.classes.AlertReceiver" />
     </application>
 
 </manifest>

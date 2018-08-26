@@ -1,5 +1,8 @@
 package com.nibble.skedaddle.nibble.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,6 +29,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.nibble.skedaddle.nibble.R;
+import com.nibble.skedaddle.nibble.classes.AlertReceiver;
 import com.nibble.skedaddle.nibble.classes.BookingRequest;
 import com.nibble.skedaddle.nibble.classes.Customer;
 
@@ -37,6 +41,7 @@ import java.io.InputStream;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class BookingActivity extends AppCompatActivity {
@@ -52,6 +57,8 @@ public class BookingActivity extends AppCompatActivity {
     private LinearLayout llstep2, llstep1;
     private ImageView restImage;
     private RelativeLayout bHome, bBookings, bProfile;
+    private String bookday, bookmonth, bookyear, bookminutes, bookhours, restaurantname;
+    private boolean ampm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +92,7 @@ public class BookingActivity extends AppCompatActivity {
         bAdd = findViewById(R.id.bAdd);
         bSub = findViewById(R.id.bSub);
         tvDateTime = findViewById(R.id.tvdatetime);
+        restaurantname = restaurantdetails[1];
 
         //Decode Base64 string (Image) from the array and display it in ImageView
         restImage = findViewById(R.id.restImage);
@@ -179,6 +187,19 @@ public class BookingActivity extends AppCompatActivity {
                 }
 
 
+                bookminutes = Integer.toString(tpTime.getMinute());
+                bookhours = Integer.toString(tpTime.getHour());
+                if (Integer.parseInt(bookhours) > 12) {
+                    int temp = Integer.parseInt(bookhours);
+                    temp = temp - 12;
+                    bookhours = Integer.toString(temp);
+                    ampm = true; //is pm
+                }else
+                    ampm = false; //is am
+
+
+
+
 
 
             }
@@ -190,12 +211,20 @@ public class BookingActivity extends AppCompatActivity {
                 bNext.setEnabled(true);
                 bNext.setBackgroundTintList(getResources().getColorStateList(R.color.primaryDarkColor));
                 date = String.valueOf(year) + "-" + String.valueOf(month+1) + "-" + String.valueOf(dayOfMonth);
+
+                bookday = String.valueOf(dayOfMonth);
+                bookmonth = String.valueOf(month);
+                bookyear = String.valueOf(year);
+
             }
         });
 
         bBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
 
 
                     //nowdatetime = sdf.format(cvDate.getDate());
@@ -211,6 +240,19 @@ public class BookingActivity extends AppCompatActivity {
                                 boolean success = jsonResponse.getBoolean("success");//get the boolean value which is in the "success" holder IN the JSON output and put it in a boolean
                                 if (success) {//if the process was successful go to login screen
 
+                                    Calendar c = Calendar.getInstance();
+                                    c.set(Calendar.SECOND, 0);
+                                    c.set(Calendar.MINUTE, Integer.parseInt(bookminutes));
+                                    c.set(Calendar.HOUR, Integer.parseInt(bookhours));
+                                    if (ampm)
+                                        c.set(Calendar.AM_PM, Calendar.PM);
+                                    else
+                                        c.set(Calendar.AM_PM, Calendar.AM);
+                                    c.set(Calendar.MONTH, Integer.parseInt(bookmonth));
+                                    c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(bookday));
+                                    c.set(Calendar.YEAR, Integer.parseInt(bookyear));
+
+                                    startAlarm(c);
 
                                     AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
                                     builder.setMessage("Booking Request successfully made!")
@@ -256,4 +298,18 @@ public class BookingActivity extends AppCompatActivity {
 
 
     }
+
+    private void startAlarm(Calendar c){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        intent.putExtra("name",restaurantname);
+        intent.putExtra("datetime", datetime);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+    }
+
+
 }
