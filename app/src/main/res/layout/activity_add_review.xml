@@ -130,9 +130,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="6"
+                android:elevation="1dp"
                 android:ems="10"
+                android:gravity="bottom"
+                android:hint="Add Comment:"
                 android:inputType="textMultiLine"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@android:color/darker_gray"
+                tools:hint="we" />
 
             <Button
                 android:id="@+id/bSReview"
