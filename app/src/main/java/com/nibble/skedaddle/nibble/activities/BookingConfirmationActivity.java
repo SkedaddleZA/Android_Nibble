@@ -32,6 +32,8 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BookingConfirmationActivity extends AppCompatActivity {
     private String[] customerdetails, bookingrequestdetails, restaurantfulldetails;
@@ -39,7 +41,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
     private Button bConfirm, bCancel,bRProfile;
     private RelativeLayout bHome,bBookings,bProfile;
     private RequestQueue requestQueue;
-    private TextView rText,dText,tText,gText;
+    private TextView cText,dText,tText,gText;
     private JSONArray result;
     private ImageView restImage;
     private ProgressBar pbLoadRest;
@@ -67,7 +69,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
         bConfirm=findViewById(R.id.bConfirm);
         bCancel=findViewById(R.id.bCancel);
         bRProfile=findViewById(R.id.bRProfile);
-        rText=findViewById(R.id.rText);
+        cText=findViewById(R.id.cText);
         dText=findViewById(R.id.dText);
         tText=findViewById(R.id.tText);
         gText=findViewById(R.id.gText);
@@ -201,10 +203,24 @@ public class BookingConfirmationActivity extends AppCompatActivity {
             Confirm="Pending";
         }
 
-        rText.setText("\t\tRestaurant: "+bookingrequestdetails[1]);
-        dText.setText("\t\tDate: "+bookingrequestdetails[2]);
+        String date = bookingrequestdetails[2];
+        String OGDate="yyy-MM-dd";
+        String EndDate="dd MMMM";
+        String DateFormat="";
+        SimpleDateFormat DateFormated = new SimpleDateFormat(OGDate);
+        Date myDate = null;
+        try {
+            myDate = DateFormated.parse(date);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat timeFormat = new SimpleDateFormat(EndDate);
+        DateFormat = timeFormat.format(myDate);
+
+        dText.setText("\t\tDate: "+DateFormat);
         tText.setText("\t\tTime: "+bookingrequestdetails[3].substring(0,5));
-        gText.setText("\t\tGuests: "+bookingrequestdetails[4] + "    " + Confirm);
+        gText.setText("\t\tGuests: "+bookingrequestdetails[4]);
+        cText.setText("\t\tStatus: "+Confirm);
         byte[] decodedString = Base64.decode(bookingrequestdetails[5], Base64.DEFAULT);
         InputStream inputStream = new ByteArrayInputStream(decodedString);
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);

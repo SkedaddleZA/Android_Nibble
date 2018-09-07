@@ -23,7 +23,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:weightSum="5">
 
@@ -74,7 +74,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="right"
                 android:paddingRight="10dp"
                 android:text="6 February"
@@ -100,7 +100,7 @@
                 android:paddingTop="5dp"
                 android:text="texttextttettexttextextexttexttexttextetextextexttexttextxttexttexttexttexttexttexttexttexttexttexttexttexttext"
                 android:textColor="@android:color/black"
-                android:textSize="10sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -109,9 +109,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="right|center_vertical"
             android:paddingRight="10dp"
             android:text="By Whatsaface"
+            android:textColor="@color/secondaryLightColor"
             android:textStyle="italic" />
 
     </LinearLayout>

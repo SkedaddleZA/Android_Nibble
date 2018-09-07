@@ -64,7 +64,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
 
         lvMyBooking = findViewById(R.id.lvMyBookings);
         restaurantdetails = new String[3];
-        bookingrequestdetails = new String[7];
+        bookingrequestdetails = new String[8];
 
         bHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +127,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
                             JSONObject json = result.getJSONObject(i);
                             String date = json.getString("date");
                             String OGDate="yyy-MM-dd";
-                            String EndDate="dd-MMM";
+                            String EndDate="dd MMMM";
                             String DateFormat="";
                             SimpleDateFormat DateFormated = new SimpleDateFormat(OGDate);
                             Date myDate = null;
@@ -179,6 +179,8 @@ public class ViewBookingsActivity extends AppCompatActivity {
                             bookingrequestdetails[4] = json.getString("numofguests");
                             bookingrequestdetails[5] = json.getString("logo");
                             bookingrequestdetails[6] = json.getString("status");
+                            bookingrequestdetails[7] = json.getString("accepted");
+
 
                             pbLoadRest.setVisibility(View.INVISIBLE); //Due to non instant loading
                             Intent br = new Intent(ViewBookingsActivity.this, BookingConfirmationActivity.class);

@@ -119,7 +119,7 @@ public class ViewReviews extends AppCompatActivity {
                             JSONObject json = result.getJSONObject(i);
                             String date = json.getString("date");
                             String OGDate="yyy-MM-dd";
-                            String EndDate="dd-MMM";
+                            String EndDate="dd MMMM";
                             String DateFormat="";
                             SimpleDateFormat DateFormated = new SimpleDateFormat(OGDate);
                             Date myDate = null;
@@ -131,7 +131,7 @@ public class ViewReviews extends AppCompatActivity {
                             SimpleDateFormat timeFormat = new SimpleDateFormat(EndDate);
                             DateFormat = timeFormat.format(myDate);
 
-                            revmodel.add(new ReviewModel(json.getString("comment"), DateFormat,json.getString("name"),Integer.toString(json.getInt("rating"))));
+                            revmodel.add(new ReviewModel(json.getString("comment"), DateFormat,"By "+json.getString("name"),Integer.toString(json.getInt("rating"))));
 
                         } catch (JSONException e) {
                             e.printStackTrace();

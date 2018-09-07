@@ -55,13 +55,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/rText"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorPrimaryDark" />
-
-                <TextView
                     android:id="@+id/dText"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
@@ -77,6 +70,13 @@
 
                 <TextView
                     android:id="@+id/gText"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:id="@+id/cText"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_weight="1"
