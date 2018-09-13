@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/primaryColor"
     android:orientation="horizontal"
     android:padding="10dp"
     android:weightSum="7">
@@ -17,6 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@color/primaryColor"
+            android:elevation="1dp"
             android:orientation="horizontal"
             android:weightSum="3">
 

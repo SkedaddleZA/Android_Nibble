@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class ViewReviews extends AppCompatActivity {
@@ -141,6 +142,7 @@ public class ViewReviews extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                Collections.reverse(revmodel);
                 //FIlls lvRestaurants with all items from restlist array
                 lvReview.setAdapter(new ReviewList(revmodel,getApplicationContext()));
 
