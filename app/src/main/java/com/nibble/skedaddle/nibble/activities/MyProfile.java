@@ -29,6 +29,7 @@ public class MyProfile extends AppCompatActivity {
     private RelativeLayout bHome, bBookings;
     private String customerid, name, surname, email, phone, password, oldpassword, currentpassword;
     private RequestQueue requestQueue;
+    private boolean passwordChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class MyProfile extends AppCompatActivity {
         phone = customerdetails[4];
         oldpassword = customerdetails[5];
         password = customerdetails[5];
+        passwordChange = false;
 
 
         etName.setText(name);
@@ -108,14 +110,30 @@ public class MyProfile extends AppCompatActivity {
                     password = etNP.getText().toString();
                     llStep1.setVisibility(View.VISIBLE);
                     llStep2.setVisibility(View.INVISIBLE);
+
+                    if(password.matches(""))
+                    {
+                        AlertDialog.Builder builder3 = new AlertDialog.Builder(MyProfile.this);
+                        builder3.setMessage("Please enter a new password.")
+                                .setNegativeButton("Retry", null)
+                                .create()
+                                .show();
+                        bChangePasswordFinish.setEnabled(false);
+                    } else {
+                        bChangePasswordFinish.setEnabled(true);
+                        passwordChange = true;
+                    }
+
+
                 }
                 else {
-
                     AlertDialog.Builder builder3 = new AlertDialog.Builder(MyProfile.this);
                     builder3.setMessage("You entered wrong current password.")
                             .setNegativeButton("Retry", null)
                             .create()
                             .show();
+                    bChangePasswordFinish.setEnabled(false);
+
 
                 }
             }
@@ -125,6 +143,24 @@ public class MyProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                if(etEmail.getText().toString().matches(""))  {
+                    messageshow("Please enter email.");
+                }  else if(etPhone.getText().toString().matches("")) {
+                    messageshow("Please enter phone.");
+                }else if(!CommonMethods.CheckEmail(etEmail.getText().toString())){
+                    messageshow("Please enter correct email");
+                }else if(!CommonMethods.CheckPhone(etPhone.getText().toString())) {
+                    messageshow("Please enter correct phone number.");
+                }
+
+                name = etName.getText().toString();
+                surname = etSurname.getText().toString();
+                email = etEmail.getText().toString();
+                phone = etPhone.getText().toString();
+
+
+
+
                 //Create a response listener which listens if there is a response, and stores the response
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -133,15 +169,16 @@ public class MyProfile extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);//create JSONOBject called jsonResponse which contains all the data that was responded from the POST
                             boolean success = jsonResponse.getBoolean("success");//get the boolean value which is in the "success" holder IN the JSON output and put it in a boolean
                             if (success) {//if the process was successful go to login screen
-                                AlertDialog.Builder builder = new AlertDialog.Builder(MyProfile.this);
-                                builder.setMessage("Your details have been successfully updated!")
+                                AlertDialog.Builder builder2 = new AlertDialog.Builder(MyProfile.this);
+                                builder2.setMessage("Details has been changed.")
                                         .setNegativeButton("OK", null)
                                         .create()
                                         .show();
 
+
                             } else {
                                 AlertDialog.Builder builder2 = new AlertDialog.Builder(MyProfile.this);
-                                builder2.setMessage("Failed to update your details.")
+                                builder2.setMessage("Failed to change your details.")
                                         .setNegativeButton("Retry", null)
                                         .create()
                                         .show();
@@ -154,11 +191,24 @@ public class MyProfile extends AppCompatActivity {
                 };
 
                 Customer updateCustomer = new Customer();//Create Customer Object
-                updateCustomer.UpdateCustomer(customerid, name, surname, email, phone, CommonMethods.sha256(password), responseListener,requestQueue);//Call the UpdateCustomer procedure and send all required data to Customer Class
 
+                if (passwordChange)
+                updateCustomer.UpdateCustomer(customerid, name, surname, email, phone, CommonMethods.sha256(password), responseListener,requestQueue);//Call the UpdateCustomer procedure and send all required data to Customer Class
+                else
+                    updateCustomer.UpdateCustomer(customerid, name, surname, email, phone, password, responseListener,requestQueue);//Call the UpdateCustomer procedure and send all required data to Customer Class
             }
         });
 
 
     }
+
+    public void messageshow(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MyProfile.this);
+        builder.setMessage(message)
+                .setNegativeButton("Retry", null)
+                .create()
+                .show();
+    }
+
+
 }

@@ -123,9 +123,9 @@ public class RegisterActivity extends AppCompatActivity {
                     messageshow("Please enter email.");
                 }  else if(etPhone.getText().toString().matches("")) {
                     messageshow("Please enter phone.");
-                }else if(!CheckEmail(etEmail.getText().toString())){
+                }else if(!CommonMethods.CheckEmail(etEmail.getText().toString())){
                     messageshow("Please enter correct email");
-                }else if(!CheckPhone(etPhone.getText().toString())) {
+                }else if(!CommonMethods.CheckPhone(etPhone.getText().toString())) {
                     messageshow("Please enter correct phone number.");
                 }else {
                     etName.setVisibility(View.INVISIBLE);
@@ -200,31 +200,6 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
     }
-    public static boolean CheckPhone(String phone)
-    {
-        int count = 0;
-        for (int i = 0, len = phone.length(); i < len; i++) {
-            if (Character.isDigit(phone.charAt(i))) {
-                count++;
-            }
-            else{
-                return false;
-            }
-            }
-        if(count == 10)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
 
-    }
-
-    public static boolean CheckEmail(CharSequence email)
-    {
-        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
-    }
 
 }

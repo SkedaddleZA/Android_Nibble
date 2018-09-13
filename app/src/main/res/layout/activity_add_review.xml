@@ -132,11 +132,13 @@
                 android:layout_weight="6"
                 android:elevation="1dp"
                 android:ems="10"
-                android:gravity="bottom"
-                android:hint="Add Comment:"
+                android:gravity="top"
+                android:hint="Write Review..."
                 android:inputType="textMultiLine"
-                android:textColor="@android:color/darker_gray"
-                tools:hint="we" />
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/common_google_signin_btn_text_light_pressed"
+                android:textColorHint="@color/secondaryLightColor" />
 
             <Button
                 android:id="@+id/bSReview"
