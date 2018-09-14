@@ -4,11 +4,16 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etName,etSurname,etEmail,etPhone,etPassword,etCPassword;
     Button bRegister, bNext1, bNext2;
     RequestQueue requestQueue;
+    CheckBox cbP;
 
     ProgressBar pb_Register;
     TextView tvLogin;
@@ -66,6 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
         pb_Register = findViewById(R.id.pb_Register);
         bNext1 = findViewById(R.id.bNext1);
         bNext2 = findViewById(R.id.bNext2);
+        cbP = findViewById(R.id.cbP);
 
         //Making only 1step buttons and textboxes available
         bNext2.setVisibility(View.INVISIBLE);
@@ -78,6 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
         etPhone.setVisibility(View.INVISIBLE);
         etPassword.setVisibility(View.INVISIBLE);
         etCPassword.setVisibility(View.INVISIBLE);
+        cbP.setVisibility(View.INVISIBLE);
 
 
         //Button to Change screen to Login screen
@@ -111,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                     etCPassword.setVisibility(View.INVISIBLE);
                     bNext1.setVisibility(View.INVISIBLE);
                     bNext2.setVisibility(View.VISIBLE);
+                    cbP.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -136,10 +145,25 @@ public class RegisterActivity extends AppCompatActivity {
                     etCPassword.setVisibility(View.VISIBLE);
                     bNext2.setVisibility(View.INVISIBLE);
                     bRegister.setVisibility(View.VISIBLE);
+                    cbP.setVisibility(View.VISIBLE);
                 }
             }
         });
 
+
+
+        cbP.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked) {
+                    etCPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());;
+                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }else{
+                    etCPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    }
+                }
+
+        });
 
 
         //Button Register click event
@@ -174,7 +198,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 if (success) {//if the process was successful go to login screen
                                     Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                                     RegisterActivity.this.startActivity(loginIntent);
-
+                                    RegisterActivity.this.finish();
 
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);

@@ -44,6 +44,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import static java.lang.Math.toIntExact;
+
 public class BookingActivity extends AppCompatActivity {
 
     private CalendarView cvDate;
@@ -144,8 +146,20 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
 
-        bNext.setEnabled(false);
+       /* bNext.setEnabled(false);
         bNext.setBackgroundTintList(getResources().getColorStateList(R.color.secondaryLightColor));
+*/
+
+        //Incase no date was selected this piece of code prevents object null crash
+       String noselectDateTime = sdf.format(cvDate.getDate());
+        String[] splitbyspace = noselectDateTime.split("\\s+");
+        String[] splitbyhyphen = splitbyspace[0].split("-");
+        date = splitbyspace[0];
+        bookday = splitbyhyphen[2];
+        bookmonth = splitbyhyphen[1];
+        bookyear = splitbyhyphen[0];
+        //
+
 
         bNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,26 +176,47 @@ public class BookingActivity extends AppCompatActivity {
                     nowdatetime = sdf.format(cvDate.getDate());
                     Date nowDate = sdfdate.parse(nowdatetime);
                     Date myTime = sdftime.parse(time);
-                    if (myTime.before(opentime) || closetime.before(myTime) ) {
+
+
+                    String[] splittedbyspace = nowdatetime.split("\\s+");
+                    Date nowTime = sdftime.parse(splittedbyspace[1]);
+
+
+
+
+
+                    long diff = myTime.getTime() - nowTime.getTime();
+                    int minutes = ((int)(diff)/1000)/60;
+
+
+
+
+                    if (myTime.before(opentime) || closetime.before(myTime)) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
                         builder.setMessage("Please enter a time when restaurant is open. (" + restaurantdetails[11] + " - " + restaurantdetails[12] + ")" )
                                 .setNegativeButton("OK", null)
                                 .create()
                                 .show();
                     }else{
-                        if (date == null || myDate.before(nowDate) )
-                        {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
-                            builder.setMessage("Please choose valid date.")
-                                    .setNegativeButton("OK", null)
-                                    .create()
-                                    .show();
-                        }else {
-                            llstep1.setVisibility(View.INVISIBLE);
-                            llstep2.setVisibility(View.VISIBLE);
-                            tvDateTime.setText(datetime);
+                            if (date == null || myDate.before(nowDate) ) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
+                                builder.setMessage("Please choose valid date.")
+                                        .setNegativeButton("OK", null)
+                                        .create()
+                                        .show();
+                            }else if(minutes < 30 && (splittedbyspace[0].matches(date))) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
+                                builder.setMessage("Please enter a time atleast 30 minutes into the future.")
+                                        .setNegativeButton("OK", null)
+                                        .create()
+                                        .show();
+                            }else {
+                                llstep1.setVisibility(View.INVISIBLE);
+                                llstep2.setVisibility(View.VISIBLE);
+                                tvDateTime.setText(datetime);
+                            }
                         }
-                    }
+
                     } catch (ParseException e) {
                     e.printStackTrace();
                 }

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +27,7 @@ public class MyProfile extends AppCompatActivity {
 
     private LinearLayout llStep1, llStep2;
     private EditText etName, etSurname, etEmail, etPhone, etCP, etNP;
-    private Button bChangePasswordStart, bChangePasswordFinish, bSave;
+    private Button bChangePasswordStart, bChangePasswordFinish, bSave, bBack;
     private RelativeLayout bHome, bBookings;
     private String customerid, name, surname, email, phone, password, oldpassword, currentpassword;
     private RequestQueue requestQueue;
@@ -51,8 +53,10 @@ public class MyProfile extends AppCompatActivity {
         etCP = findViewById(R.id.etCP);
         etNP = findViewById(R.id.etNP);
         bSave = findViewById(R.id.bSave);
+        bBack = findViewById(R.id.bBack);
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
+        bChangePasswordFinish.setEnabled(false);
 
         customerid = customerdetails[0];
         name = customerdetails[1];
@@ -94,6 +98,14 @@ public class MyProfile extends AppCompatActivity {
         });
         //
 
+        bBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llStep1.setVisibility(View.VISIBLE);
+                llStep2.setVisibility(View.INVISIBLE);
+            }
+        });
+
         bChangePasswordStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +113,49 @@ public class MyProfile extends AppCompatActivity {
                 llStep1.setVisibility(View.INVISIBLE);
             }
         });
+
+        etNP.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(etNP.getText().toString().matches("") || etNP.getText().toString().length() < 8 || etCP.getText().toString().matches("") || etCP.getText().toString().length() < 8){
+                    bChangePasswordFinish.setEnabled(false);
+                }else{
+                    bChangePasswordFinish.setEnabled(true);
+                }
+            }
+        });
+
+        etCP.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(etCP.getText().toString().matches("") || etCP.getText().toString().length() < 8 || etNP.getText().toString().matches("") || etNP.getText().toString().length() < 8){
+                    bChangePasswordFinish.setEnabled(false);
+                }else{
+                    bChangePasswordFinish.setEnabled(true);
+                }
+            }
+        });
+
         bChangePasswordFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,21 +165,6 @@ public class MyProfile extends AppCompatActivity {
                     password = etNP.getText().toString();
                     llStep1.setVisibility(View.VISIBLE);
                     llStep2.setVisibility(View.INVISIBLE);
-
-                    if(password.matches(""))
-                    {
-                        AlertDialog.Builder builder3 = new AlertDialog.Builder(MyProfile.this);
-                        builder3.setMessage("Please enter a new password.")
-                                .setNegativeButton("Retry", null)
-                                .create()
-                                .show();
-                        bChangePasswordFinish.setEnabled(false);
-                    } else {
-                        bChangePasswordFinish.setEnabled(true);
-                        passwordChange = true;
-                    }
-
-
                 }
                 else {
                     AlertDialog.Builder builder3 = new AlertDialog.Builder(MyProfile.this);
@@ -133,7 +173,6 @@ public class MyProfile extends AppCompatActivity {
                             .create()
                             .show();
                     bChangePasswordFinish.setEnabled(false);
-
 
                 }
             }
