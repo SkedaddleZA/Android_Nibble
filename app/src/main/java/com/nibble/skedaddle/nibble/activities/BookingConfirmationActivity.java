@@ -109,6 +109,12 @@ public class BookingConfirmationActivity extends AppCompatActivity {
         });
         //
 
+        if(bookingrequestdetails[6].matches("Y"))
+            bConfirm.setEnabled(false);
+        else if(bookingrequestdetails[6].matches("N"))
+            bCancel.setEnabled(false);
+
+
         bConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

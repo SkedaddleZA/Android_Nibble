@@ -44,9 +44,11 @@
         <activity android:name=".activities.BookingConfirmationActivity" />
         <activity android:name=".activities.ViewReviews" />
         <activity android:name=".activities.AddReview" />
-        <activity android:name=".activities.MyProfile"></activity>
+        <activity android:name=".activities.MyProfile" />
 
-        <receiver android:name="com.nibble.skedaddle.nibble.classes.AlertReceiver" />
+        <receiver android:name=".classes.AlertReceiver" />
+
+        <activity android:name=".activities.FAQActivity"></activity>
     </application>
 
 </manifest>

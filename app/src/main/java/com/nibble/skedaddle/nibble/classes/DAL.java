@@ -44,6 +44,7 @@ class DAL {
     private static final String getReviews = "http://SICT-IIS.nmmu.ac.za/skedaddle/getReviews.php";
     private static final String insertReviewURL = "http://SICT-IIS.nmmu.ac.za/skedaddle/insertReview.php";
     private static final String updateCustomerURL = "http://SICT-IIS.nmmu.ac.za/skedaddle/updateCustomer.php";
+    private static final String faqURL = "http://SICT-IIS.nmmu.ac.za/skedaddle/getFAQ.php";
 
    //Insert customer procedure
     public void InsertCustomer(final String FirstName, final String LastName, final String Email, final String Phone, final String Password, Response.Listener<String> listener, RequestQueue requestQueue)
@@ -411,6 +412,18 @@ class DAL {
             }
         };
         requestQueue.add(request);//Runs the request which POSTS the data
+    }
+
+    public void GetFAQ(Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        StringRequest request = new StringRequest(Request.Method.GET, faqURL, listener ,new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+        };
+        requestQueue.add(request);
     }
 
 

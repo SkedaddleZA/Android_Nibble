@@ -98,6 +98,11 @@ public class Customer {
         dl.UpdateCustomer(CustomerID, FirstName, LastName, Email, Phone, Password, listener, requestQueue);
     }
 
+    public void GetFAQ(Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        dl.GetFAQ(listener, requestQueue);
+    }
+
 
 
 

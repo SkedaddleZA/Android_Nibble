@@ -13,7 +13,7 @@ import org.w3c.dom.Text;
 
 public class HomeActivity extends AppCompatActivity {//my naam tollie
 
-    private RelativeLayout bHome, bProfile, bBookings, rlRestaurant, rlFood, rlLocation;
+    private RelativeLayout bHome, bProfile, bBookings, rlRestaurant, rlFood, rlLocation, rlFAQ, rlVideo;
     private TextView tvDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,8 @@ public class HomeActivity extends AppCompatActivity {//my naam tollie
         rlRestaurant = findViewById(R.id.rlRestaurant);
         rlFood = findViewById(R.id.rlFood);
         rlLocation = findViewById(R.id.rlLocation);
+        rlFAQ = findViewById(R.id.rlFAQ);
+        rlVideo = findViewById(R.id.rlVIDEO);
 
         rlRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +64,14 @@ public class HomeActivity extends AppCompatActivity {//my naam tollie
                 HomeActivity.this.startActivity(locationSearch);
                 //HomeActivity.this.finish();
 
+            }
+        });
+        rlFAQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent faq = new Intent(HomeActivity.this, FAQActivity.class);
+                faq.putExtra("customerdetails",customerdetails);
+                HomeActivity.this.startActivity(faq);
             }
         });
 
