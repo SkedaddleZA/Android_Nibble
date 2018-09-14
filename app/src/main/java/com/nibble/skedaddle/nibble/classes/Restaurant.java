@@ -128,6 +128,10 @@ public class Restaurant {
     {
         dl.GetRestaurantsByLocation(SuburbName, listener, requestQueue);
     }
+    public void GetRestRating(final String RestaurantID,Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        dl.GetRestRating(RestaurantID, listener, requestQueue);
+    }
 
 
 }

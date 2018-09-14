@@ -22,19 +22,32 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.nibble.skedaddle.nibble.CustomListAdapters.ReviewList;
+import com.nibble.skedaddle.nibble.CustomModels.ReviewModel;
 import com.nibble.skedaddle.nibble.R;
+import com.nibble.skedaddle.nibble.classes.Restaurant;
+import com.nibble.skedaddle.nibble.classes.Review;
 import com.nibble.skedaddle.nibble.fragments.MainFragment;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class RestaurantActivity  extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationListener{
@@ -45,16 +58,18 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
     final int PERMISSION_LOCATION = 111;
     private String[] restaurantdetails, restaurantfulldetails, customerdetails;
     private MainFragment mainFragment;
-    private ImageView restImage;
+    private ImageView restImage, star1, star2, star3, star4, star5;
     private JSONArray result;
     private RequestQueue requestQueue;
     private RelativeLayout bHome, bBookings, bProfile, rlMenu, rlContact, rlWebsite, rlReviews;
-    private String url;
+    private String url, rating;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this,this)
@@ -104,6 +119,11 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         rlContact =findViewById(R.id.rlContact);
         rlWebsite = findViewById(R.id.rlWebsite);
         rlReviews = findViewById(R.id.rlReviews);
+        star1 = findViewById(R.id.star1);
+        star2 = findViewById(R.id.star2);
+        star3 = findViewById(R.id.star3);
+        star4 = findViewById(R.id.star4);
+        star5 = findViewById(R.id.star5);
         //Menu Bar functions
 
 
@@ -183,6 +203,91 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
         InputStream inputStream  = new ByteArrayInputStream(decodedString);
         Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
         restImage.setImageBitmap(bitmap);
+
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject j;
+                try {
+                    j = new JSONObject(response);
+                    result = j.getJSONArray("restaurant");
+                    for(int i=0;i<result.length();i++){
+                        try {
+                            JSONObject json = result.getJSONObject(i);
+
+                            if(json.isNull("avgrating"))
+                                rating = "0";
+                            else
+                            rating = Integer.toString(json.getInt("avgrating"));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Map<String, Integer> map = new HashMap<String, Integer>();
+                map.put("star", R.drawable.star);
+                map.put("nostar", R.drawable.nostar);
+
+                switch(rating){
+                    case "0":
+                        star1.setImageResource(map.get("nostar"));
+                        star2.setImageResource(map.get("nostar"));
+                        star3.setImageResource(map.get("nostar"));
+                        star4.setImageResource(map.get("nostar"));
+                        star5.setImageResource(map.get("nostar"));
+                        break;
+                    case "1":
+                        star1.setImageResource(map.get("star"));
+                        star2.setImageResource(map.get("nostar"));
+                        star3.setImageResource(map.get("nostar"));
+                        star4.setImageResource(map.get("nostar"));
+                        star5.setImageResource(map.get("nostar"));
+                        break;
+                    case "2":
+                        star1.setImageResource(map.get("star"));
+                        star2.setImageResource(map.get("star"));
+                        star3.setImageResource(map.get("nostar"));
+                        star4.setImageResource(map.get("nostar"));
+                        star5.setImageResource(map.get("nostar"));
+                        break;
+                    case "3":
+                        star1.setImageResource(map.get("star"));
+                        star2.setImageResource(map.get("star"));
+                        star3.setImageResource(map.get("star"));
+                        star4.setImageResource(map.get("nostar"));
+                        star5.setImageResource(map.get("nostar"));
+                        break;
+                    case "4":
+                        star1.setImageResource(map.get("star"));
+                        star2.setImageResource(map.get("star"));
+                        star3.setImageResource(map.get("star"));
+                        star4.setImageResource(map.get("star"));
+                        star5.setImageResource(map.get("nostar"));
+                        break;
+                    case "5":
+                        star1.setImageResource(map.get("star"));
+                        star2.setImageResource(map.get("star"));
+                        star3.setImageResource(map.get("star"));
+                        star4.setImageResource(map.get("star"));
+                        star5.setImageResource(map.get("star"));
+                        break;
+                }
+
+
+            }
+        };
+        Restaurant rating = new Restaurant();
+        rating.GetRestRating(restaurantfulldetails[0],responseListener, requestQueue);
+
+
+
+
+
 
     }
     //Interface inherited methods
