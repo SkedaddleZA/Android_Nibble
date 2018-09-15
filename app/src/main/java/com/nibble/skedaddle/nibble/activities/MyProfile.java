@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 import com.nibble.skedaddle.nibble.CommonMethods;
 import com.nibble.skedaddle.nibble.R;
 import com.nibble.skedaddle.nibble.classes.Customer;
+import com.nibble.skedaddle.nibble.classes.SaveSharedPreference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +28,7 @@ public class MyProfile extends AppCompatActivity {
 
     private LinearLayout llStep1, llStep2;
     private EditText etName, etSurname, etEmail, etPhone, etCP, etNP;
-    private Button bChangePasswordStart, bChangePasswordFinish, bSave, bBack;
+    private Button bChangePasswordStart, bChangePasswordFinish, bSave, bBack, bLogOut;
     private RelativeLayout bHome, bBookings;
     private String customerid, name, surname, email, phone, password, oldpassword, currentpassword;
     private RequestQueue requestQueue;
@@ -53,6 +54,7 @@ public class MyProfile extends AppCompatActivity {
         etCP = findViewById(R.id.etCP);
         etNP = findViewById(R.id.etNP);
         bSave = findViewById(R.id.bSave);
+        bLogOut = findViewById(R.id.bLogOut);
         bBack = findViewById(R.id.bBack);
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
@@ -78,6 +80,16 @@ public class MyProfile extends AppCompatActivity {
         llStep1.setVisibility(View.VISIBLE);
         llStep2.setVisibility(View.INVISIBLE);
 
+
+
+        bLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SaveSharedPreference.clearUserName(getApplicationContext());
+                Intent login = new Intent(MyProfile.this, LoginActivity.class);
+                MyProfile.this.startActivity(login);
+            }
+        });
 
         bHome.setOnClickListener(new View.OnClickListener() {
             @Override
