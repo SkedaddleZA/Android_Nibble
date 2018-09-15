@@ -16,12 +16,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="20"
+            android:background="@color/primaryColor"
             android:orientation="vertical"
-            android:weightSum="10">
+            android:weightSum="9">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@android:color/background_dark"
                 android:orientation="horizontal">
@@ -41,17 +42,17 @@
             <ImageView
                 android:id="@+id/restuarant_image"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="0dp"
+                android:layout_weight="2"
                 android:background="@color/primaryColor"
                 android:scaleType="fitCenter" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="113dp"
+                android:layout_height="0dp"
                 android:layout_alignBottom="@+id/llstep2"
                 android:layout_alignParentStart="true"
-                android:layout_weight="1"
-                android:background="@color/primaryColor"
+                android:layout_weight="4"
                 android:orientation="vertical">
 
                 <TextView
@@ -81,67 +82,84 @@
                     android:layout_height="30dp"
                     android:layout_weight="1"
                     android:textColor="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@color/primaryColor"><![CDATA[>
+
+                    ]]>
+
+                    <TextView
+                        android:id="@+id/rsText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimary" />
+
+                    <ProgressBar
+                        android:id="@+id/pb_loadrest"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="259dp"
-                android:layout_weight="7"
-                android:background="@color/primaryColor">>
-
-                <ProgressBar
-                    android:id="@+id/pb_loadrest"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:visibility="invisible" />
-
-                <LinearLayout
-                    android:id="@+id/llstep2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/primaryLightColor"
-                    android:orientation="vertical"
-                    android:weightSum="7">
-
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/bConfirm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/bCancel"
-                    android:layout_alignStart="@+id/bCancel"
-                    android:layout_below="@+id/llstep2"
-                    android:layout_marginTop="26dp"
-                    android:background="@color/primaryDarkColor"
-                    android:text="Confirm Request" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/bCancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_alignEnd="@+id/bRProfile"
                     android:layout_alignStart="@+id/bRProfile"
                     android:layout_below="@+id/bConfirm"
-                    android:layout_marginTop="26dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
                     android:background="@color/primaryDarkColor"
                     android:text="Cancel Request" />
 
                 <Button
-                    android:id="@+id/bRProfile"
+                    android:id="@+id/bConfirm"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/bCancel"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="150dp"
-                    android:layout_marginRight="150dp"
-                    android:layout_marginStart="150dp"
-                    android:layout_marginTop="26dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignEnd="@+id/bCancel"
+                    android:layout_alignStart="@+id/bCancel"
+                    android:layout_below="@+id/llstep2"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
                     android:background="@color/primaryDarkColor"
-                    android:text="Restaurant Profile" />
+                    android:text="Confirm Request" />
+            </LinearLayout>
 
-            </RelativeLayout>
+            <Button
+                android:id="@+id/bRProfile"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@+id/bCancel"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="@color/primaryDarkColor"
+                android:text="Restaurant Profile" />
+
+
         </LinearLayout>
 
         <LinearLayout

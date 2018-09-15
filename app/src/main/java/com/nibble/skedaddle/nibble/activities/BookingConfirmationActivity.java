@@ -41,7 +41,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
     private Button bConfirm, bCancel,bRProfile;
     private RelativeLayout bHome,bBookings,bProfile;
     private RequestQueue requestQueue;
-    private TextView cText,dText,tText,gText;
+    private TextView cText,dText,tText,gText,rsText;
     private JSONArray result;
     private ImageView restImage;
     private ProgressBar pbLoadRest;
@@ -73,6 +73,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
         dText=findViewById(R.id.dText);
         tText=findViewById(R.id.tText);
         gText=findViewById(R.id.gText);
+        rsText=findViewById(R.id.rsText);
         restImage=findViewById(R.id.restuarant_image);
         pbLoadRest=findViewById(R.id.pb_loadrest);
         pbLoadRest.setVisibility(View.INVISIBLE);
@@ -208,6 +209,16 @@ public class BookingConfirmationActivity extends AppCompatActivity {
         else if (bookingrequestdetails[6].matches("P")){
             Confirm="Pending";
         }
+        String RestStatus="";
+        if (bookingrequestdetails[7].matches("Y")) {
+            RestStatus="Confirmed";
+        }
+        else if (bookingrequestdetails[7].matches("N")){
+            RestStatus="Canceled";
+        }
+        else if (bookingrequestdetails[7].matches("P")){
+            RestStatus="Pending";
+        }
 
         String date = bookingrequestdetails[2];
         String OGDate="yyy-MM-dd";
@@ -226,7 +237,8 @@ public class BookingConfirmationActivity extends AppCompatActivity {
         dText.setText("\t\tDate: "+DateFormat);
         tText.setText("\t\tTime: "+bookingrequestdetails[3].substring(0,5));
         gText.setText("\t\tGuests: "+bookingrequestdetails[4]);
-        cText.setText("\t\tStatus: "+Confirm);
+        cText.setText("\t\tMy Status: "+Confirm);
+        rsText.setText("\t\tRestaurant Response: "+RestStatus);
         byte[] decodedString = Base64.decode(bookingrequestdetails[5], Base64.DEFAULT);
         InputStream inputStream = new ByteArrayInputStream(decodedString);
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
