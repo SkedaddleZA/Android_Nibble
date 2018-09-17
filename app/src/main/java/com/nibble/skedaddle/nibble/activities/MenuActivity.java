@@ -106,7 +106,7 @@ public class MenuActivity extends AppCompatActivity {
 
                 if(itematpos.matches("Specials")) {
 
-                    //specialcode - GetSpecialItems(Weekday, listener, requestqueue);
+                    //specialcode - GetSpecialItems(RestaurantID, Weekday, listener, requestqueue);
                 }else {
 
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
