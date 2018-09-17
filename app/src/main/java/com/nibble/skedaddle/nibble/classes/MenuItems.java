@@ -69,5 +69,9 @@ public class MenuItems {
     {
         dl.GetMenuInfo(Name, RestaurantID, listener, requestQueue);
     }
+    public void GetSpecialItems(final String Weekday, final String RestaurantID, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        dl.GetSpecialItems(Weekday, RestaurantID, listener, requestQueue);
+    }
 
 }

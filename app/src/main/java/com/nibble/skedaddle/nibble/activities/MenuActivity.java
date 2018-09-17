@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Currency;
 import java.util.Locale;
 
@@ -107,6 +108,70 @@ public class MenuActivity extends AppCompatActivity {
                 if(itematpos.matches("Specials")) {
 
                     //specialcode - GetSpecialItems(RestaurantID, Weekday, listener, requestqueue);
+                    String weekday = "Monday";
+                    Calendar calendar = Calendar.getInstance();
+                    int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+                    switch (day) {
+                        case Calendar.SUNDAY:
+                            weekday = "Sunday";
+                            break;
+                            // Current day is Sunday
+                        case Calendar.MONDAY:
+                            weekday = "Monday";
+                            break;
+                            // Current day is Monday
+                        case Calendar.TUESDAY:
+                            weekday = "Tuesday";
+                            break;
+                            // Current day is Tuesday
+                        case Calendar.WEDNESDAY:
+                            weekday = "Wednesday";
+                            break;
+                            // Current day is Wednesday
+                        case Calendar.THURSDAY:
+                            weekday = "Thursday";
+                            break;
+                            // Current day is Thursday
+                        case Calendar.FRIDAY:
+                            weekday = "Friday";
+                            break;
+                            // Current day is Friday
+                        case Calendar.SATURDAY:
+                            weekday = "Saturday";
+                            break;
+                            // Current day is Saturday
+                    }
+
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            JSONObject j;
+                            try {
+                                j = new JSONObject(response);
+                                result = j.getJSONArray("menuitems");
+                                for (int i = 0; i < result.length(); i++) {
+                                    try {
+                                        JSONObject json = result.getJSONObject(i);
+                                        itemmodel.add(new RestaurantModel(json.getString("itemname"), format.format(Double.parseDouble(json.getString("itemprice")))));
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            //FIlls lvRestaurants with all items from restlist array
+                            lvMenus.setAdapter(new RestList(itemmodel, getApplicationContext()));
+
+
+                        }
+                    };
+                    MenuItems menuItems = new MenuItems();
+                    menuItems.GetSpecialItems(weekday, restaurantid, responseListener, requestQueue);
+
                 }else {
 
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -163,7 +228,7 @@ public class MenuActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                    dropdown.add("Specials");
+                    //dropdown.add("Specials"); IF there were not specials category in menucategory table
                     spinner.setAdapter(new ArrayAdapter<>(MenuActivity.this, android.R.layout.simple_spinner_dropdown_item, dropdown));
 
                 } catch (JSONException e) {
