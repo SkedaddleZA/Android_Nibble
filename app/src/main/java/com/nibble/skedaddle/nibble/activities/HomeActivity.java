@@ -75,6 +75,15 @@ public class HomeActivity extends AppCompatActivity {//my naam tollie
             }
         });
 
+        rlVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent video = new Intent(HomeActivity.this, VideoActivity.class);
+                video.putExtra("customerdetails",customerdetails);
+                HomeActivity.this.startActivity(video);
+            }
+        });
+
 
         //Menu Bar functions
         bBookings.setOnClickListener(new View.OnClickListener() {

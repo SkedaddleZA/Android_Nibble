@@ -48,7 +48,8 @@
 
         <receiver android:name=".classes.AlertReceiver" />
 
-        <activity android:name=".activities.FAQActivity"></activity>
+        <activity android:name=".activities.FAQActivity" />
+        <activity android:name=".activities.VideoActivity"></activity>
     </application>
 
 </manifest>
