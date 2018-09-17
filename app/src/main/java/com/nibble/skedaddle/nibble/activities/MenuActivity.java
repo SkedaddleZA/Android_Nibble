@@ -103,36 +103,42 @@ public class MenuActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 final String itematpos=parent.getItemAtPosition(position).toString();
                 itemmodel.clear();
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        JSONObject j;
-                        try {
-                            j = new JSONObject(response);
-                            result = j.getJSONArray("menuitems");
-                            for(int i=0;i<result.length();i++){
-                                try {
-                                    JSONObject json = result.getJSONObject(i);
-                                    itemmodel.add(new RestaurantModel(json.getString("itemname"), format.format(Double.parseDouble(json.getString("itemprice")))));
 
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                if(itematpos.matches("Specials")) {
+
+                    //specialcode - GetSpecialItems(Weekday, listener, requestqueue);
+                }else {
+
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            JSONObject j;
+                            try {
+                                j = new JSONObject(response);
+                                result = j.getJSONArray("menuitems");
+                                for (int i = 0; i < result.length(); i++) {
+                                    try {
+                                        JSONObject json = result.getJSONObject(i);
+                                        itemmodel.add(new RestaurantModel(json.getString("itemname"), format.format(Double.parseDouble(json.getString("itemprice")))));
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
+                            //FIlls lvRestaurants with all items from restlist array
+                            lvMenus.setAdapter(new RestList(itemmodel, getApplicationContext()));
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+
                         }
-                        //FIlls lvRestaurants with all items from restlist array
-                        lvMenus.setAdapter(new RestList(itemmodel,getApplicationContext()));
+                    };
+                    MenuItems menuItems = new MenuItems();
+                    menuItems.GetMenuInfo(itematpos, restaurantid, responseListener, requestQueue);
 
-
-                    }
-                };
-                MenuItems menuItems = new MenuItems();
-                menuItems.GetMenuInfo(itematpos, restaurantid, responseListener, requestQueue);
-
-
+                }
             }
 
             @Override
@@ -157,6 +163,7 @@ public class MenuActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
+                    dropdown.add("Specials");
                     spinner.setAdapter(new ArrayAdapter<>(MenuActivity.this, android.R.layout.simple_spinner_dropdown_item, dropdown));
 
                 } catch (JSONException e) {
