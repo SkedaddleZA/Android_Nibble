@@ -137,15 +137,38 @@ public class RegisterActivity extends AppCompatActivity {
                 }else if(!CommonMethods.CheckPhone(etPhone.getText().toString())) {
                     messageshow("Please enter correct phone number.");
                 }else {
-                    etName.setVisibility(View.INVISIBLE);
-                    etSurname.setVisibility(View.INVISIBLE);
-                    etEmail.setVisibility(View.INVISIBLE);
-                    etPhone.setVisibility(View.INVISIBLE);
-                    etPassword.setVisibility(View.VISIBLE);
-                    etCPassword.setVisibility(View.VISIBLE);
-                    bNext2.setVisibility(View.INVISIBLE);
-                    bRegister.setVisibility(View.VISIBLE);
-                    cbP.setVisibility(View.VISIBLE);
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {//Method that triggers when response is received from the POST
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);//create JSONOBject called jsonResponse which contains all the data that was responded from the POST
+                                boolean success = jsonResponse.getBoolean("success");//get the boolean value which is in the "success" holder IN the JSON output and put it in a boolean
+                                if (success) {//if success is true: email already exists
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                    builder.setMessage("Email already exists, please use another.")
+                                            .setNegativeButton("OK", null)
+                                            .create()
+                                            .show();
+                                } else {
+                                    etName.setVisibility(View.INVISIBLE);//if the json returned false: email does not exist in DB
+                                    etSurname.setVisibility(View.INVISIBLE);
+                                    etEmail.setVisibility(View.INVISIBLE);
+                                    etPhone.setVisibility(View.INVISIBLE);
+                                    etPassword.setVisibility(View.VISIBLE);
+                                    etCPassword.setVisibility(View.VISIBLE);
+                                    bNext2.setVisibility(View.INVISIBLE);
+                                    bRegister.setVisibility(View.VISIBLE);
+                                    cbP.setVisibility(View.VISIBLE);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    Customer validemail = new Customer();//Create Customer Object
+                    validemail.ValidateEmail(etEmail.getText().toString(), responseListener,requestQueue);
+
                 }
             }
         });

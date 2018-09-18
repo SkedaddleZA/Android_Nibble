@@ -102,6 +102,10 @@ public class Customer {
     {
         dl.GetFAQ(listener, requestQueue);
     }
+    public void ValidateEmail(final String Email, Response.Listener<String> listener, RequestQueue requestQueue)
+    {
+        dl.ValidateEmail(Email, listener, requestQueue);
+    }
 
 
 

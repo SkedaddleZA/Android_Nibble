@@ -2,6 +2,7 @@ package com.nibble.skedaddle.nibble.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -150,15 +151,16 @@ public class MenuActivity extends AppCompatActivity {
                             try {
                                 j = new JSONObject(response);
                                 result = j.getJSONArray("menuitems");
-                                for (int i = 0; i < result.length(); i++) {
-                                    try {
-                                        JSONObject json = result.getJSONObject(i);
-                                        itemmodel.add(new RestaurantModel(json.getString("itemname"), format.format(Double.parseDouble(json.getString("itemprice")))));
+                                    for (int i = 0; i < result.length(); i++) {
+                                        try {
+                                            JSONObject json = result.getJSONObject(i);
+                                            itemmodel.add(new RestaurantModel(json.getString("itemname"), format.format(Double.parseDouble(json.getString("itemprice")))));
 
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
-                                }
+
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -181,16 +183,15 @@ public class MenuActivity extends AppCompatActivity {
                             try {
                                 j = new JSONObject(response);
                                 result = j.getJSONArray("menuitems");
-                                for (int i = 0; i < result.length(); i++) {
-                                    try {
-                                        JSONObject json = result.getJSONObject(i);
-                                        itemmodel.add(new RestaurantModel(json.getString("itemname"), format.format(Double.parseDouble(json.getString("itemprice")))));
+                                   for (int i = 0; i < result.length(); i++) {
+                                       try {
+                                           JSONObject json = result.getJSONObject(i);
+                                           itemmodel.add(new RestaurantModel(json.getString("itemname"), format.format(Double.parseDouble(json.getString("itemprice")))));
 
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
+                                       } catch (JSONException e) {
+                                           e.printStackTrace();
+                                       }
+                                   }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
