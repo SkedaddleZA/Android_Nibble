@@ -123,6 +123,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                 Intent Bookings = new Intent(SearchByLocation.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 SearchByLocation.this.startActivity(Bookings);
+                SearchByLocation.this.finish();
             }
         });
         bProfile.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +132,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                 Intent myprofile = new Intent(SearchByLocation.this, MyProfile.class);
                 myprofile.putExtra("customerdetails", customerdetails);
                 SearchByLocation.this.startActivity(myprofile);
+                SearchByLocation.this.finish();
             }
         });
         //

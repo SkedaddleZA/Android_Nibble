@@ -48,6 +48,7 @@ public class VideoActivity extends AppCompatActivity {
                 Intent Bookings = new Intent(VideoActivity.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 VideoActivity.this.startActivity(Bookings);
+                VideoActivity.this.finish();
             }
         });
         bProfile.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +57,7 @@ public class VideoActivity extends AppCompatActivity {
                 Intent myprofile = new Intent(VideoActivity.this, MyProfile.class);
                 myprofile.putExtra("customerdetails", customerdetails);
                 VideoActivity.this.startActivity(myprofile);
+                VideoActivity.this.finish();
             }
         });
         //

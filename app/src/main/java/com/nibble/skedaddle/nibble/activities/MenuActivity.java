@@ -89,6 +89,7 @@ public class MenuActivity extends AppCompatActivity {
                 Intent Bookings = new Intent(MenuActivity.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 MenuActivity.this.startActivity(Bookings);
+                MenuActivity.this.finish();
             }
         });
         bProfile.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +98,7 @@ public class MenuActivity extends AppCompatActivity {
                 Intent myprofile = new Intent(MenuActivity.this, MyProfile.class);
                 myprofile.putExtra("customerdetails", customerdetails);
                 MenuActivity.this.startActivity(myprofile);
+                MenuActivity.this.finish();
             }
         });
         //

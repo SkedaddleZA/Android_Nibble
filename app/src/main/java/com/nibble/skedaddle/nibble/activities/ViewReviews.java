@@ -75,6 +75,7 @@ public class ViewReviews extends AppCompatActivity {
                 Intent Bookings = new Intent(ViewReviews.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 ViewReviews.this.startActivity(Bookings);
+                ViewReviews.this.finish();
             }
         });
         bProfile.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +84,7 @@ public class ViewReviews extends AppCompatActivity {
                 Intent myprofile = new Intent(ViewReviews.this, MyProfile.class);
                 myprofile.putExtra("customerdetails", customerdetails);
                 ViewReviews.this.startActivity(myprofile);
+                ViewReviews.this.finish();
             }
         });
         //

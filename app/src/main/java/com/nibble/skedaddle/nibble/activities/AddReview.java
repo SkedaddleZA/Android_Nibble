@@ -80,6 +80,7 @@ public class AddReview extends AppCompatActivity {
                 Intent Bookings = new Intent(AddReview.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 AddReview.this.startActivity(Bookings);
+                AddReview.this.finish();
             }
         });
         bProfile.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +89,7 @@ public class AddReview extends AppCompatActivity {
                 Intent myprofile = new Intent(AddReview.this, MyProfile.class);
                 myprofile.putExtra("customerdetails", customerdetails);
                 AddReview.this.startActivity(myprofile);
+                AddReview.this.finish();
             }
         });
         //
@@ -183,6 +185,7 @@ public class AddReview extends AppCompatActivity {
                                     viewreviews.putExtra("customerdetails", customerdetails);
                                     viewreviews.putExtra("restaurantdetails", restaurantfulldetails);
                                     AddReview.this.startActivity(viewreviews);
+                                    AddReview.this.finish();
 
 
                                 } else {

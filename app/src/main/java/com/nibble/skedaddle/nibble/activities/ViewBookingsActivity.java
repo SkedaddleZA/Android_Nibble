@@ -83,6 +83,7 @@ public class ViewBookingsActivity extends AppCompatActivity {
                 Intent myprofile = new Intent(ViewBookingsActivity.this, MyProfile.class);
                 myprofile.putExtra("customerdetails", customerdetails);
                 ViewBookingsActivity.this.startActivity(myprofile);
+                ViewBookingsActivity.this.finish();
             }
         });
         //

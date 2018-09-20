@@ -88,6 +88,7 @@ public class MyProfile extends AppCompatActivity {
                 SaveSharedPreference.clearUserName(getApplicationContext());
                 Intent login = new Intent(MyProfile.this, LoginActivity.class);
                 MyProfile.this.startActivity(login);
+                MyProfile.this.finish();
             }
         });
 
@@ -106,6 +107,7 @@ public class MyProfile extends AppCompatActivity {
                 Intent Bookings = new Intent(MyProfile.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 MyProfile.this.startActivity(Bookings);
+                MyProfile.this.finish();
             }
         });
         //

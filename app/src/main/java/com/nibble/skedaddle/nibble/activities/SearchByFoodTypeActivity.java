@@ -89,6 +89,7 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
                 Intent Bookings = new Intent(SearchByFoodTypeActivity.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 SearchByFoodTypeActivity.this.startActivity(Bookings);
+                SearchByFoodTypeActivity.this.finish();
             }
         });
         bProfile.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +98,7 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
                 Intent myprofile = new Intent(SearchByFoodTypeActivity.this, MyProfile.class);
                 myprofile.putExtra("customerdetails", customerdetails);
                 SearchByFoodTypeActivity.this.startActivity(myprofile);
+                SearchByFoodTypeActivity.this.finish();
             }
         });
         //

@@ -98,6 +98,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
                 Intent Bookings = new Intent(BookingConfirmationActivity.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 BookingConfirmationActivity.this.startActivity(Bookings);
+                BookingConfirmationActivity.this.finish();
             }
         });
         bProfile.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +107,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
                 Intent myprofile = new Intent(BookingConfirmationActivity.this, MyProfile.class);
                 myprofile.putExtra("customerdetails", customerdetails);
                 BookingConfirmationActivity.this.startActivity(myprofile);
+                BookingConfirmationActivity.this.finish();
             }
         });
         //
@@ -114,6 +116,10 @@ public class BookingConfirmationActivity extends AppCompatActivity {
             bConfirm.setEnabled(false);
         else if(bookingrequestdetails[6].matches("N"))
             bCancel.setEnabled(false);
+        if(bookingrequestdetails[7].matches("P")) {
+            bConfirm.setEnabled(false);
+            bCancel.setEnabled(false);
+        }
 
 
         bConfirm.setOnClickListener(new View.OnClickListener() {

@@ -88,6 +88,7 @@ public String test;
                 Intent Bookings = new Intent(RestaurantSearchActivity.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 RestaurantSearchActivity.this.startActivity(Bookings);
+                RestaurantSearchActivity.this.finish();
             }
         });
         bProfile.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +97,7 @@ public String test;
                 Intent myprofile = new Intent(RestaurantSearchActivity.this, MyProfile.class);
                 myprofile.putExtra("customerdetails", customerdetails);
                 RestaurantSearchActivity.this.startActivity(myprofile);
+                RestaurantSearchActivity.this.finish();
             }
         });
         //

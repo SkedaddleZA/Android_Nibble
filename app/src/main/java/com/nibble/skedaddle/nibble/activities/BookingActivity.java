@@ -51,7 +51,7 @@ public class BookingActivity extends AppCompatActivity {
     private CalendarView cvDate;
     private TimePicker tpTime;
     private Button bBook, bNext, bAdd, bSub;
-    private TextView tvDateTime;
+    private TextView tvDateTime,tvTitle;
     private String time, date,datetime, comment, nowdate, nowdatetime;
     private SimpleDateFormat sdf, sdftime, sdfdate;
     private RequestQueue requestQueue;
@@ -95,13 +95,16 @@ public class BookingActivity extends AppCompatActivity {
         bSub = findViewById(R.id.bSub);
         tvDateTime = findViewById(R.id.tvdatetime);
         restaurantname = restaurantdetails[1];
+        tvTitle = findViewById(R.id.tvTitle);
+        tvTitle.setText("Booking Request : " + restaurantdetails[1]);
 
-        //Decode Base64 string (Image) from the array and display it in ImageView
+
+       /* //Decode Base64 string (Image) from the array and display it in ImageView
         restImage = findViewById(R.id.restImage);
         byte[] decodedString = Base64.decode(restaurantdetails[14],Base64.DEFAULT);
         InputStream inputStream  = new ByteArrayInputStream(decodedString);
         Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
-        restImage.setImageBitmap(bitmap);
+        restImage.setImageBitmap(bitmap);*/
 
         //Menu Bar Functions
         bHome.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +122,7 @@ public class BookingActivity extends AppCompatActivity {
                 Intent Bookings = new Intent(BookingActivity.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 BookingActivity.this.startActivity(Bookings);
+                BookingActivity.this.finish();
             }
         });
         bProfile.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +131,7 @@ public class BookingActivity extends AppCompatActivity {
                 Intent myprofile = new Intent(BookingActivity.this, MyProfile.class);
                 myprofile.putExtra("customerdetails", customerdetails);
                 BookingActivity.this.startActivity(myprofile);
+                BookingActivity.this.finish();
             }
         });
         //
@@ -178,10 +183,12 @@ public class BookingActivity extends AppCompatActivity {
                     Date myTime = sdftime.parse(time);
 
 
+                    Calendar c = Calendar.getInstance();
+                    String tTime = sdftime.format(c.getTime());
+                    Date nowTime = sdftime.parse(tTime);
+
                     String[] splittedbyspace = nowdatetime.split("\\s+");
-                    Date nowTime = sdftime.parse(splittedbyspace[1]);
-
-
+                    //Date nowTime = sdftime.parse(splittedbyspace[1]);
 
 
 
@@ -213,7 +220,9 @@ public class BookingActivity extends AppCompatActivity {
                             }else {
                                 llstep1.setVisibility(View.INVISIBLE);
                                 llstep2.setVisibility(View.VISIBLE);
-                                tvDateTime.setText(datetime);
+                                Date tyd = sdftime.parse(time);
+                                String styd = sdftime.format(tyd);
+                                tvDateTime.setText(date + " " + styd);
                             }
                         }
 
@@ -245,7 +254,15 @@ public class BookingActivity extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 bNext.setEnabled(true);
                 bNext.setBackgroundTintList(getResources().getColorStateList(R.color.primaryDarkColor));
-                date = String.valueOf(year) + "-" + String.valueOf(month+1) + "-" + String.valueOf(dayOfMonth);
+                String tempmonth="";
+                String tempday="";
+                if((month+1)<10)
+                    tempmonth="0";
+                if((dayOfMonth<10))
+                    tempday="0";
+
+                date = String.valueOf(year) + "-" + tempmonth + String.valueOf(month+1) + "-" + tempday + String.valueOf(dayOfMonth);
+
 
                 bookday = String.valueOf(dayOfMonth);
                 bookmonth = String.valueOf(month);

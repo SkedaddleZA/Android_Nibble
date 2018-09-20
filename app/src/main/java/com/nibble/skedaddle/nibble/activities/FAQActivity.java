@@ -65,6 +65,7 @@ public class FAQActivity extends AppCompatActivity {
                 Intent Bookings = new Intent(FAQActivity.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 FAQActivity.this.startActivity(Bookings);
+                FAQActivity.this.finish();
             }
         });
         bProfile.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +74,7 @@ public class FAQActivity extends AppCompatActivity {
                 Intent myprofile = new Intent(FAQActivity.this, MyProfile.class);
                 myprofile.putExtra("customerdetails", customerdetails);
                 FAQActivity.this.startActivity(myprofile);
+                FAQActivity.this.finish();
             }
         });
         //

@@ -142,6 +142,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
                 Intent Bookings = new Intent(RestaurantActivity.this, ViewBookingsActivity.class);
                 Bookings.putExtra("customerdetails", customerdetails);
                 RestaurantActivity.this.startActivity(Bookings);
+                RestaurantActivity.this.finish();
             }
         });
         bProfile.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +151,7 @@ public class RestaurantActivity  extends FragmentActivity implements GoogleApiCl
                 Intent myprofile = new Intent(RestaurantActivity.this, MyProfile.class);
                 myprofile.putExtra("customerdetails", customerdetails);
                 RestaurantActivity.this.startActivity(myprofile);
+                RestaurantActivity.this.finish();
             }
         });
         //
