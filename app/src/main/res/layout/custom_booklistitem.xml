@@ -11,8 +11,10 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:padding="10dp"
-        app:srcCompat="@android:color/holo_orange_light" />
+        android:scaleType="fitCenter"
+        android:scaleX="0.75"
+        android:scaleY="0.75"
+        app:srcCompat="@drawable/pending" />
 
     <LinearLayout
         android:layout_width="0dp"

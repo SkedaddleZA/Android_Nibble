@@ -73,7 +73,7 @@ public class MainFragment extends Fragment implements OnMapReadyCallback {
         Log.v("Donkey", "Set User Location");
         if (userMarker == null) {
 
-        Bitmap markerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user);//custom bitmap
+        Bitmap markerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapuser);//custom bitmap
         markerBitmap = scaleBitmap(markerBitmap,70,70);//call resize method
 
         userMarker = new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)).position(latLng).title("Me");

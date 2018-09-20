@@ -231,7 +231,7 @@ public class MenuActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                    //dropdown.add("Specials"); IF there were not specials category in menucategory table
+                    dropdown.add("Specials"); //IF there were not specials category in menucategory table
                     spinner.setAdapter(new ArrayAdapter<>(MenuActivity.this, android.R.layout.simple_spinner_dropdown_item, dropdown));
 
                 } catch (JSONException e) {
