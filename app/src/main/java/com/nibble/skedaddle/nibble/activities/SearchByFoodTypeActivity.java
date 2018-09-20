@@ -43,6 +43,7 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
     private TextView tvf;
     private ProgressBar pbLoadRest;
     private RelativeLayout bHome, bBookings, bProfile;
+    private String rating="1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -245,7 +246,11 @@ public class SearchByFoodTypeActivity extends AppCompatActivity {
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            restmodel.add(new RestaurantModel(json.getString("restaurantname"), json.getString("suburbname")));
+                            if(json.isNull("avgrating"))
+                                rating = "0";
+                            else
+                                rating = Integer.toString(json.getInt("avgrating"));
+                            restmodel.add(new RestaurantModel(json.getString("restaurantname"), json.getString("suburbname"),rating));
 
                         } catch (JSONException e) {
                             e.printStackTrace();

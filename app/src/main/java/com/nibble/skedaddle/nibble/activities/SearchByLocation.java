@@ -74,6 +74,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
     private double latitude, longitude;
     private GoogleApiClient mGoogleApiClient;
     final int PERMISSION_LOCATION = 111;
+    private String rating="1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -256,8 +257,11 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                                 abrev = "m";
                                 x = Float.toString(roundedM);
                             }
-
-                            restmodel.add(new RestaurantModel(json.getString("restaurantname"), x + " " + abrev));
+                            if(json.isNull("avgrating"))
+                                rating = "0";
+                            else
+                                rating = Integer.toString(json.getInt("avgrating"));
+                            restmodel.add(new RestaurantModel(json.getString("restaurantname"), x + " " + abrev, rating) );
                             orderofresult.add(i);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -448,5 +452,7 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
         }
 
     }
+
+
 
 }

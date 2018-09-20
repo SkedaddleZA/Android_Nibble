@@ -4,17 +4,15 @@ package com.nibble.skedaddle.nibble.CustomModels;
  * Created by Chris on 2018/07/31.
  */
 
-public class RestaurantModel {
+public class MenuModel {
 
         String name;
         String suburb;
-        String rating;
 
 
-        public RestaurantModel(String name, String suburb, String rating) {
+        public MenuModel(String name, String suburb) {
             this.name=name;
             this.suburb=suburb;
-            this.rating=rating;
 
         }
 
@@ -25,10 +23,6 @@ public class RestaurantModel {
         public String getSuburb() {
             return suburb;
         }
-
-         public String getRating() {
-        return rating;
-    }
 
 
 

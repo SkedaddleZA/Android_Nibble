@@ -29,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RestaurantSearchActivity extends AppCompatActivity {
 public String test;
@@ -42,6 +44,7 @@ public String test;
     private TextView tvr;
     private ProgressBar pbLoadRest;
     private RelativeLayout bHome, bBookings, bProfile;
+    private String rating="1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,7 +246,13 @@ public String test;
                     for(int i=0;i<result.length();i++){
                         try {
                             JSONObject json = result.getJSONObject(i);
-                            restmodel.add(new RestaurantModel(json.getString("restaurantname"), json.getString("suburbname")));
+
+                            if(json.isNull("avgrating"))
+                                rating = "0";
+                            else
+                                rating = Integer.toString(json.getInt("avgrating"));
+
+                            restmodel.add(new RestaurantModel(json.getString("restaurantname"), json.getString("suburbname"),rating));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -264,6 +273,7 @@ public String test;
 
 
     }
+
 
 
 }

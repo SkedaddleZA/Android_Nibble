@@ -17,7 +17,9 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.nibble.skedaddle.nibble.CustomListAdapters.MenuList;
 import com.nibble.skedaddle.nibble.CustomListAdapters.RestList;
+import com.nibble.skedaddle.nibble.CustomModels.MenuModel;
 import com.nibble.skedaddle.nibble.CustomModels.RestaurantModel;
 import com.nibble.skedaddle.nibble.R;
 import com.nibble.skedaddle.nibble.classes.Restaurant;
@@ -40,7 +42,7 @@ public class MenuActivity extends AppCompatActivity {
     private ListView lvMenus;
     private Spinner spinner;
     private ArrayList<String> dropdown;
-    private ArrayList<RestaurantModel> itemmodel;
+    private ArrayList<MenuModel> itemmodel;
     private String[] menudetails, customerdetails;
     private JSONArray result;
     private RequestQueue requestQueue;
@@ -156,7 +158,7 @@ public class MenuActivity extends AppCompatActivity {
                                     for (int i = 0; i < result.length(); i++) {
                                         try {
                                             JSONObject json = result.getJSONObject(i);
-                                            itemmodel.add(new RestaurantModel(json.getString("itemname"), format.format(Double.parseDouble(json.getString("itemprice")))));
+                                            itemmodel.add(new MenuModel(json.getString("itemname"), format.format(Double.parseDouble(json.getString("itemprice")))));
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -168,7 +170,7 @@ public class MenuActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             //FIlls lvRestaurants with all items from restlist array
-                            lvMenus.setAdapter(new RestList(itemmodel, getApplicationContext()));
+                            lvMenus.setAdapter(new MenuList(itemmodel, getApplicationContext()));
 
 
                         }
@@ -188,7 +190,7 @@ public class MenuActivity extends AppCompatActivity {
                                    for (int i = 0; i < result.length(); i++) {
                                        try {
                                            JSONObject json = result.getJSONObject(i);
-                                           itemmodel.add(new RestaurantModel(json.getString("itemname"), format.format(Double.parseDouble(json.getString("itemprice")))));
+                                           itemmodel.add(new MenuModel(json.getString("itemname"), format.format(Double.parseDouble(json.getString("itemprice")))));
 
                                        } catch (JSONException e) {
                                            e.printStackTrace();
@@ -198,7 +200,7 @@ public class MenuActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             //FIlls lvRestaurants with all items from restlist array
-                            lvMenus.setAdapter(new RestList(itemmodel, getApplicationContext()));
+                            lvMenus.setAdapter(new MenuList(itemmodel, getApplicationContext()));
 
 
                         }
