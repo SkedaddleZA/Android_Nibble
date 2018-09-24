@@ -181,32 +181,21 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/backgroundhome5" />
+                            android:scaleType="fitXY"
+                            android:src="@drawable/spur" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/backgroundhome" />
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ocean_basket" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/backgroundhome2" />
+                            android:scaleType="fitXY"
+                            android:src="@drawable/john_dorys" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/backgroundhome3" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/backgroundhome4" />
                     </ViewFlipper>
 
                 </LinearLayout>
@@ -293,6 +282,13 @@
 
             </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_google_signin_btn_text_light_default"
+            android:orientation="vertical"
+            android:visibility="invisible"></LinearLayout>
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

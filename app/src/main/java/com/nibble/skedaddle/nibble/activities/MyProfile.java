@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,6 +34,7 @@ public class MyProfile extends AppCompatActivity {
     private String customerid, name, surname, email, phone, password, oldpassword, currentpassword;
     private RequestQueue requestQueue;
     private boolean passwordChange;
+    TextView tvLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class MyProfile extends AppCompatActivity {
         etCP = findViewById(R.id.etCP);
         etNP = findViewById(R.id.etNP);
         bSave = findViewById(R.id.bSave);
-        bLogOut = findViewById(R.id.bLogOut);
+        tvLogout = findViewById(R.id.tvLogout);
         bBack = findViewById(R.id.bBack);
         bHome = findViewById(R.id.bHome);
         bBookings = findViewById(R.id.bBookings);
@@ -82,7 +84,7 @@ public class MyProfile extends AppCompatActivity {
 
 
 
-        bLogOut.setOnClickListener(new View.OnClickListener() {
+        tvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SaveSharedPreference.clearUserName(getApplicationContext());

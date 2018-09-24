@@ -72,13 +72,13 @@
                     android:layout_height="match_parent"
                     android:layout_weight="7"
                     android:orientation="vertical"
-                    android:weightSum="6">
+                    android:weightSum="7">
 
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="1.25"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
@@ -106,7 +106,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="1.25"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
@@ -162,7 +162,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="1.25"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
@@ -190,7 +190,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight=".8"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
@@ -198,9 +198,10 @@
                             android:id="@+id/bChangePasswordStart"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="10dp"
+                            android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:text="Change Password" />
+                            android:text="Change Password"
+                            android:textAlignment="center" />
 
                     </LinearLayout>
 
@@ -208,28 +209,44 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:weightSum="3">
 
                         <Button
-                            android:id="@+id/bLogOut"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="bottom"
-                            android:layout_weight="1"
-                            android:backgroundTint="@color/secondaryDarkColor"
-                            android:text="Log Out"
-                            android:textColor="@android:color/white" />
-
-                        <Button
                             android:id="@+id/bSave"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="bottom"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="0dp"
                             android:layout_weight="2"
                             android:backgroundTint="@color/primaryDarkColor"
+                            android:gravity="center"
                             android:text="Save"
-                            android:textColor="@android:color/white" />
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".4"
+                        android:orientation="vertical"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:id="@+id/tvLogout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="100dp"
+                            android:layout_marginRight="100dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_weight="2"
+                            android:text="LOG OUT"
+                            android:textAlignment="center"
+                            android:textColor="@color/primaryDarkColor"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
 
@@ -241,8 +258,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="7"
                     android:orientation="vertical"
+                    android:visibility="invisible"
                     android:weightSum="6">
-
 
 
                     <LinearLayout
@@ -311,7 +328,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="10dp"
-                            android:layout_weight="1"
+                            android:layout_weight="1.25"
                             android:text="Change Password" />
 
 

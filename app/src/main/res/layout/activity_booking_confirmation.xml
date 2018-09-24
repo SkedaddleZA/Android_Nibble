@@ -126,7 +126,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:background="@color/primaryDarkColor"
+                    android:background="@drawable/rounded_corners_pd"
                     android:text="Cancel Request" />
 
                 <Button
@@ -141,23 +141,9 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:background="@color/primaryDarkColor"
+                    android:background="@drawable/rounded_corners_pd"
                     android:text="Confirm Request" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/bRProfile"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_below="@+id/bCancel"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="@color/primaryDarkColor"
-                android:text="Restaurant Profile" />
 
 
         </LinearLayout>
