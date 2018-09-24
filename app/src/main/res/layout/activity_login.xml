@@ -51,7 +51,7 @@
                 android:gravity="center"
                 android:hint="Email"
                 android:inputType="textPersonName"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/secondaryLightColor" />
 
             <EditText
@@ -67,7 +67,7 @@
                 android:gravity="center"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/secondaryLightColor" />
 
             <RelativeLayout

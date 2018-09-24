@@ -117,6 +117,9 @@ public class BookingConfirmationActivity extends AppCompatActivity {
             bCancel.setEnabled(false);
         if(bookingrequestdetails[7].matches("P")) {
             bConfirm.setEnabled(false);
+            //bCancel.setEnabled(false);
+        }else if(bookingrequestdetails[7].matches("N")){
+            bConfirm.setEnabled(false);
             bCancel.setEnabled(false);
         }
 

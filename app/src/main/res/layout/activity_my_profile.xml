@@ -99,7 +99,7 @@
                             android:ems="10"
                             android:inputType="textPersonName"
                             android:text="Name"
-                            android:textColor="@color/secondaryLightColor"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -127,7 +127,7 @@
                             android:ems="10"
                             android:inputType="textPersonName"
                             android:text="Name"
-                            android:textColor="@color/secondaryLightColor"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -155,7 +155,7 @@
                             android:ems="10"
                             android:inputType="textPersonName|numberSigned"
                             android:text="Name"
-                            android:textColor="@color/secondaryLightColor"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -183,7 +183,7 @@
                             android:ems="10"
                             android:inputType="textPersonName"
                             android:text="Name"
-                            android:textColor="@color/secondaryLightColor"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -285,7 +285,7 @@
                             android:backgroundTint="@color/secondaryLightColor"
                             android:ems="10"
                             android:inputType="textPersonName|textPassword"
-                            android:textColor="@color/secondaryLightColor"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -312,7 +312,7 @@
                             android:backgroundTint="@color/secondaryLightColor"
                             android:ems="10"
                             android:inputType="textPersonName|textPassword"
-                            android:textColor="@color/secondaryLightColor"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
                     </LinearLayout>
 

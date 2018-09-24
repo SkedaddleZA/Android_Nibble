@@ -87,8 +87,9 @@
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="20dp"
                             android:layout_weight="1"
-                            android:background="@color/primaryColor"
+                            android:background="@drawable/circle_button"
                             android:elevation="1dp"
+                            android:scaleY="0.75"
                             android:text="-" />
 
                         <EditText
@@ -114,8 +115,9 @@
                             android:layout_marginRight="50dp"
                             android:layout_marginTop="20dp"
                             android:layout_weight="1"
-                            android:background="@color/primaryColor"
+                            android:background="@drawable/circle_button"
                             android:elevation="1dp"
+                            android:scaleY="0.75"
                             android:text="+" />
                     </LinearLayout>
 

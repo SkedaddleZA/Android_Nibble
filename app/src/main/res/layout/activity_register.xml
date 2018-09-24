@@ -57,7 +57,7 @@
                     android:hint="Name"
                     android:inputType="textPersonName"
                     android:nextFocusDown="@+id/etSurname"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/secondaryLightColor" />
 
                 <EditText
@@ -69,7 +69,7 @@
                     android:gravity="center"
                     android:hint="Email"
                     android:inputType="textPersonName"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/secondaryLightColor" />
 
                 <EditText
@@ -81,7 +81,7 @@
                     android:gravity="center"
                     android:hint="Password"
                     android:inputType="textPassword"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/secondaryLightColor" />
             </RelativeLayout>
 
@@ -102,7 +102,7 @@
                     android:gravity="center"
                     android:hint="Surname"
                     android:inputType="textPersonName"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/secondaryLightColor" />
 
                 <EditText
@@ -114,7 +114,7 @@
                     android:gravity="center"
                     android:hint="Phone"
                     android:inputType="numberSigned"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/secondaryLightColor" />
 
                 <EditText
@@ -126,7 +126,7 @@
                     android:gravity="center"
                     android:hint="Confirm Password"
                     android:inputType="textPassword"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/secondaryLightColor" />
             </RelativeLayout>
 
