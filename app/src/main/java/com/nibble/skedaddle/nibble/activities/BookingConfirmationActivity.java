@@ -38,7 +38,7 @@ import java.util.Date;
 public class BookingConfirmationActivity extends AppCompatActivity {
     private String[] customerdetails, bookingrequestdetails, restaurantfulldetails;
     private String bookingrequestid;
-    private Button bConfirm, bCancel,bRProfile;
+    private Button bConfirm, bCancel;
     private RelativeLayout bHome,bBookings,bProfile;
     private RequestQueue requestQueue;
     private TextView cText,dText,tText,gText,rsText;
@@ -68,7 +68,6 @@ public class BookingConfirmationActivity extends AppCompatActivity {
         bProfile=findViewById(R.id.bProfile);
         bConfirm=findViewById(R.id.bConfirm);
         bCancel=findViewById(R.id.bCancel);
-        bRProfile=findViewById(R.id.bRProfile);
         cText=findViewById(R.id.cText);
         dText=findViewById(R.id.dText);
         tText=findViewById(R.id.tText);
@@ -194,7 +193,7 @@ public class BookingConfirmationActivity extends AppCompatActivity {
             }
         });
 
-        bRProfile.setOnClickListener(new View.OnClickListener() {
+        restImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pbLoadRest.setVisibility(View.VISIBLE);
