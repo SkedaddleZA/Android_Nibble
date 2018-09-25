@@ -1,5 +1,6 @@
 package com.nibble.skedaddle.nibble.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -197,8 +198,11 @@ public class MyProfile extends AppCompatActivity {
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(etEmail.getText().toString().matches(""))  {
+                if(etName.getText().toString().matches("")) {
+                    messageshow("Please enter name.");
+                }else if(etSurname.getText().toString().matches(""))  {
+                    messageshow("Please enter surname.");
+                }else if(etEmail.getText().toString().matches(""))  {
                     messageshow("Please enter email.");
                 }  else if(etPhone.getText().toString().matches("")) {
                     messageshow("Please enter phone.");
@@ -206,51 +210,68 @@ public class MyProfile extends AppCompatActivity {
                     messageshow("Please enter correct email");
                 }else if(!CommonMethods.CheckPhone(etPhone.getText().toString())) {
                     messageshow("Please enter correct phone number.");
-                }
+                }else {
 
-                name = etName.getText().toString();
-                surname = etSurname.getText().toString();
-                email = etEmail.getText().toString();
-                phone = etPhone.getText().toString();
-
-
+                    name = etName.getText().toString();
+                    surname = etSurname.getText().toString();
+                    email = etEmail.getText().toString();
+                    phone = etPhone.getText().toString();
 
 
-                //Create a response listener which listens if there is a response, and stores the response
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {//Method that triggers when response is received from the POST
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);//create JSONOBject called jsonResponse which contains all the data that was responded from the POST
-                            boolean success = jsonResponse.getBoolean("success");//get the boolean value which is in the "success" holder IN the JSON output and put it in a boolean
-                            if (success) {//if the process was successful go to login screen
-                                AlertDialog.Builder builder2 = new AlertDialog.Builder(MyProfile.this);
-                                builder2.setMessage("Details has been changed.")
-                                        .setNegativeButton("OK", null)
-                                        .create()
-                                        .show();
+                    //Create a response listener which listens if there is a response, and stores the response
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {//Method that triggers when response is received from the POST
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);//create JSONOBject called jsonResponse which contains all the data that was responded from the POST
+                                boolean success = jsonResponse.getBoolean("success");//get the boolean value which is in the "success" holder IN the JSON output and put it in a boolean
+                                if (success) {//if the process was successful go to login screen
+                                    AlertDialog.Builder builder2 = new AlertDialog.Builder(MyProfile.this);
+                                    builder2.setMessage("Details has been changed.")
+                                            .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    Intent Home = new Intent(MyProfile.this, HomeActivity.class);
+                                                    customerdetails[1] = name;
+                                                    customerdetails[2] = surname;
+                                                    customerdetails[3] = email;
+                                                    customerdetails[4] = phone;
+                                                    SaveSharedPreference.clearUserName(getApplicationContext());
+                                                    if(passwordChange)
+                                                        customerdetails[5] =  CommonMethods.sha256(password);
 
 
-                            } else {
-                                AlertDialog.Builder builder2 = new AlertDialog.Builder(MyProfile.this);
-                                builder2.setMessage("Failed to change your details.")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
+                                                    Home.putExtra("customerdetails",customerdetails);
+                                                    MyProfile.this.startActivity(Home);
+                                                    MyProfile.this.finish();
+                                                }
+                                                })
+                                            .create()
+                                            .show();
+
+
+
+                                } else {
+                                    AlertDialog.Builder builder2 = new AlertDialog.Builder(MyProfile.this);
+                                    builder2.setMessage("Failed to change your details.")
+                                            .setNegativeButton("Retry", null)
+                                            .create()
+                                            .show();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                };
+                    };
 
-                Customer updateCustomer = new Customer();//Create Customer Object
+                    Customer updateCustomer = new Customer();//Create Customer Object
 
-                if (passwordChange)
-                updateCustomer.UpdateCustomer(customerid, name, surname, email, phone, CommonMethods.sha256(password), responseListener,requestQueue);//Call the UpdateCustomer procedure and send all required data to Customer Class
-                else
-                    updateCustomer.UpdateCustomer(customerid, name, surname, email, phone, password, responseListener,requestQueue);//Call the UpdateCustomer procedure and send all required data to Customer Class
+                    if (passwordChange)
+                        updateCustomer.UpdateCustomer(customerid, name, surname, email, phone, CommonMethods.sha256(password), responseListener, requestQueue);//Call the UpdateCustomer procedure and send all required data to Customer Class
+                    else
+                        updateCustomer.UpdateCustomer(customerid, name, surname, email, phone, password, responseListener, requestQueue);//Call the UpdateCustomer procedure and send all required data to Customer Class
+                }
             }
         });
 
