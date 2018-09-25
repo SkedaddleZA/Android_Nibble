@@ -60,9 +60,9 @@ public class NotificationHelper extends ContextWrapper {
     }
     public NotificationCompat.Builder getChannel1Notification(String name, String datetime) {
         return new NotificationCompat.Builder(getApplicationContext(), channel1ID)
-                .setContentTitle(name)
-                .setContentText(datetime)
-                .setSmallIcon(R.drawable.nostar);
+                .setContentTitle("Reminder: You have booking at " + name)
+                .setContentText("At " + datetime)
+                .setSmallIcon(R.drawable.nibble_icon);
 
 
     }

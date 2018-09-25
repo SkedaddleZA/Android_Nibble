@@ -211,7 +211,7 @@ public class BookingActivity extends AppCompatActivity {
                                         .setNegativeButton("OK", null)
                                         .create()
                                         .show();
-                            }else if(minutes < 30 && (splittedbyspace[0].matches(date))) {
+                            }else if(minutes < 0 && (splittedbyspace[0].matches(date))) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
                                 builder.setMessage("Please enter a time atleast 30 minutes into the future.")
                                         .setNegativeButton("OK", null)
@@ -265,7 +265,7 @@ public class BookingActivity extends AppCompatActivity {
 
 
                 bookday = String.valueOf(dayOfMonth);
-                bookmonth = String.valueOf(month);
+                bookmonth = String.valueOf(month+1);
                 bookyear = String.valueOf(year);
 
             }
@@ -300,7 +300,7 @@ public class BookingActivity extends AppCompatActivity {
                                         c.set(Calendar.AM_PM, Calendar.PM);
                                     else
                                         c.set(Calendar.AM_PM, Calendar.AM);
-                                    c.set(Calendar.MONTH, Integer.parseInt(bookmonth));
+                                    c.set(Calendar.MONTH, Integer.parseInt(bookmonth)-1);
                                     c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(bookday));
                                     c.set(Calendar.YEAR, Integer.parseInt(bookyear));
 
