@@ -61,6 +61,7 @@ public class BookingActivity extends AppCompatActivity {
     private RelativeLayout bHome, bBookings, bProfile;
     private String bookday, bookmonth, bookyear, bookminutes, bookhours, restaurantname;
     private boolean ampm;
+    private String styd="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,7 +208,7 @@ public class BookingActivity extends AppCompatActivity {
                     }else{
                             if (date == null || myDate.before(nowDate) ) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
-                                builder.setMessage("Please choose valid date.")
+                                builder.setMessage("Please choose future date.")
                                         .setNegativeButton("OK", null)
                                         .create()
                                         .show();
@@ -221,7 +222,7 @@ public class BookingActivity extends AppCompatActivity {
                                 llstep1.setVisibility(View.INVISIBLE);
                                 llstep2.setVisibility(View.VISIBLE);
                                 Date tyd = sdftime.parse(time);
-                                String styd = sdftime.format(tyd);
+                                styd = sdftime.format(tyd);
                                 tvDateTime.setText(date + " " + styd);
                             }
                         }
@@ -355,7 +356,10 @@ public class BookingActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
         intent.putExtra("name",restaurantname);
-        intent.putExtra("datetime", datetime);
+
+
+
+        intent.putExtra("datetime", styd);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
 
