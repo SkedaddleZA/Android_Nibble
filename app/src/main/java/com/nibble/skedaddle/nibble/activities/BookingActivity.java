@@ -211,7 +211,7 @@ public class BookingActivity extends AppCompatActivity {
                                         .setNegativeButton("OK", null)
                                         .create()
                                         .show();
-                            }else if(minutes < 0 && (splittedbyspace[0].matches(date))) {
+                            }else if(minutes < 30 && (splittedbyspace[0].matches(date))) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
                                 builder.setMessage("Please enter a time atleast 30 minutes into the future.")
                                         .setNegativeButton("OK", null)
@@ -359,8 +359,9 @@ public class BookingActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
 
+        long Lminutes =  (30*60)*1000;
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis() - Lminutes, pendingIntent);
     }
 
 
