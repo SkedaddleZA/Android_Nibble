@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     //Declare all variables
     EditText etName,etSurname,etEmail,etPhone,etPassword,etCPassword;
-    Button bRegister, bNext1, bNext2;
+    Button bRegister, bNext1, bNext2, btnBack, btnBack2;
     RequestQueue requestQueue;
     CheckBox cbP;
 
@@ -73,6 +73,8 @@ public class RegisterActivity extends AppCompatActivity {
         bNext1 = findViewById(R.id.bNext1);
         bNext2 = findViewById(R.id.bNext2);
         cbP = findViewById(R.id.cbP);
+        btnBack = findViewById(R.id.btnBack);
+        btnBack2 = findViewById(R.id.btnBack2);
 
         //Making only 1step buttons and textboxes available
         bNext2.setVisibility(View.INVISIBLE);
@@ -86,7 +88,8 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword.setVisibility(View.INVISIBLE);
         etCPassword.setVisibility(View.INVISIBLE);
         cbP.setVisibility(View.INVISIBLE);
-
+        btnBack.setVisibility(View.INVISIBLE);
+        btnBack2.setVisibility(View.INVISIBLE);
 
         //Button to Change screen to Login screen
         tvLogin.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +103,39 @@ public class RegisterActivity extends AppCompatActivity {
 
         CommonMethods.buttonEffect(bRegister);//Button Press effect implementation
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bNext2.setVisibility(View.INVISIBLE);
+                bRegister.setVisibility(View.INVISIBLE);
+                bNext1.setVisibility(View.VISIBLE);
+
+                etName.setVisibility(View.VISIBLE);
+                etSurname.setVisibility(View.VISIBLE);
+                etEmail.setVisibility(View.INVISIBLE);
+                etPhone.setVisibility(View.INVISIBLE);
+                etPassword.setVisibility(View.INVISIBLE);
+                etCPassword.setVisibility(View.INVISIBLE);
+                cbP.setVisibility(View.INVISIBLE);
+                btnBack.setVisibility(View.INVISIBLE);
+            }
+        });
+        btnBack2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etName.setVisibility(View.INVISIBLE);
+                etSurname.setVisibility(View.INVISIBLE);
+                etEmail.setVisibility(View.VISIBLE);
+                etPhone.setVisibility(View.VISIBLE);
+                etPassword.setVisibility(View.INVISIBLE);
+                etCPassword.setVisibility(View.INVISIBLE);
+                bNext1.setVisibility(View.INVISIBLE);
+                bNext2.setVisibility(View.VISIBLE);
+                cbP.setVisibility(View.INVISIBLE);
+                btnBack.setVisibility(View.VISIBLE);
+                btnBack2.setVisibility(View.INVISIBLE);
+            }
+        });
 
         bNext1.setOnClickListener(new View.OnClickListener() {//change screen layout from 1st step to 2nd step
             @Override
@@ -120,6 +156,8 @@ public class RegisterActivity extends AppCompatActivity {
                     bNext1.setVisibility(View.INVISIBLE);
                     bNext2.setVisibility(View.VISIBLE);
                     cbP.setVisibility(View.INVISIBLE);
+                    btnBack.setVisibility(View.VISIBLE);
+                    btnBack2.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -159,6 +197,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     bNext2.setVisibility(View.INVISIBLE);
                                     bRegister.setVisibility(View.VISIBLE);
                                     cbP.setVisibility(View.VISIBLE);
+                                    btnBack2.setVisibility(View.VISIBLE);
+                                    btnBack.setVisibility(View.INVISIBLE);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

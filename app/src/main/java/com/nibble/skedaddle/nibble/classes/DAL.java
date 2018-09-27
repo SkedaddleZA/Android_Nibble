@@ -150,12 +150,15 @@ class DAL {
         requestQueue.add(request);
     }
 
-    public void RequestBooking(final String CustomerID, final String RestaurantID, final String NumOfGuests, final String Comment, final String RequestDateTime, final String Date, final String Time, Response.Listener<String> listener, RequestQueue requestQueue)
+    public void RequestBooking(final String CustomerID, final String RestaurantID, final String NumOfGuests,
+                               final String Comment, final String RequestDateTime, final String Date,
+                               final String Time, Response.Listener<String> listener, RequestQueue requestQueue)
     {
-        StringRequest request = new StringRequest(Request.Method.POST, requestBookingUrl, listener, new Response.ErrorListener() {//Create a StringRequest which POSTS data to the database then records the response in listener variable
+        StringRequest request = new StringRequest(Request.Method.POST, requestBookingUrl, listener,
+                new Response.ErrorListener() {//Create a StringRequest which POSTS data to
+                    // the database then records the response in listener variable
             @Override
             public void onErrorResponse(VolleyError error) {
-
             }
         }) {
             @Override
@@ -168,9 +171,7 @@ class DAL {
                 parameters.put("requestdatetime", RequestDateTime);
                 parameters.put("date", Date);
                 parameters.put("time", Time);
-
                 return parameters;
-
             }
         };
         requestQueue.add(request);//Runs the request which POSTS the data

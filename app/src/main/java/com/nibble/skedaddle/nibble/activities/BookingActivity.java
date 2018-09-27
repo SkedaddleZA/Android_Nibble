@@ -62,6 +62,7 @@ public class BookingActivity extends AppCompatActivity {
     private String bookday, bookmonth, bookyear, bookminutes, bookhours, restaurantname;
     private boolean ampm;
     private String styd="";
+    private Calendar c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -291,22 +292,9 @@ public class BookingActivity extends AppCompatActivity {
                             try {
                                 JSONObject jsonResponse = new JSONObject(response);//create JSONOBject called jsonResponse which contains all the data that was responded from the POST
                                 boolean success = jsonResponse.getBoolean("success");//get the boolean value which is in the "success" holder IN the JSON output and put it in a boolean
-                                if (success) {//if the process was successful go to login screen
-
-                                    Calendar c = Calendar.getInstance();
-                                    c.set(Calendar.SECOND, 0);
-                                    c.set(Calendar.MINUTE, Integer.parseInt(bookminutes));
-                                    c.set(Calendar.HOUR, Integer.parseInt(bookhours));
-                                    if (ampm)
-                                        c.set(Calendar.AM_PM, Calendar.PM);
-                                    else
-                                        c.set(Calendar.AM_PM, Calendar.AM);
-                                    c.set(Calendar.MONTH, Integer.parseInt(bookmonth)-1);
-                                    c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(bookday));
-                                    c.set(Calendar.YEAR, Integer.parseInt(bookyear));
-
+                                if (success) {//if the stored procedure was successful
+                                    createCalendar();
                                     startAlarm(c);
-
                                     AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
                                     builder.setMessage("Booking Request successfully made!")
                                             .setNegativeButton("OK", new DialogInterface.OnClickListener() {
@@ -320,9 +308,6 @@ public class BookingActivity extends AppCompatActivity {
                                             })
                                             .create()
                                             .show();
-
-
-
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
                                     builder.setMessage("Request failed.")
@@ -330,17 +315,11 @@ public class BookingActivity extends AppCompatActivity {
                                             .create()
                                             .show();
                                 }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    };
-
-                    BookingRequest bookingRequest = new BookingRequest();//Create Customer Object
-                    bookingRequest.RequestBooking(customerdetails[0], restaurantdetails[0], etNum.getText().toString(), comment, nowdatetime, date, time, responseListener,requestQueue);//Call the CreateBOoking request procedure
-
-
+                            } catch (JSONException e) {e.printStackTrace();}}
+};
+                    BookingRequest bookingRequest = new BookingRequest();//Create BookingRequest Object
+                    bookingRequest.RequestBooking(customerdetails[0], restaurantdetails[0], etNum.getText().toString(), comment, nowdatetime,
+                            date, time, responseListener,requestQueue);//Call the CreateBOoking request procedure
                 }
 
 
@@ -366,6 +345,20 @@ public class BookingActivity extends AppCompatActivity {
         long Lminutes =  (30*60)*1000;
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis() - Lminutes, pendingIntent);
+    }
+
+    private void createCalendar(){
+        c = Calendar.getInstance();
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MINUTE, Integer.parseInt(bookminutes));
+        c.set(Calendar.HOUR, Integer.parseInt(bookhours));
+        if (ampm)
+            c.set(Calendar.AM_PM, Calendar.PM);
+        else
+            c.set(Calendar.AM_PM, Calendar.AM);
+        c.set(Calendar.MONTH, Integer.parseInt(bookmonth)-1);
+        c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(bookday));
+        c.set(Calendar.YEAR, Integer.parseInt(bookyear));
     }
 
 
