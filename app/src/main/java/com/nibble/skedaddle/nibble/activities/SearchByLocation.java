@@ -234,6 +234,8 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                         try {
                             JSONObject json = result.getJSONObject(i);
 
+                            if (!json.isNull("gpslocation")) {
+
                             //convert string coords to location object
                             String latlng = json.getString("gpslocation");
                             String[] separated = latlng.split("#");
@@ -241,28 +243,27 @@ public class SearchByLocation extends FragmentActivity implements GoogleApiClien
                             double lon = Double.parseDouble(separated[1]);
                             //
 
-                            Location.distanceBetween(lat,lon,latitude,longitude, distances);
+                            Location.distanceBetween(lat, lon, latitude, longitude, distances);
                             String x = Float.toString(distances[0]);
                             distancesArray.add(Double.parseDouble(x));
 
                             String abrev;
-                            if(Double.parseDouble(x) > 999)
-                            {
+                            if (Double.parseDouble(x) > 999) {
                                 float roundedKM = Math.round(Float.parseFloat(x)) / 1000;
                                 abrev = "km";
                                 x = Float.toString(roundedKM);
-                            }else
-                            {
-                                float roundedM = Math.round(Float.parseFloat(x)*10) / 10;
+                            } else {
+                                float roundedM = Math.round(Float.parseFloat(x) * 10) / 10;
                                 abrev = "m";
                                 x = Float.toString(roundedM);
                             }
-                            if(json.isNull("avgrating"))
+                            if (json.isNull("avgrating"))
                                 rating = "0";
                             else
                                 rating = Integer.toString(json.getInt("avgrating"));
-                            restmodel.add(new RestaurantModel(json.getString("restaurantname"), x + " " + abrev, rating) );
+                            restmodel.add(new RestaurantModel(json.getString("restaurantname"), x + " " + abrev, rating));
                             orderofresult.add(i);
+                        }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
